@@ -77,14 +77,6 @@ export const experiencesData = [
 export const projectsData = [
   {
     id:1,
-    title: "project1",
-    description:
-      "Welcome to Focus Tracker, your ultimate solution for managing productivity and optimizing your workflow! Whether you're a freelancer, a student, or part of a professional team, Focus Tracker is designed to streamline your task management process and supercharge your productivity levels.",
-    tags: ["Adobe Xd","Case Study", "Miro", "Branding", "Prototype", "Wireframe" , "User Research"],
-    imageUrl: aimGame,
-  },
-  {
-    id:2,
     title: "Aim Game",
     description:
       "Welcome to AimGame, your ultimate solution for managing leads and optimizing sales funnels! Whether you're a solo entrepreneur, a business owner, or part of a larger sales team, AimGame is designed to streamline your lead management process and supercharge your sales conversions..",
