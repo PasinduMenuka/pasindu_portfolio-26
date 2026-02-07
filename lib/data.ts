@@ -77,7 +77,7 @@ export const experiencesData = [
 export const projectsData = [
   {
     id:1,
-    title: "New app Vercel",
+    title: "New app Vercel Pasindu",
     description:
       "Welcome to Focus Tracker, your ultimate solution for managing productivity and optimizing your workflow! Whether you're a freelancer, a student, or part of a professional team, Focus Tracker is designed to streamline your task management process and supercharge your productivity levels.",
     tags: ["Adobe Xd","Case Study", "Miro", "Branding", "Prototype", "Wireframe" , "User Research"],
