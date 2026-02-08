@@ -3,12 +3,13 @@ import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
 import corpcommentImg from "@/public/corpcomment.png";
-import aimGame from "@/public/projects/aimGame.png";
+import aimGame from "@/public/projects/Aim game newPM.png";
 import citreas from "@/public/projects/citreas_thum.svg";
 import lifeLine from "@/public/projects/lifeLine_thum.png";
 import mediCem from "@/public/projects/mediCem_thum.svg";
 import myStartUp from "@/public/projects/myStartup_thum.svg";
 import rcb from "@/public/projects/rcb_thum.png";
+import hvacIot from "@/public/projects/Hvac iot.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
 
@@ -93,6 +94,15 @@ export const experiencesData = [
 export const projectsData = [
   {
     id:1,
+    title: "HVAC IoT Work Order Management",
+    description:
+      "A comprehensive HVAC facilities management platform featuring work order tracking, real-time zone monitoring, multi-location dashboards, performance analytics, and occupancy scheduling. Streamlined maintenance workflows reducing response time by 60% across 24 locations with 156 active zones.",
+    tags: ["Figma", "Case Study", "Mobile App", "React Native", "IoT Dashboard", "Real-time Data", "User Research", "Dark Mode"],
+    imageUrl: hvacIot,
+    hasDetailedCaseStudy: true,
+  },
+  {
+    id:2,
     title: "Aim Game",
     description:
       "Welcome to AimGame, your ultimate solution for managing leads and optimizing sales funnels! Whether you're a solo entrepreneur, a business owner, or part of a larger sales team, AimGame is designed to streamline your lead management process and supercharge your sales conversions..",
@@ -100,14 +110,14 @@ export const projectsData = [
     imageUrl: aimGame,
   },
   {
-    id:4,
+    id:3,
     title: "Life Line App",
     description:
       "Welcome to Life Line App, the transformative online platform that connects individuals seeking guidance and support with experienced mentors and a comprehensive array of supportive services. Whether you're navigating your career, pursuing personal development, or seeking specialized expertise, Life Line App is your gateway to meaningful connections and personal growth.",
     tags: ["Adobe XD", "Miro", "Branding", "Case Study"],
     imageUrl: lifeLine,
   }, {
-    id:5,
+    id:4,
     title: "MediQem App",
     description:
       "Welcome to MediQem, your trusted online platform for convenient and secure medical ordering. Whether you're in need of prescription medications, over-the-counter products, or health essentials, MediQem simplifies the process by bringing the pharmacy to your fingertips. Say goodbye to long queues and hello to hassle-free medical orders delivered directly to your doorstep.",
@@ -115,7 +125,7 @@ export const projectsData = [
     imageUrl: mediCem,
   },
   {
-    id:6,
+    id:5,
     title: "MyStartup Funder",
     description:
       "Welcome to MyStartup Funder, the dynamic platform that bridges the gap between startup companies and passionate backers, creating a powerful ecosystem of innovation, growth, and meaningful impact. Whether you're an entrepreneur seeking funding or an individual looking to support groundbreaking ideas, MyStartup Funder provides a seamless space to connect, collaborate, and make a difference.",
@@ -123,7 +133,7 @@ export const projectsData = [
     imageUrl: myStartUp,
   },
   {
-    id:7,
+    id:6,
     title: "RCB International",
     description:
       "Welcome to RCB International, your all-in-one platform for creating and managing your online donation website with ease. Whether you're a nonprofit organization, a community group, or an individual looking to make a difference, RCB International provides you with the tools you need to build a compelling online presence and effectively manage your donors and fundraising campaigns.",

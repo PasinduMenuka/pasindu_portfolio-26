@@ -14,6 +14,7 @@ export default function Project({
   description,
   tags,
   imageUrl,
+  hasDetailedCaseStudy,
 }: ProjectProps) {
 
   const router = useRouter();
@@ -50,9 +51,19 @@ export default function Project({
               </li>
             ))}
           </ul>
-          <div className="flex justify-center"> <button className="rounded-md px-2 mt-4 w-48 py-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-black font-medium"
-                                                        onClick={()=>router.push(`/projects?id=${id}`,)}
-          >View</button>
+          <div className="flex justify-center">
+            <button 
+              className="rounded-md px-2 mt-4 w-48 py-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-black font-medium hover:from-cyan-600 hover:to-blue-600 transition-all"
+              onClick={() => {
+                if (hasDetailedCaseStudy) {
+                  router.push(`/projects/${id}`);
+                } else {
+                  router.push(`/projects?id=${id}`);
+                }
+              }}
+            >
+              View {hasDetailedCaseStudy ? 'Case Study' : 'Project'}
+            </button>
           </div>
         </div>
 

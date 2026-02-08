@@ -12,11 +12,12 @@ const Projects = ({currentId}:caseStudyType) => {
     const id = searchParams.get('id')
 
     const [urls, setUrls] = useState([
-        "/projects/aimGame.svg",
-        "/projects/citreas.svg",
-        "/projects/lifeLine.svg",
-        "/projects/mediCem.svg",
-        "/projects/myStartUp.svg",
+        "/projects/hvac_dashboard.png", // id: 1 - HVAC IoT (but has detailed case study, won't use this)
+        "/projects/aimGame.svg",        // id: 2 - Aim Game
+        "/projects/citreas.svg",        // id: 3 - Life Line
+        "/projects/lifeLine.svg",       // id: 4 - MediQem
+        "/projects/mediCem.svg",        // id: 5 - MyStartup
+        "/projects/myStartUp.svg",      // id: 6 - RCB
         "/projects/rcb.png",
     ]);
 
