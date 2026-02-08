@@ -48,7 +48,7 @@ export default function Intro() {
                     >
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
                             <span className="text-gray-900 dark:text-white">Hi, I'm </span>
-                            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-[#00D4FF] to-[#4A90E2] bg-clip-text text-transparent">
                                 Pasindu
                             </span>
                             <motion.span
@@ -91,7 +91,7 @@ export default function Intro() {
                     >
                         <Link
                             href="#contact"
-                            className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 flex items-center gap-2 rounded-full outline-none focus:scale-105 hover:scale-105 hover:shadow-lg active:scale-100 transition-all shadow-md"
+                            className="group bg-gradient-to-r from-[#00D4FF] to-[#4A90E2] text-white px-8 py-4 flex items-center gap-2 rounded-full outline-none focus:scale-105 hover:scale-105 hover:shadow-lg active:scale-100 transition-all shadow-md"
                             onClick={() => {
                                 setActiveSection("Contact");
                                 setTimeOfLastClick(Date.now());
@@ -119,7 +119,7 @@ export default function Intro() {
                         transition={{ duration: 0.5, delay: 0.5 }}
                     >
                         <a
-                            className="bg-white dark:bg-white/10 p-4 text-gray-700 dark:text-white/80 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-2 rounded-full focus:scale-110 hover:scale-110 active:scale-105 transition-all cursor-pointer borderBlack shadow-md hover:shadow-lg backdrop-blur-sm"
+                            className="bg-white dark:bg-white/10 p-4 text-gray-700 dark:text-white/80 hover:text-[#00D4FF] dark:hover:text-[#00D4FF] flex items-center gap-2 rounded-full focus:scale-110 hover:scale-110 active:scale-105 transition-all cursor-pointer borderBlack shadow-md hover:shadow-lg backdrop-blur-sm"
                             href="https://linkedin.com"
                             target="_blank"
                             aria-label="LinkedIn Profile"
