@@ -163,20 +163,21 @@ export default function Intro() {
                         {/* Main image container */}
                         <div className="relative">
                             <motion.div
-                                className="relative h-64 w-64 sm:h-80 sm:w-80 lg:h-96 lg:w-96"
+                                className="relative h-48 w-48 sm:h-56 sm:w-56 lg:h-64 lg:w-64"
                                 whileHover={{ scale: 1.05 }}
                                 transition={{ type: "spring", stiffness: 300 }}
                             >
-                                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 opacity-80 animate-pulse" />
                                 <Image
-                                    src="/dp.jpg"
+                                    src="/projects/profile image.jpeg"
                                     alt="Pasindu Sannasuriya"
-                                    width="384"
-                                    height="384"
+                                    width="256"
+                                    height="256"
                                     quality="95"
                                     priority={true}
-                                    className="h-full w-full rounded-full object-cover border-8 border-white dark:border-gray-900 shadow-2xl relative z-10"
+                                    className="h-full w-full rounded-2xl object-cover object-top shadow-2xl border-4 border-white/20 dark:border-gray-800/50"
                                 />
+                                {/* Subtle gradient overlay */}
+                                <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-blue-500/10 via-transparent to-purple-500/10 pointer-events-none" />
                             </motion.div>
                         </div>
                     </div>
