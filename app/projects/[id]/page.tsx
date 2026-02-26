@@ -487,28 +487,32 @@ export default function CaseStudyPage() {
         
         keyScreens: [
             {
-                title: "Site View — Real-Time Operations Dashboard",
-                description: "Primary operations hub providing real-time insight across 100+ sites. KPI overview cards show All Sites (100), Uptime % (99.5%), and issue breakdown via a colour-coded donut chart. System Status panel displays P1 (red, 12 sites), P2 (yellow, 7 sites), and Work Orders (blue, 35 active) with subcategory counts (Offline, TStatic Offline, Temperature, Humidity). Quick Filters bar with time-range pills (Last 5 Hours → Last 3 Months), customer/site selectors, and date-range picker. Site Overview and Active Incidents tabs. Work Order Analytics line chart with Daily/Monthly/Yearly toggle shows Resolved (54), Pending (0), and Closed (0) totals. Active Incidents section surfaces MTTR (23 min), avg resolution time (5.8 hrs), resolution pipeline steps (Created → Acknowledged → Service Call → Check-in → Validated), and a detailed incident table with severity badges, issue type tags, status chips, and response timestamps. Users detect anomalies within 3–5 seconds.",
+                title: "Site View — Dashboard Overview",
+                description: "High-level operational overview of all sites. Displays total sites and system health, visual issue breakdown (Online, Offline, Pending, Stale, Inactive), 7-day performance trend chart, P1/P2 priority indicators, work order summary (Open, Delay, Closed), quick filters (time range, customer, site), and active incidents list with MTTA, MTTR, incident timeline tracking, and status labels.",
                 image: "/projects/Site Overview.png",
-                category: "Dashboard"
+                category: "Dashboard",
+                purpose: "Operations monitoring and incident management"
             },
             {
-                title: "Site Summary",
-                description: "Fleet-level monitoring table listing every managed site with facility code, address, P1/P2/P3 incident count badges, alert totals, and status indicators. Column customisation lets operators show/hide fields. Hovering a P1 badge surfaces a tooltip breakdown. Clicking any facility code copies it to clipboard — a power-user shortcut.",
-                image: "/projects/Site Summary.png",
-                category: "Multi-Site"
-            },
-            {
-                title: "Site Overview HVAC",
-                description: "Detailed site overview showing HVAC system status, temperature controls, and energy metrics for comprehensive facility management.",
+                title: "Site Overview — HVAC Unit Management",
+                description: "Detailed HVAC performance per selected site. Features site selection panel with status indicators, weather summary, current vs allowed power usage, energy saved metrics (Today, Yesterday, Last Month), and HVAC unit table showing unit name, location, operational status, zone temperature, setpoint temperature, supply air temperature, work order creation, and system controls.",
                 image: "/projects/Site Overview -HVAC.png",
-                category: "Site Detail"
+                category: "Site Detail",
+                purpose: "Facility-level HVAC monitoring and control"
             },
             {
-                title: "Incidents",
-                description: "Full incident management view with top-level KPI cards: Total (99), P1 (13, red), P2 (43, yellow), In Progress (62, teal), Resolved (13), and Late Response (B, amber). Advanced filter bar with search input, priority/severity/site/status dropdowns, time-range pills (1D–3M), and Types selector. Incident table rows display incident ID, affected units, issue type badge (Greater 5, Greater 3, DLC Offline, Total Offline), severity level, status (Resolved / Acknowledged / Check-in / Service Call), creator + assignee details, timestamp, and multi-status progress tags (In Progress, Created, Monitoring Duration). Pagination footer for 200+ incident records.",
+                title: "Site View — Site Overview Table",
+                description: "Summarizes operational health across all sites. Filter by status (All, Online, Offline, Inactive, Stale), quick DLC filters (D1, D2, D3), export functionality, site-level breakdown including offline units count, gas alerts (G5, G0), humidity alerts, incident count, quick incident references, and pagination for large datasets.",
                 image: "/projects/Incidents.png",
-                category: "Incidents"
+                category: "Multi-Site",
+                purpose: "Multi-site performance comparison and tracking"
+            },
+            {
+                title: "Site Summary — Advanced Site Management",
+                description: "Comprehensive site management and administrative overview. Global search (site name, code, location), status filters (Online, Offline, Inactive, Stale), DLC categorization, customer & state filtering, detailed site table with offline count, system alerts (Gas, Humidity), incident count, action controls per site, create new site option, and export data functionality.",
+                image: "/projects/Site Summary.png",
+                category: "Administration",
+                purpose: "Administration, filtering, and system-wide management"
             }
         ],
         
@@ -1215,8 +1219,16 @@ export default function CaseStudyPage() {
                                         </div>
                                     </div>
                                     <div className="p-6">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span className="px-2 py-0.5 bg-[#069999]/10 text-[#069999] text-xs font-medium rounded-full">{screen.category}</span>
+                                        </div>
                                         <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{screen.title}</h3>
-                                        <p className="text-gray-600 dark:text-gray-400 text-sm">{screen.description}</p>
+                                        {/* Description hidden on mobile, shown on larger screens */}
+                                        <p className="hidden md:block text-gray-600 dark:text-gray-400 text-sm mb-3">{screen.description}</p>
+                                        {/* Purpose badge */}
+                                        {'purpose' in screen && screen.purpose && (
+                                            <p className="hidden md:block text-xs text-[#069999] font-medium">👉 {screen.purpose}</p>
+                                        )}
                                     </div>
                                 </motion.div>
                             ))}
