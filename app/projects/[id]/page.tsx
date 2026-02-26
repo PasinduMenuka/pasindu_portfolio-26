@@ -18,16 +18,24 @@ export default function CaseStudyPage() {
     const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
     const imageContainerRef = useRef<HTMLDivElement>(null);
 
+    // Case Study Data - dynamically selected based on projectId
+    const getCaseStudy = () => {
+        if (projectId === '7') {
+            return sesPortalCaseStudy;
+        }
+        return hvacCaseStudy;
+    };
+
     // HVAC IoT Case Study Data
-    const caseStudy = {
+    const hvacCaseStudy = {
         id: 1,
         title: "HVAC IoT Facilities Management Platform",
-        subtitle: "Redesigning HVAC Dashboard for Better Usability",
-        tagline: "A comprehensive platform enabling real-time HVAC monitoring, work order management, and multi-location oversight - reducing response time by 60% and improving operational efficiency by 42%.",
+        subtitle: "Cut Costs, Not Comfort: Smarter HVAC Energy Management.",
+        tagline: "HVAC Energy Management solution that uses DLC (Demand Limiting Control) to proactively reduce energy consumption and prevent demand spikes—keeping comfort first while extending equipment lifespan and minimizing maintenance. Supports real-time monitoring, managed services, and asset management workflows across multi-site operations.",
         
         // 1. Introduction
         introduction: {
-            problem: "Facility managers and maintenance teams across 24+ locations struggled with fragmented paper-based work order systems, lack of real-time visibility into HVAC operations, and poor communication channels. Critical maintenance requests were lost, leading to equipment failures, energy waste, and increased operational costs exceeding $200K annually.",
+            problem: "Facility teams managing HVAC across 24+ locations faced rising energy costs driven by demand spikes, reactive maintenance, and limited real-time visibility into zone performance. Without DLC (Demand Limiting Control) and a unified dashboard, operators couldn’t proactively control units to reduce consumption while protecting occupant comfort. The result was higher operating spend, shortened equipment lifespan, and longer repair cycles—plus extra time lost coordinating service calls, verifying jobs, and tracking preventative maintenance.",
             role: "Lead UX/UI Designer & Frontend Developer",
             timeline: "8 weeks (Sep 2025 - Nov 2025)",
             team: "3 Developers, 1 Product Manager, 1 UX Designer (Me)",
@@ -117,7 +125,7 @@ export default function CaseStudyPage() {
         uiDesign: {
             styleGuide: {
                 colors: {
-                    primary: "#00D4FF (Cyan) - Actions, links, interactive elements",
+                    primary: "#069999 (Teal) - Active states, buttons, accents, highlights (same in both modes)",
                     secondary: "#0A2540 (Dark Blue) - Backgrounds, headers",
                     success: "#00C48C (Green) - Success states, online status",
                     warning: "#FFA500 (Orange) - High priority, warnings",
@@ -187,7 +195,7 @@ export default function CaseStudyPage() {
             },
             {
                 title: "Dashboard - System Overview",
-                description: "Centralized hub displaying Total Locations (24), Active Zones (156), Average Temperature (72.4°F), and System Efficiency (87%). Includes Zone Health chart (Within Range 78%, Deviating 22%), Top 3 Zones with Highest Deviations, Performance Trends (Energy Consumption, Supply Air Temperature), Work Order metrics (12 Pending, 8 Approved, 23 Completed), Active Alerts, Weather Context, and Recent Activity feed.",
+                description: "Energy management command centre showing Total Locations, Active Zones, comfort status, and efficiency signals. Surfaces demand-spike risk indicators, zone health (within range vs. deviating), top zones with highest deviations, and performance trends (energy consumption, supply air temperature). Real-time monitoring reduces manual checks and supports faster decisions without sacrificing occupant comfort.",
                 image: "/projects/Home.png",
                 category: "Dashboard"
             },
@@ -202,6 +210,12 @@ export default function CaseStudyPage() {
                 description: "Real-time HVAC control for individual zones showing current temperature (71.1°F), heating/cooling setpoints (68°F/72°F), supply temperature (55°F), humidity (54%), and occupancy status. Features temperature adjustment controls, mode selection (Off, Auto, Heat, Cool), fan controls (Occ, Auto, Recirc, On).",
                 image: "/projects/Location View.png",
                 category: "Zone Control"
+            },
+            {
+                title: "Energy Management — Create Zone (Device Scan Wizard)",
+                description: "Multi-step Create Zone wizard that streamlines provisioning and reduces onsite setup time: Zone Details → Feature Config → Config Review → Shopping List → Scan Devices → Auto-Allocate → Install Checklist. Step 5 enables scanning device barcodes / entering EUI values, maintaining an inventory list, and confirming the shopping list before allocation. Clear progress states, primary teal CTA, and inline validation support faster commissioning while keeping configuration errors low.",
+                image: "/projects/Hvac iot.png",
+                category: "Energy Management"
             },
             {
                 title: "Performance Charts & Analytics",
@@ -244,10 +258,10 @@ export default function CaseStudyPage() {
         // 7. Results & Conclusion
         results: {
             metrics: [
-                { value: "42%", label: "Faster Work Order Completion", description: "Average time reduced from 45min to 26min" },
-                { value: "60%", label: "Reduced Response Time", description: "Critical issues addressed in <15min vs. 38min before" },
-                { value: "85%", label: "User Satisfaction Score", description: "Post-launch NPS survey of 50+ users" },
-                { value: "$200K", label: "Annual Cost Savings", description: "From improved efficiency and reduced equipment downtime" }
+                { value: "Up to 30%", label: "Reduced Energy Costs", description: "DLC-driven control reduces consumption and prevents demand spikes" },
+                { value: "50%", label: "Less Management Time", description: "Managed services workflows cut time spent coordinating and verifying work" },
+                { value: "Faster MTTR", label: "Quicker Repairs", description: "24-hour monitoring and live troubleshooting reduce time to repair" },
+                { value: "Improved", label: "Asset Health", description: "Proactive control and preventative maintenance extend equipment lifespan" }
             ],
             testimonial: {
                 quote: "This platform transformed how we manage our buildings. We can now track hundreds of work orders seamlessly across all locations. Response times have dramatically improved, and our team loves the intuitive interface!",
@@ -255,10 +269,10 @@ export default function CaseStudyPage() {
                 role: "Director of Facilities, Tech Campus"
             },
             beforeAfter: [
-                { before: "Paper-based work orders", after: "Digital mobile-first system" },
-                { before: "65% delayed work orders", after: "98% on-time completion" },
-                { before: "No real-time visibility", after: "Live dashboards with instant updates" },
-                { before: "Manual priority assignment", after: "Automated smart prioritization" }
+                { before: "Reactive energy control", after: "Proactive DLC-based demand limiting" },
+                { before: "Manual commissioning and setup", after: "Guided Create Zone wizard + device scanning" },
+                { before: "Limited monitoring and slow troubleshooting", after: "24-hour monitoring + live support workflows" },
+                { before: "Scattered equipment records", after: "Unified asset tracking + preventative maintenance" }
             ],
             lessonsLearned: [
                 "Mobile-first approach crucial for field technicians' adoption",
@@ -271,6 +285,263 @@ export default function CaseStudyPage() {
         technologies: ["Figma", "React Native", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Node.js", "MongoDB"],
     };
 
+    // SES Portal Revamp Case Study Data
+    const sesPortalCaseStudy = {
+        id: 7,
+        title: "HVAC Energy Management System",
+        subtitle: "Enterprise Energy & Facility Dashboard — UI/UX Case Study",
+        tagline: "A comprehensive HVAC Energy Management Platform that delivers smart control, real-time visibility, asset lifecycle management, and energy optimization — balancing comfort, cost-efficiency, and control in one unified enterprise dashboard. Reduces energy costs up to 30%, cuts facility management time by 50%, and dramatically improves MTTR and alert visibility.",
+        
+        introduction: {
+            problem: "Facility managers struggled with monitoring multiple HVAC sites in real-time, identifying critical incidents quickly, managing energy consumption efficiently, reducing maintenance time and MTTR, and handling asset tracking across multiple locations. The system needed to reduce energy costs (up to 30%), improve operational visibility, provide proactive HVAC control, and simplify complex enterprise workflows.",
+            role: "Senior UI/UX Engineer",
+            timeline: "12 weeks (Sep 2025 - Dec 2025)",
+            team: "5 Engineers, 2 Product Managers, 1 UX Designer (Me), 1 QA Engineer",
+            deliverables: [
+                "Site View Dashboard with real-time KPI overview",
+                "System Status Overview with severity-based colour coding",
+                "Quick Filters & Site Summary panels",
+                "Create New Site multi-step wizard (4 steps)",
+                "Create Zone & Device Scanning flow (7 steps)",
+                "Asset Management Panel",
+                "80+ component design system with dark enterprise theme",
+                "Responsive web dashboard (Desktop + Tablet adaptive)"
+            ]
+        },
+        
+        research: {
+            methods: [
+                {
+                    name: "Stakeholder Interviews",
+                    description: "Interviewed 25+ facility managers, energy analysts, and operations teams across multi-site enterprises",
+                    icon: "👥"
+                },
+                {
+                    name: "Workflow Analysis",
+                    description: "Mapped existing HVAC monitoring, incident tracking, and maintenance workflows to identify bottlenecks",
+                    icon: "📊"
+                },
+                {
+                    name: "Pain Point Audit",
+                    description: "Identified critical UX gaps: no data prioritization, difficult navigation between sites, slow incident tracking, manual HVAC monitoring, poor alert visualization",
+                    icon: "🔍"
+                },
+                {
+                    name: "Competitive Analysis",
+                    description: "Evaluated Honeywell Forge, Johnson Controls, Schneider Electric, and BuildingOS for enterprise dashboard patterns",
+                    icon: "🏢"
+                }
+            ],
+            insights: [
+                "Too much data with no prioritization — operators couldn't distinguish critical vs. normal alerts",
+                "Difficult navigation between sites leading to slow incident tracking and response",
+                "Manual HVAC monitoring consumed excessive time with no proactive control",
+                "Poor visualization of critical alerts meant P1 incidents were buried in flat, unsorted tables"
+            ],
+            personas: [
+                {
+                    name: "Sarah Martinez",
+                    age: 45,
+                    role: "Facility Operations Manager",
+                    quote: "I need to monitor 100+ sites at a glance and instantly identify which ones need attention.",
+                    goals: ["Real-time system health visibility", "Prioritize critical alerts visually", "Reduce decision-making time"],
+                    painPoints: ["Too much data, no prioritization", "Slow incident tracking", "Manual HVAC monitoring"],
+                    needs: ["Severity-based colour coding", "KPI overview cards", "Dark-mode optimized dashboard"]
+                },
+                {
+                    name: "James Lee",
+                    age: 35,
+                    role: "Energy Analyst",
+                    quote: "I want to track energy consumption trends and prevent demand spikes before they happen.",
+                    goals: ["Reduce energy costs up to 30%", "Monitor demand spike prevention", "Track asset lifecycle"],
+                    painPoints: ["Limited chart interactions", "No proactive HVAC control", "Poor visualization of metrics"],
+                    needs: ["Advanced analytics", "Real-time temperature monitoring", "Preventive maintenance tracking"]
+                }
+            ]
+        },
+        
+        wireframing: {
+            approach: "Designed information architecture around 7 core modules: Site View Dashboard, System Status Overview, Quick Filters & Site Summary, Create New Site (4-step wizard), Create Zone Flow (7-step wizard), Device Scanning & Allocation, and Asset Management Panel.",
+            iterations: [
+                "Iteration 1: Prioritize critical alerts visually — severity-based colour coding (Red P1, Yellow P2, Blue Work Orders, Teal Active/Healthy)",
+                "Iteration 2: Enable real-time system health visibility with KPI overview cards (Total Sites, Uptime %, Issues, Work Orders)",
+                "Iteration 3: Multi-step wizard flows to reduce complexity in site creation and zone provisioning"
+            ],
+            userFlows: [
+                "Site View → KPI Cards → System Status → Quick Filters → Active Incidents → Incident Detail",
+                "Create New Site wizard: Site Details → Site Configuration → Facility Management → Business Hours",
+                "Create Zone flow: Zone Details → Feature Config → Review → Shopping List → Scan Devices → Auto Allocate → Install Checklist"
+            ],
+            keyDecisions: [
+                "Dark-mode optimized dashboard for long monitoring sessions",
+                "Visual hierarchy: Red → Critical (P1), Yellow → Medium (P2), Blue → Work Orders, Teal → Active/Healthy",
+                "Multi-step guided wizards reduce cognitive load for complex configuration",
+                "Desktop-first with adaptive table behaviour and touch-friendly tablet support"
+            ]
+        },
+        
+        uiDesign: {
+            styleGuide: {
+                colors: {
+                    primary: "#069999 (Teal) - Active states, buttons, accents, highlights — same in Dark & Light mode",
+                    secondary: "#1a1d23 (Dark) / #ffffff (Light) - Page background, mode-specific",
+                    cardBg: "#23262d (Dark) / #ffffff (Light) - Cards, panels, containers",
+                    success: "#10B981 (Green) - Online status, success states, positive metrics",
+                    warning: "#E5A800 (Amber) - P2 Warning priority, alerts, medium severity",
+                    error: "#fb2c36 (Red) - P1 Critical priority, errors, critical alerts",
+                    neutral: "#D4D8D8 (Gray) - P3 Low priority, subtle borders, disabled states"
+                },
+                typography: "SF Pro, -apple-system, BlinkMacSystemFont, system-ui — native system font stack for best performance. font-mono for code blocks and technical content. Do NOT use Tailwind font-size/weight classes unless overriding.",
+                spacing: "4px/8px grid system with Tailwind's spacing scale",
+                borderRadius: "rounded-2xl for cards/tables, full for buttons/badges. Border: rgba(255,255,255,0.1) dark | rgba(203,213,225,1) light"
+            },
+            components: {
+                designSystem: {
+                    title: "Atomic Design System",
+                    description: "Built with Next.js and Atomic Design methodology — Atoms → Molecules → Organisms → Templates → Pages. Ensures consistent, scalable, and maintainable UI across the entire platform.",
+                    structure: ["Atoms (Icons, Badges, Status Dots)", "Molecules (Cards, Inputs, Buttons)", "Organisms (Tables, Modals, Wizards)", "Templates (Dashboard, Forms)", "Pages (Site View, Incidents, Work Orders)"]
+                },
+                theme: {
+                    title: "Slate Mono Theme",
+                    description: "Dark mode first design using Slate color palette with system-aware toggle. Optimized for extended monitoring sessions with reduced eye strain.",
+                    modes: ["Dark Mode: #1a1d23 background, #23262d cards", "Light Mode: #ffffff background, #f8fafc cards"]
+                },
+                buttons: {
+                    title: "Button System",
+                    items: [
+                        { name: "Primary", style: "bg-[#069999] / hover bg-[#058080] / focus ring-2 #069999" },
+                        { name: "Secondary/Outline", style: "border-white/20 bg-transparent dark | border-slate-300 light" },
+                        { name: "Tertiary/Ghost", style: "bg-transparent / hover bg-white/5 dark | bg-slate-100 light" }
+                    ],
+                    states: "pressed scale-95, disabled opacity-50"
+                },
+                icons: {
+                    title: "Icon Library",
+                    count: "50+ Lucide Icons",
+                    categories: [
+                        { name: "Actions", icons: "Search, Filter, Plus, Edit, Trash2, Copy, Download, Upload, Save, Settings" },
+                        { name: "Status & Alerts", icons: "Bell, AlertTriangle, CheckCircle, XCircle, Info, Check, X" },
+                        { name: "HVAC & Sensors", icons: "Thermometer, Droplets, Wind, Zap, Flame, Snowflake" },
+                        { name: "Data & Analytics", icons: "Activity, BarChart3, PieChart, TrendingUp, TrendingDown, Database" },
+                        { name: "Navigation", icons: "Home, ChevronRight, ChevronDown, Building" },
+                        { name: "User & Interface", icons: "User, Mail, Lock, Calendar, Clock, MapPin, Phone, Eye, FileText" },
+                        { name: "Weather & Environment", icons: "Sun, Moon, Cloud, CloudRain" }
+                    ]
+                },
+                priorityBadges: {
+                    title: "Priority Badge System",
+                    items: [
+                        { level: "P1", color: "#EF4444", label: "Critical", description: "red" },
+                        { level: "P2", color: "#F59E0B", label: "Warning", description: "amber" },
+                        { level: "P3", color: "#6B7280", label: "Low", description: "grey" }
+                    ],
+                    usage: "Active Incidents table, Site Cards, Unit Cards, and Work Orders"
+                },
+                cards: [
+                    { name: "Site Card", description: "Site name + location (MapPin icon), Online/Offline status dot, Units / Active / Issues metrics, P1/P2 badge row, group-hover action buttons (edit icon + trash icon)" },
+                    { name: "Metric Card", description: "Label text, large numeric value (32px/700), TrendingUp/TrendingDown icon + percentage delta, P1 Issues card with AlertTriangle icon in red" },
+                    { name: "Data Table", description: "Sortable column headers (ChevronUp/Down), Online/Offline status dot + label, row hover highlight bg-white/5, group-hover hidden actions row (Copy ID, View Details, Delete)" }
+                ]
+            },
+            accessibility: [
+                "WCAG 2.1 AA compliance across all components",
+                "Keyboard navigation with visible focus indicators",
+                "Proper ARIA labels and semantic HTML",
+                "Color contrast ratios exceeding 4.5:1",
+                "Screen reader compatible UI patterns"
+            ],
+            darkMode: "Implemented system-aware dark mode with manual toggle. Reduced eye strain for extended monitoring sessions and improved battery life on mobile devices."
+        },
+        
+        prototyping: {
+            tools: "Figma, FigJam, HTML, CSS, ReactJS — interactive prototypes and working demos",
+            tests: [
+                {
+                    type: "Usability Test — Site View Dashboard",
+                    participants: "12 facility managers and operations teams",
+                    findings: "Users could detect anomalies within 3–5 seconds using severity-based colour system",
+                    changes: "Refined KPI card layout, donut chart incident breakdown, and status cards for P1/P2/Work Orders"
+                },
+                {
+                    type: "Usability Test — Create Site Wizard",
+                    participants: "8 new operators (first-time configuration)",
+                    findings: "4-step guided wizard reduced onboarding errors and configuration confusion",
+                    changes: "Added step progress indicator, required field markers, logical grouping (Customer → Address → Timezone)"
+                },
+                {
+                    type: "Usability Test — Zone Creation & Device Allocation",
+                    participants: "10 HVAC technicians",
+                    findings: "Barcode scan input and real-time scanned device list reduced allocation mistakes",
+                    changes: "Added step validation indicators, inline success messaging, clear Continue CTA"
+                }
+            ],
+            feedback: "UX improvements over time: reduced information overload, improved scanning & allocation workflow, simplified filter system, increased visual clarity of incidents, better grouping of HVAC metrics.",
+            refinements: [
+                "Reduced information overload with progressive disclosure",
+                "Improved scanning & allocation workflow with barcode input",
+                "Simplified filter system with smart defaults",
+                "Increased visual clarity of incidents via severity-based colour coding",
+                "Better grouping of HVAC metrics for faster decision-making"
+            ]
+        },
+        
+        keyScreens: [
+            {
+                title: "Site View — Real-Time Operations Dashboard",
+                description: "Primary operations hub providing real-time insight across 100+ sites. KPI overview cards show All Sites (100), Uptime % (99.5%), and issue breakdown via a colour-coded donut chart. System Status panel displays P1 (red, 12 sites), P2 (yellow, 7 sites), and Work Orders (blue, 35 active) with subcategory counts (Offline, TStatic Offline, Temperature, Humidity). Quick Filters bar with time-range pills (Last 5 Hours → Last 3 Months), customer/site selectors, and date-range picker. Site Overview and Active Incidents tabs. Work Order Analytics line chart with Daily/Monthly/Yearly toggle shows Resolved (54), Pending (0), and Closed (0) totals. Active Incidents section surfaces MTTR (23 min), avg resolution time (5.8 hrs), resolution pipeline steps (Created → Acknowledged → Service Call → Check-in → Validated), and a detailed incident table with severity badges, issue type tags, status chips, and response timestamps. Users detect anomalies within 3–5 seconds.",
+                image: "/projects/Site Overview.png",
+                category: "Dashboard"
+            },
+            {
+                title: "Site Summary",
+                description: "Fleet-level monitoring table listing every managed site with facility code, address, P1/P2/P3 incident count badges, alert totals, and status indicators. Column customisation lets operators show/hide fields. Hovering a P1 badge surfaces a tooltip breakdown. Clicking any facility code copies it to clipboard — a power-user shortcut.",
+                image: "/projects/Site Summary.png",
+                category: "Multi-Site"
+            },
+            {
+                title: "Site Overview HVAC",
+                description: "Detailed site overview showing HVAC system status, temperature controls, and energy metrics for comprehensive facility management.",
+                image: "/projects/Site Overview -HVAC.png",
+                category: "Site Detail"
+            },
+            {
+                title: "Incidents",
+                description: "Full incident management view with top-level KPI cards: Total (99), P1 (13, red), P2 (43, yellow), In Progress (62, teal), Resolved (13), and Late Response (B, amber). Advanced filter bar with search input, priority/severity/site/status dropdowns, time-range pills (1D–3M), and Types selector. Incident table rows display incident ID, affected units, issue type badge (Greater 5, Greater 3, DLC Offline, Total Offline), severity level, status (Resolved / Acknowledged / Check-in / Service Call), creator + assignee details, timestamp, and multi-status progress tags (In Progress, Created, Monitoring Duration). Pagination footer for 200+ incident records.",
+                image: "/projects/Incidents.png",
+                category: "Incidents"
+            }
+        ],
+        
+        results: {
+            metrics: [
+                { value: "↓ 30%", label: "Energy Cost Reduction", description: "DLC-driven demand limiting and proactive HVAC control" },
+                { value: "↓ 50%", label: "Facility Management Time", description: "Streamlined workflows and guided wizards" },
+                { value: "Reduced", label: "MTTR & Error Rate", description: "Real-time monitoring + barcode scanning reduced allocation mistakes and repair time" },
+                { value: "Improved", label: "Alert Visibility", description: "Severity-based colour coding enables anomaly detection in 3–5 seconds" }
+            ],
+            testimonial: {
+                quote: "The HVAC Energy Management Dashboard transformed our operations. We can now monitor 100+ sites at a glance, detect anomalies in seconds, and manage energy proactively. It balances comfort, cost-efficiency, and control in one platform.",
+                author: "Sarah Martinez",
+                role: "Facility Operations Manager"
+            },
+            beforeAfter: [
+                { before: "Too much data, no prioritization", after: "Severity-based colour coding (P1 Red, P2 Yellow, Teal Active)" },
+                { before: "Manual HVAC monitoring", after: "Real-time system health visibility with KPI cards" },
+                { before: "Complex site/zone configuration", after: "Multi-step guided wizards reducing errors" },
+                { before: "Slow incident tracking", after: "Dashboard with anomaly detection in 3–5 seconds" }
+            ],
+            lessonsLearned: [
+                "Enterprise dashboards require strong visual hierarchy — severity-based colour systems reduce decision time",
+                "Multi-step flows reduce complexity in high-configuration systems like site and zone creation",
+                "Dark themes work best for monitoring-heavy platforms used during extended sessions",
+                "Barcode scanning and real-time device lists dramatically improve technician onboarding and allocation accuracy"
+            ]
+        },
+        
+        technologies: ["Figma", "FigJam", "HTML", "CSS", "ReactJS", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Recharts"],
+    };
+
+    const caseStudy = getCaseStudy();
 
     const fadeInUp = {
         initial: { opacity: 0, y: 20 },
@@ -380,12 +651,12 @@ export default function CaseStudyPage() {
                     transition={{ duration: 0.8 }}
                 >
                     <motion.div
-                        className="inline-block mb-6 px-4 py-2 bg-[#00D4FF]/20 border border-[#00D4FF]/50 rounded-full"
+                        className="inline-block mb-6 px-4 py-2 bg-[#069999]/20 border border-[#069999]/50 rounded-full"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.2 }}
                     >
-                        <span className="text-[#00D4FF] text-sm font-semibold">UI/UX CASE STUDY</span>
+                        <span className="text-[#069999] text-sm font-semibold">UI/UX CASE STUDY</span>
                     </motion.div>
                     
                     <h1 className="text-5xl md:text-7xl font-bold mb-6">
@@ -397,6 +668,16 @@ export default function CaseStudyPage() {
                     <p className="text-lg text-gray-400 max-w-3xl mx-auto">
                         {caseStudy.tagline}
                     </p>
+
+                    {/* Prototype Link Button */}
+                    <a
+                        href="https://order-wagon-50490033.figma.site"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block mt-6 px-6 py-3 bg-[#069999] text-white font-semibold rounded-lg hover:bg-[#069999]/80 transition-colors"
+                    >
+                        View Prototype
+                    </a>
 
                     {/* Tech Stack Pills */}
                     <div className="flex flex-wrap justify-center gap-2 mt-8">
@@ -412,7 +693,7 @@ export default function CaseStudyPage() {
                 </motion.div>
 
                 {/* Decorative Elements */}
-                <div className="absolute top-20 right-20 w-64 h-64 bg-[#00D4FF]/20 rounded-full blur-3xl"></div>
+                <div className="absolute top-20 right-20 w-64 h-64 bg-[#069999]/20 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
             </section>
 
@@ -434,7 +715,7 @@ export default function CaseStudyPage() {
                                 </div>
 
                                 <div className="flex items-start gap-3">
-                                    <FiUsers className="text-3xl text-[#00D4FF] mt-1 flex-shrink-0" />
+                                    <FiUsers className="text-3xl text-[#069999] mt-1 flex-shrink-0" />
                                     <div>
                                         <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">My Role</h3>
                                         <p className="text-gray-600 dark:text-gray-400">{caseStudy.introduction.role}</p>
@@ -496,8 +777,8 @@ export default function CaseStudyPage() {
                             <div className="grid md:grid-cols-2 gap-4">
                                 {caseStudy.research.insights.map((insight, index) => (
                                     <div key={index} className="flex items-start gap-3 p-4 bg-white dark:bg-gray-800 rounded-lg">
-                                        <div className="w-6 h-6 bg-[#00D4FF]/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                                            <span className="text-[#00D4FF] text-sm font-bold">→</span>
+                                        <div className="w-6 h-6 bg-[#069999]/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                            <span className="text-[#069999] text-sm font-bold">→</span>
                                         </div>
                                         <p className="text-gray-700 dark:text-gray-300">{insight}</p>
                                     </div>
@@ -512,7 +793,7 @@ export default function CaseStudyPage() {
                                 {caseStudy.research.personas.map((persona, index) => (
                                     <div key={index} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
                                         <div className="flex items-center gap-4 mb-6">
-                                            <div className="w-16 h-16 bg-gradient-to-br from-[#00D4FF] to-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                                            <div className="w-16 h-16 bg-gradient-to-br from-[#069999] to-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
                                                 {persona.name.charAt(0)}
                                             </div>
                                             <div>
@@ -594,7 +875,7 @@ export default function CaseStudyPage() {
                                 <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Design Iterations</h3>
                                 <div className="space-y-4">
                                     {caseStudy.wireframing.iterations.map((iteration, idx) => (
-                                        <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border-l-4 border-[#00D4FF]">
+                                        <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border-l-4 border-[#069999]">
                                             <p className="text-gray-700 dark:text-gray-300">{iteration}</p>
                                         </div>
                                     ))}
@@ -605,7 +886,7 @@ export default function CaseStudyPage() {
                         {/* User Flows */}
                         <div>
                             <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">User Flows</h3>
-                            <div className="bg-gradient-to-r from-[#00D4FF]/10 to-purple-500/10 rounded-xl p-8">
+                            <div className="bg-gradient-to-r from-[#069999]/10 to-purple-500/10 rounded-xl p-8">
                                 <div className="flex flex-wrap gap-4 items-center justify-center">
                                     {caseStudy.wireframing.userFlows.map((flow, idx) => (
                                         <React.Fragment key={idx}>
@@ -613,7 +894,7 @@ export default function CaseStudyPage() {
                                                 {flow}
                                             </div>
                                             {idx < caseStudy.wireframing.userFlows.length - 1 && (
-                                                <span className="text-[#00D4FF] text-2xl">→</span>
+                                                <span className="text-[#069999] text-2xl">→</span>
                                             )}
                                         </React.Fragment>
                                     ))}
@@ -641,31 +922,38 @@ export default function CaseStudyPage() {
                                         <h4 className="font-bold mb-4 text-gray-900 dark:text-white">Color Palette</h4>
                                         <div className="space-y-3">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-12 h-12 rounded-lg bg-[#00D4FF]"></div>
+                                                <div className="w-12 h-12 rounded-lg bg-[#069999]"></div>
                                                 <div>
-                                                    <p className="font-medium text-gray-900 dark:text-white">Primary</p>
-                                                    <p className="text-sm text-gray-500">#00D4FF - Cyan</p>
+                                                    <p className="font-medium text-gray-900 dark:text-white">Teal Primary</p>
+                                                    <p className="text-sm text-gray-500">#069999 — Buttons, accents (Dark & Light)</p>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-3">
-                                                <div className="w-12 h-12 rounded-lg bg-[#0A2540]"></div>
+                                                <div className="w-12 h-12 rounded-lg bg-[#1a1d23] border border-gray-600"></div>
                                                 <div>
-                                                    <p className="font-medium text-gray-900 dark:text-white">Secondary</p>
-                                                    <p className="text-sm text-gray-500">#0A2540 - Dark Blue</p>
+                                                    <p className="font-medium text-gray-900 dark:text-white">Page Background</p>
+                                                    <p className="text-sm text-gray-500">#1a1d23 Dark / #ffffff Light</p>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-3">
-                                                <div className="w-12 h-12 rounded-lg bg-[#00C48C]"></div>
+                                                <div className="w-12 h-12 rounded-lg bg-[#fb2c36]"></div>
                                                 <div>
-                                                    <p className="font-medium text-gray-900 dark:text-white">Success</p>
-                                                    <p className="text-sm text-gray-500">#00C48C - Green</p>
+                                                    <p className="font-medium text-gray-900 dark:text-white">P1 Critical</p>
+                                                    <p className="text-sm text-gray-500">#fb2c36 — Critical alerts, errors</p>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-3">
-                                                <div className="w-12 h-12 rounded-lg bg-[#FFA500]"></div>
+                                                <div className="w-12 h-12 rounded-lg bg-[#E5A800]"></div>
                                                 <div>
-                                                    <p className="font-medium text-gray-900 dark:text-white">Warning</p>
-                                                    <p className="text-sm text-gray-500">#FFA500 - Orange</p>
+                                                    <p className="font-medium text-gray-900 dark:text-white">P2 Warning</p>
+                                                    <p className="text-sm text-gray-500">#E5A800 — Warning priority, alerts</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-12 h-12 rounded-lg bg-[#D4D8D8] border border-gray-300"></div>
+                                                <div>
+                                                    <p className="font-medium text-gray-900 dark:text-white">P3 Low</p>
+                                                    <p className="text-sm text-gray-500">#D4D8D8 — Low priority, subtle states</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -690,15 +978,110 @@ export default function CaseStudyPage() {
                             </div>
                         </div>
 
-                        {/* Components */}
+                        {/* Component Library */}
                         <div className="mb-12">
                             <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Component Library</h3>
-                            <div className="grid md:grid-cols-3 gap-4">
-                                {caseStudy.uiDesign.components.map((component, idx) => (
-                                    <div key={idx} className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
-                                        <p className="font-medium text-gray-900 dark:text-white">{component}</p>
+                            
+                            {/* Design System & Theme Overview */}
+                            <div className="grid md:grid-cols-2 gap-6 mb-8">
+                                {/* Atomic Design System */}
+                                <div className="bg-gradient-to-br from-[#069999]/10 to-[#069999]/5 rounded-2xl p-6 border border-[#069999]/20">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="w-10 h-10 bg-[#069999] rounded-lg flex items-center justify-center">
+                                            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                            </svg>
+                                        </div>
+                                        <h4 className="text-xl font-bold text-gray-900 dark:text-white">Atomic Design System</h4>
                                     </div>
-                                ))}
+                                    <p className="text-gray-600 dark:text-gray-400 mb-4">Built with <span className="text-[#069999] font-semibold">Next.js</span> and Atomic Design methodology for consistent, scalable, and maintainable UI.</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {['Atoms', 'Molecules', 'Organisms', 'Templates', 'Pages'].map((item, idx) => (
+                                            <span key={idx} className="px-3 py-1 bg-[#069999]/20 text-[#069999] dark:text-[#0db3b3] rounded-full text-sm font-medium">
+                                                {item}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Slate Mono Theme */}
+                                <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 dark:from-slate-700/30 dark:to-slate-800/30 rounded-2xl p-6 border border-slate-600/30">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center">
+                                            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                                            </svg>
+                                        </div>
+                                        <h4 className="text-xl font-bold text-gray-900 dark:text-white">Slate Mono Theme</h4>
+                                    </div>
+                                    <p className="text-gray-600 dark:text-gray-400 mb-4">Dark mode first design with system-aware toggle. Optimized for extended monitoring sessions.</p>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-8 h-8 rounded-lg bg-[#1a1d23] border border-white/10"></div>
+                                            <span className="text-sm text-gray-500 dark:text-gray-400">Dark #1a1d23</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-8 h-8 rounded-lg bg-white border border-slate-200"></div>
+                                            <span className="text-sm text-gray-500 dark:text-gray-400">Light #ffffff</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Component Cards Grid */}
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {/* Button System */}
+                                <div className="bg-white dark:bg-[#23262d] rounded-2xl p-5 border border-gray-200 dark:border-white/10">
+                                    <h5 className="font-bold text-gray-900 dark:text-white mb-3">Button System</h5>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Primary (<span className="text-[#069999]">bg-[#069999]</span> / hover bg-[#058080] / focus ring-2), Secondary/Outline (border-white/20 dark | border-slate-300 light), Tertiary/Ghost (bg-transparent / hover bg-white/5 dark | bg-slate-100 light) — all with pressed scale-95 and disabled opacity-50 states</p>
+                                    <div className="flex gap-2">
+                                        <button className="px-3 py-1.5 bg-[#069999] text-white text-xs rounded-full">Primary</button>
+                                        <button className="px-3 py-1.5 border border-gray-300 dark:border-white/20 text-gray-700 dark:text-white text-xs rounded-full">Secondary</button>
+                                        <button className="px-3 py-1.5 text-gray-600 dark:text-gray-400 text-xs rounded-full hover:bg-gray-100 dark:hover:bg-white/5">Ghost</button>
+                                    </div>
+                                </div>
+
+                                {/* Icon Library */}
+                                <div className="bg-white dark:bg-[#23262d] rounded-2xl p-5 border border-gray-200 dark:border-white/10">
+                                    <h5 className="font-bold text-gray-900 dark:text-white mb-3">Icon Library</h5>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3"><span className="text-[#069999] font-semibold">50+ Lucide icons</span> across 7 semantic categories: Actions, Status & Alerts, HVAC & Sensors, Data & Analytics, Navigation, User & Interface, Weather & Environment</p>
+                                    <div className="flex flex-wrap gap-1 text-xs text-gray-500 dark:text-gray-400">
+                                        <span className="px-2 py-0.5 bg-gray-100 dark:bg-white/5 rounded">Search</span>
+                                        <span className="px-2 py-0.5 bg-gray-100 dark:bg-white/5 rounded">Bell</span>
+                                        <span className="px-2 py-0.5 bg-gray-100 dark:bg-white/5 rounded">Thermometer</span>
+                                        <span className="px-2 py-0.5 bg-gray-100 dark:bg-white/5 rounded">TrendingUp</span>
+                                        <span className="px-2 py-0.5 bg-gray-100 dark:bg-white/5 rounded">+46</span>
+                                    </div>
+                                </div>
+
+                                {/* Priority Badge System */}
+                                <div className="bg-white dark:bg-[#23262d] rounded-2xl p-5 border border-gray-200 dark:border-white/10">
+                                    <h5 className="font-bold text-gray-900 dark:text-white mb-3">Priority Badge System</h5>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Used consistently across Active Incidents table, Site Cards, Unit Cards, and Work Orders</p>
+                                    <div className="flex gap-2">
+                                        <span className="px-2.5 py-1 bg-[#EF4444] text-white text-xs font-semibold rounded">P1 Critical</span>
+                                        <span className="px-2.5 py-1 bg-[#F59E0B] text-white text-xs font-semibold rounded">P2 Warning</span>
+                                        <span className="px-2.5 py-1 bg-[#6B7280] text-white text-xs font-semibold rounded">P3 Low</span>
+                                    </div>
+                                </div>
+
+                                {/* Site Card */}
+                                <div className="bg-white dark:bg-[#23262d] rounded-2xl p-5 border border-gray-200 dark:border-white/10">
+                                    <h5 className="font-bold text-gray-900 dark:text-white mb-3">Site Card</h5>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">Site name + location (MapPin icon), Online/Offline status dot, Units / Active / Issues metrics, P1/P2 badge row, group-hover action buttons (edit icon + trash icon)</p>
+                                </div>
+
+                                {/* Metric Card */}
+                                <div className="bg-white dark:bg-[#23262d] rounded-2xl p-5 border border-gray-200 dark:border-white/10">
+                                    <h5 className="font-bold text-gray-900 dark:text-white mb-3">Metric Card</h5>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">Label text, large numeric value (32px/700), TrendingUp/TrendingDown icon + percentage delta, P1 Issues card with AlertTriangle icon in red</p>
+                                </div>
+
+                                {/* Data Table */}
+                                <div className="bg-white dark:bg-[#23262d] rounded-2xl p-5 border border-gray-200 dark:border-white/10">
+                                    <h5 className="font-bold text-gray-900 dark:text-white mb-3">Data Table</h5>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">Sortable column headers (ChevronUp/Down), Online/Offline status dot + label, row hover highlight bg-white/5, group-hover hidden actions row (Copy ID, View Details, Delete)</p>
+                                </div>
                             </div>
                         </div>
 
@@ -733,7 +1116,7 @@ export default function CaseStudyPage() {
                         <p className="text-xl text-gray-600 dark:text-gray-400 mb-12">Validating design decisions through iterative user testing</p>
                         
                         <div className="grid md:grid-cols-2 gap-8 mb-12">
-                            <div className="bg-gradient-to-br from-[#00D4FF]/10 to-purple-500/10 rounded-xl p-8">
+                            <div className="bg-gradient-to-br from-[#069999]/10 to-purple-500/10 rounded-xl p-8">
                                 <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Tools Used</h3>
                                 <p className="text-gray-700 dark:text-gray-300 text-lg">{caseStudy.prototyping.tools}</p>
                             </div>
@@ -750,7 +1133,7 @@ export default function CaseStudyPage() {
                             {caseStudy.prototyping.tests.map((test, idx) => (
                                 <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
                                     <div className="flex items-start gap-4 mb-4">
-                                        <div className="w-12 h-12 bg-gradient-to-br from-[#00D4FF] to-purple-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                                        <div className="w-12 h-12 bg-gradient-to-br from-[#069999] to-purple-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
                                             {idx + 1}
                                         </div>
                                         <div className="flex-1">
@@ -770,10 +1153,10 @@ export default function CaseStudyPage() {
                                         </div>
                                     </div>
 
-                                    {test.winner && (
+                                    {('winner' in test) && test.winner && (
                                         <div className="mt-4 ml-16 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
                                             <p className="text-green-700 dark:text-green-400 font-medium">Winner: {test.winner}</p>
-                                            {test.insight && <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{test.insight}</p>}
+                                            {('insight' in test) && test.insight && <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{test.insight}</p>}
                                         </div>
                                     )}
                                 </div>
@@ -785,7 +1168,7 @@ export default function CaseStudyPage() {
                         <div className="grid md:grid-cols-2 gap-4">
                             {caseStudy.prototyping.refinements.map((refinement, idx) => (
                                 <div key={idx} className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                                    <span className="text-[#00D4FF] text-xl flex-shrink-0">→</span>
+                                    <span className="text-[#069999] text-xl flex-shrink-0">→</span>
                                     <p className="text-gray-700 dark:text-gray-300">{refinement}</p>
                                 </div>
                             ))}
@@ -800,46 +1183,46 @@ export default function CaseStudyPage() {
                     <motion.h2 className="text-4xl font-bold mb-16 text-center text-gray-900 dark:text-white" {...fadeInUp}>
                         Key Screens
                     </motion.h2>
-                    
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {caseStudy.keyScreens.map((screen, index) => (
-                            <motion.div
-                                key={index}
-                                className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer group"
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                                onClick={() => setSelectedScreen(index)}
-                            >
-                                <div className="w-full h-[500px] bg-gray-100 dark:bg-gray-700 relative overflow-hidden">
-                                    {screen.image ? (
-                                        <Image
-                                            src={screen.image}
-                                            alt={screen.title}
-                                            fill
-                                            className="object-contain group-hover:scale-105 transition-transform duration-300"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center">
-                                            <span className="text-gray-400 dark:text-gray-500 text-4xl">📱</span>
+                        
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {caseStudy.keyScreens.map((screen, index) => (
+                                <motion.div
+                                    key={index}
+                                    className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer group"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1 }}
+                                    onClick={() => setSelectedScreen(index)}
+                                >
+                                    <div className="w-full h-[500px] bg-gray-100 dark:bg-gray-700 relative overflow-hidden">
+                                        {screen.image ? (
+                                            <Image
+                                                src={screen.image}
+                                                alt={screen.title}
+                                                fill
+                                                className="object-contain group-hover:scale-105 transition-transform duration-300"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center">
+                                                <span className="text-gray-400 dark:text-gray-500 text-4xl">📱</span>
+                                            </div>
+                                        )}
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                                            <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm bg-black/50 px-4 py-2 rounded-full">
+                                                Click to view fullscreen
+                                            </span>
                                         </div>
-                                    )}
-                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-                                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm bg-black/50 px-4 py-2 rounded-full">
-                                            Click to view fullscreen
-                                        </span>
                                     </div>
-                                </div>
-                                <div className="p-6">
-                                    <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{screen.title}</h3>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm">{screen.description}</p>
-                                </div>
-                            </motion.div>
-                        ))}
+                                    <div className="p-6">
+                                        <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{screen.title}</h3>
+                                        <p className="text-gray-600 dark:text-gray-400 text-sm">{screen.description}</p>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
             {/* Fullscreen Modal */}
             <AnimatePresence>
@@ -1010,7 +1393,7 @@ export default function CaseStudyPage() {
                                     viewport={{ once: true }}
                                     transition={{ delay: index * 0.1 }}
                                 >
-                                    <div className="text-5xl font-bold text-[#00D4FF] mb-2">{metric.value}</div>
+                                    <div className="text-5xl font-bold text-[#069999] mb-2">{metric.value}</div>
                                     <div className="text-white font-semibold mb-2">{metric.label}</div>
                                     <div className="text-sm text-gray-300">{metric.description}</div>
                                 </motion.div>
@@ -1045,7 +1428,7 @@ export default function CaseStudyPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                         >
-                            <FiTrendingUp className="text-4xl text-[#00D4FF] mb-4" />
+                            <FiTrendingUp className="text-4xl text-[#069999] mb-4" />
                             <blockquote className="text-xl italic mb-4">
                                 "{caseStudy.results.testimonial.quote}"
                             </blockquote>
@@ -1060,10 +1443,10 @@ export default function CaseStudyPage() {
                             <h3 className="text-2xl font-bold mb-8 text-center">Lessons Learned</h3>
                             <div className="grid md:grid-cols-2 gap-6">
                                 {caseStudy.results.lessonsLearned.map((lesson, idx) => (
-                                    <div key={idx} className="bg-gradient-to-br from-[#00D4FF]/20 to-purple-500/20 rounded-xl p-6 border border-white/20">
+                                    <div key={idx} className="bg-gradient-to-br from-[#069999]/20 to-purple-500/20 rounded-xl p-6 border border-white/20">
                                         <div className="flex items-start gap-3">
-                                            <div className="w-8 h-8 bg-[#00D4FF]/30 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                                                <span className="text-[#00D4FF] font-bold text-lg">{idx + 1}</span>
+                                            <div className="w-8 h-8 bg-[#069999]/30 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                                <span className="text-[#069999] font-bold text-lg">{idx + 1}</span>
                                             </div>
                                             <p className="text-white">{lesson}</p>
                                         </div>
@@ -1084,7 +1467,7 @@ export default function CaseStudyPage() {
                         <div className="flex gap-4 justify-center">
                             <button
                                 onClick={() => router.push('/#contact')}
-                                className="px-8 py-4 bg-gradient-to-r from-[#00D4FF] to-purple-500 text-white rounded-full font-semibold hover:shadow-lg transition-all"
+                                className="px-8 py-4 bg-gradient-to-r from-[#069999] to-purple-500 text-white rounded-full font-semibold hover:shadow-lg transition-all"
                             >
                                 Get In Touch
                             </button>

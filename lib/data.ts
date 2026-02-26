@@ -10,6 +10,7 @@ import mediCem from "@/public/projects/mediCem_thum.svg";
 import myStartUp from "@/public/projects/myStartup_thum.svg";
 import rcb from "@/public/projects/rcb_thum.png";
 import hvacIot from "@/public/projects/Hvac iot.png";
+import sesPortal from "@/public/projects/Home.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
 
@@ -93,6 +94,15 @@ export const experiencesData = [
 
 export const projectsData = [
   {
+    id:7,
+    title: "SES Portal Revamp",
+    description:
+      "Complete redesign of the Save Energy Systems dashboard, transforming a complex HVAC IoT platform into an intuitive, modern interface. Enhanced user experience through streamlined navigation, real-time data visualization, and responsive design - resulting in 45% faster task completion and 60% reduction in user errors.",
+    tags: ["Figma", "Case Study", "Next.js", "Dashboard Design", "IoT Platform", "Real-time Data", "User Research", "Atomic Design"],
+    imageUrl: sesPortal,
+    hasDetailedCaseStudy: true,
+  },
+  {
     id:1,
     title: "HVAC IoT Work Order Management",
     description:
@@ -116,7 +126,8 @@ export const projectsData = [
       "Welcome to Life Line App, the transformative online platform that connects individuals seeking guidance and support with experienced mentors and a comprehensive array of supportive services. Whether you're navigating your career, pursuing personal development, or seeking specialized expertise, Life Line App is your gateway to meaningful connections and personal growth.",
     tags: ["Adobe XD", "Miro", "Branding", "Case Study"],
     imageUrl: lifeLine,
-  }, {
+  },
+  {
     id:4,
     title: "MediQem App",
     description:
