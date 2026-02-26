@@ -488,28 +488,28 @@ export default function CaseStudyPage() {
         keyScreens: [
             {
                 title: "Site View — Dashboard Overview",
-                description: "High-level operational overview of all sites. Displays total sites and system health, visual issue breakdown (Online, Offline, Pending, Stale, Inactive), 7-day performance trend chart, P1/P2 priority indicators, work order summary (Open, Delay, Closed), quick filters (time range, customer, site), and active incidents list with MTTA, MTTR, incident timeline tracking, and status labels.",
+                description: "Operations monitoring and incident management with MTTA, MTTR, trend charts, and quick filters.",
                 image: "/projects/Site Overview.png",
                 category: "Dashboard",
                 purpose: "Operations monitoring and incident management"
             },
             {
                 title: "Site Overview — HVAC Unit Management",
-                description: "Detailed HVAC performance per selected site. Features site selection panel with status indicators, weather summary, current vs allowed power usage, energy saved metrics (Today, Yesterday, Last Month), and HVAC unit table showing unit name, location, operational status, zone temperature, setpoint temperature, supply air temperature, work order creation, and system controls.",
+                description: "Facility-level HVAC monitoring with weather summary, power usage, energy saved metrics, and unit table.",
                 image: "/projects/Site Overview -HVAC.png",
                 category: "Site Detail",
                 purpose: "Facility-level HVAC monitoring and control"
             },
             {
                 title: "Site View — Site Overview Table",
-                description: "Summarizes operational health across all sites. Filter by status (All, Online, Offline, Inactive, Stale), quick DLC filters (D1, D2, D3), export functionality, site-level breakdown including offline units count, gas alerts (G5, G0), humidity alerts, incident count, quick incident references, and pagination for large datasets.",
+                description: "Multi-site performance comparison with status filters, DLC filters, and pagination.",
                 image: "/projects/Incidents.png",
                 category: "Multi-Site",
                 purpose: "Multi-site performance comparison and tracking"
             },
             {
                 title: "Site Summary — Advanced Site Management",
-                description: "Comprehensive site management and administrative overview. Global search (site name, code, location), status filters (Online, Offline, Inactive, Stale), DLC categorization, customer & state filtering, detailed site table with offline count, system alerts (Gas, Humidity), incident count, action controls per site, create new site option, and export data functionality.",
+                description: "Administration, filtering, and system-wide management with global search and export.",
                 image: "/projects/Site Summary.png",
                 category: "Administration",
                 purpose: "Administration, filtering, and system-wide management"
