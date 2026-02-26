@@ -78,7 +78,7 @@ export default function Intro() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.3 }}
                     >
-                        With <span className="font-semibold text-gray-900 dark:text-white">4+ years</span> of experience
+                        With <span className="font-semibold text-gray-900 dark:text-white">5 years</span> of experience
                         turning complex problems into intuitive, beautiful solutions
                     </motion.p>
 

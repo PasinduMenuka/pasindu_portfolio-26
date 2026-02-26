@@ -20,7 +20,7 @@ export default function About() {
             <SectionHeading>About me</SectionHeading>
            <p className="mb-3 text-center">
             As a <span className="font-bold">Senior UI/UX Engineer</span> with{" "}
-            <span className="font-bold">over 4+ years</span> of dedicated experience, I am
+            <span className="font-bold">over 5 years</span> of dedicated experience, I am
             passionate about creating meaningful and intuitive digital experiences that
             resonate with users. My role has been pivotal in shaping the design and
             functionality of various digital products, including{" "}
