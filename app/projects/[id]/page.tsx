@@ -674,14 +674,16 @@ export default function CaseStudyPage() {
                     </p>
 
                     {/* Prototype Link Button */}
-                    <a
-                        href="https://order-wagon-50490033.figma.site"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block mt-6 px-6 py-3 bg-[#069999] text-white font-semibold rounded-lg hover:bg-[#069999]/80 transition-colors"
-                    >
-                        View Prototype
-                    </a>
+                    {projectId !== '7' && (
+                        <a
+                            href="https://order-wagon-50490033.figma.site"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block mt-6 px-6 py-3 bg-[#069999] text-white font-semibold rounded-lg hover:bg-[#069999]/80 transition-colors"
+                        >
+                            View Prototype
+                        </a>
+                    )}
 
                     {/* Tech Stack Pills */}
                     <div className="flex flex-wrap justify-center gap-2 mt-8">
