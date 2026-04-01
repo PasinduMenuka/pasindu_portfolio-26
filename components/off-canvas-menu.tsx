@@ -1,18 +1,17 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {HiMenuAlt3} from "react-icons/hi";
 import {AiOutlineClose} from "react-icons/ai";
 import {AnimatePresence, motion} from "framer-motion";
-import {useAppSelector, useAppDispatch} from '../app/hooks'
+import {useAppSelector, useAppDispatch} from '../app/hooks';
 import {useActiveSectionContext} from "@/context/active-section-context";
-
-import {closeMenu, openMenu} from '../app/features/appState/appStateSlice'
+import {closeMenu, openMenu} from '../app/features/appState/appStateSlice';
 import {links} from "@/lib/data";
 import Link from "next/link";
 import clsx from "clsx";
 
 const OffCanvasMenu = () => {
-    const menuIsOpen = useAppSelector(state => state.appState.burgerMenuIsOpen)
-    const dispatch = useAppDispatch()
+    const menuIsOpen = useAppSelector(state => state.appState.burgerMenuIsOpen);
+    const dispatch = useAppDispatch();
     const navigation = useRef<HTMLDivElement>(null);
     const {activeSection, setActiveSection, setTimeOfLastClick} = useActiveSectionContext();
 
@@ -27,77 +26,142 @@ const OffCanvasMenu = () => {
         }
 
         window.addEventListener("click", handleClick);
-        // clean up
         return () => window.removeEventListener("click", handleClick);
     }, [menuIsOpen]);
 
-    return (<div ref={navigation} className='bg-amber-200'>
+    return (
+        <div ref={navigation}>
+            {/* Top bar */}
             <motion.div
-                className='z-40 w-full flex fixed justify-end items-center top-0 left-1/2 h-12 -translate-x-1/2 py-2 sm:top-[1.7rem] sm:h-[initial] sm:py-0 rounded-none border border-white border-opacity-40 bg-white bg-opacity-95 shadow-lg shadow-black/[0.03] backdrop-blur-[0.5rem]  sm:rounded-full dark:bg-gray-950 dark:border-black/40 dark:bg-opacity-75 px-3'
-                initial={{y: -100, x: "-50%", opacity: 0}}
-                animate={{y: 0, x: "-50%", opacity: 1}}
+                className='z-40 w-full flex fixed justify-between items-center top-0 left-0 px-5 h-14'
+                style={{
+                    background: 'rgba(255,255,255,0.85)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    borderBottom: '1px solid rgba(0,0,0,0.06)',
+                }}
+                initial={{y: -100, opacity: 0}}
+                animate={{y: 0, opacity: 1}}
             >
+                {/* Logo */}
+                <div
+                    className='font-bold text-base tracking-tight'
+                    style={{
+                        background: 'linear-gradient(135deg, #00D4FF, #4A90E2)',
+                        WebkitBackgroundClip: 'text',
+                        backgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                    }}
+                >
+                    PS
+                </div>
 
-                {
-                    menuIsOpen ? (<AiOutlineClose name={"icon"} size={25} onClick={() => dispatch(closeMenu())}/>) : (
-                        <HiMenuAlt3 name={"icon"} size={25} onClick={() => dispatch(openMenu())}/>)
-
-                }
+                {/* Menu toggle */}
+                <button
+                    className='p-2 rounded-full border transition-all'
+                    style={{
+                        background: 'var(--glass-bg)',
+                        borderColor: 'var(--color-border)',
+                        color: 'var(--color-text-primary)',
+                    }}
+                    aria-label={menuIsOpen ? "Close menu" : "Open menu"}
+                    onClick={() => dispatch(menuIsOpen ? closeMenu() : openMenu())}
+                >
+                    {menuIsOpen
+                        ? <AiOutlineClose size={20}/>
+                        : <HiMenuAlt3 size={20}/>
+                    }
+                </button>
             </motion.div>
-            {
-                menuIsOpen &&
-                <AnimatePresence mode={"wait"} onExitComplete={() => null} initial={true}>
+
+            {/* Dark overlay */}
+            <AnimatePresence>
+                {menuIsOpen && (
                     <motion.div
-                        className='fixed min-h-screen w-[60%] z-40 top-[3rem] right-0 rounded-none border border-white border-opacity-40 bg-white bg-opacity-95 shadow-lg shadow-black/[0.03] backdrop-blur-[0.5rem] sm:w-[36rem] sm:rounded-full dark:bg-gray-950 dark:border-black/40 dark:bg-opacity-75 py-10'
-                        initial={{x: "50%", opacity: 0}}
+                        className='fixed inset-0 z-30'
+                        style={{ background: 'rgba(0,0,0,0.3)', backdropFilter: 'blur(4px)' }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => dispatch(closeMenu())}
+                    />
+                )}
+            </AnimatePresence>
+
+            {/* Off-canvas panel */}
+            <AnimatePresence>
+                {menuIsOpen && (
+                    <motion.div
+                        className='fixed right-0 top-0 bottom-0 w-[72%] max-w-[280px] z-40 pt-20 pb-8 px-6 overflow-y-auto'
+                        style={{
+                            background: 'rgba(255,255,255,0.95)',
+                            backdropFilter: 'blur(20px)',
+                            WebkitBackdropFilter: 'blur(20px)',
+                            borderLeft: '1px solid rgba(0,0,0,0.06)',
+                        }}
+                        initial={{x: "100%", opacity: 0}}
                         animate={{x: "0%", opacity: 1}}
-                        exit={{x: "50%", opacity: 0}}
+                        exit={{x: "100%", opacity: 0}}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     >
-                        <ul className="flex px-2 flex-col w-full flex-wrap items-center justify-center gap-y-1 text-[0.9rem] font-medium text-gray-500 sm:w-[initial] sm:flex-nowrap sm:gap-5">
-                            {links.map((link) => (
+                        {/* Nav links */}
+                        <ul className="flex flex-col gap-1">
+                            {links.map((link, i) => (
                                 <motion.li
-                                    className="flex items-center justify-center relative w-full"
+                                    className="w-full"
                                     key={link.hash}
-                                    initial={{x: 100, opacity: 0}}
+                                    initial={{x: 40, opacity: 0}}
                                     animate={{x: 0, opacity: 1}}
+                                    transition={{ delay: i * 0.06, type: "spring", stiffness: 250, damping: 25 }}
                                 >
                                     <Link
                                         className={clsx(
-                                            "flex w-full items-center justify-center px-3 py-3 hover:text-gray-950 transition dark:text-gray-500 dark:hover:text-gray-300",
-                                            {
-                                                "text-gray-950 dark:text-gray-200":
-                                                    activeSection === link.name,
-                                            }
+                                            "flex w-full items-center px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200",
+                                            activeSection === link.name
+                                                ? "font-semibold"
+                                                : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
                                         )}
+                                        style={{
+                                            ...(activeSection === link.name ? {
+                                                background: 'linear-gradient(135deg, rgba(0,212,255,0.1), rgba(74,144,226,0.1))',
+                                                borderLeft: '3px solid #00D4FF',
+                                                color: '#00D4FF',
+                                            } : {
+                                                borderLeft: '3px solid transparent',
+                                            })
+                                        }}
                                         href={link.hash}
                                         onClick={() => {
                                             setActiveSection(link.name);
                                             setTimeOfLastClick(Date.now());
-                                            dispatch(closeMenu())
+                                            dispatch(closeMenu());
                                         }}
                                     >
                                         {link.name}
-
-                                        {link.name === activeSection && (
-                                            <motion.span
-                                                className="bg-gray-100 rounded-full absolute inset-0 -z-10 dark:bg-gray-800"
-                                                layoutId="activeSection"
-                                                transition={{
-                                                    type: "spring",
-                                                    stiffness: 380,
-                                                    damping: 30,
-                                                }}
-                                            ></motion.span>
-                                        )}
                                     </Link>
                                 </motion.li>
                             ))}
                         </ul>
-                    </motion.div>
-                </AnimatePresence>
-            }
-        </div>
 
+                        {/* Bottom CTA */}
+                        <div className="mt-8 pt-6" style={{ borderTop: '1px solid var(--color-border)' }}>
+                            <a
+                                href="/CV.pdf"
+                                download
+                                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-semibold text-white"
+                                style={{
+                                    background: 'linear-gradient(135deg, #00D4FF, #4A90E2)',
+                                    boxShadow: '0 4px 15px rgba(0,212,255,0.3)',
+                                }}
+                                onClick={() => dispatch(closeMenu())}
+                            >
+                                Download CV
+                            </a>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
     );
 };
 

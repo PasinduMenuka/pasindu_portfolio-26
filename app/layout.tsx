@@ -1,73 +1,136 @@
 'use client'
 import Header from "@/components/header";
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import ActiveSectionContextProvider from "@/context/active-section-context";
 import Footer from "@/components/footer";
 import ThemeSwitch from "@/components/theme-switch";
 import ThemeContextProvider from "@/context/theme-context";
 import { Toaster } from "react-hot-toast";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import OffCanvasMenu from "@/components/off-canvas-menu";
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const poppins = Poppins({ 
+  subsets: ["latin"], 
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-poppins"
+});
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-
   type value = {
     width: number | undefined,
     height: number | undefined
   }
 
   const [windowSize, setWindowSize] = useState<value>({
-    width : undefined,
+    width: undefined,
     height: undefined,
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
   });
 
   useEffect(() => {
-    // only execute all the code below in client side
-    // Handler to call on window resize
     function handleResize() {
-      // Set window width/height to state
-      setWindowSize(prevState => ({...prevState,width: window.innerWidth,height: window.innerHeight}));
+      setWindowSize(prevState => ({ ...prevState, width: window.innerWidth, height: window.innerHeight }));
     }
-
-    // Add event listener
     window.addEventListener("resize", handleResize);
-
-    // Call handler right away so state gets updated with initial window size
     handleResize();
-
-    // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  console.log(windowSize)
 
+  // Loading animation
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1400);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Mouse tracking for cursor glow
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
     <html lang="en" className="!scroll-smooth">
-      <body
-        className={`${inter.className} bg-gray-50 text-gray-950 relative pt-28 sm:pt-36 dark:bg-gray-900 dark:text-gray-50 dark:text-opacity-90`}
-      >
-        <div className="bg-[#fbe2e3] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem] dark:bg-[#946263]"></div>
-        <div className="bg-[#dbd7fb] absolute top-[-1rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[-28rem] xl:left-[-15rem] 2xl:left-[-5rem] dark:bg-[#676394]"></div>
+      <head>
+        <meta name="theme-color" content="#060d1a" />
+      </head>
+      <body className={`${inter.variable} ${poppins.variable} font-sans bg-[var(--color-bg)] text-[var(--color-text-primary)] relative pt-28 sm:pt-36 overflow-x-hidden mesh-bg`}>
+        
+        {/* Page loader */}
+        <AnimatePresence>
+          {isLoading && (
+            <motion.div
+              className="page-loader"
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="loader-logo">PS</div>
+              <div className="loader-bar">
+                <div className="loader-bar-fill" />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Scroll progress bar */}
+        <motion.div
+          className="scroll-progress"
+          style={{ scaleX }}
+        />
+
+        {/* Cursor glow (desktop only) */}
+        <div
+          className="cursor-glow hidden lg:block"
+          style={{
+            left: mousePos.x - 12,
+            top: mousePos.y - 12,
+          }}
+        />
+
+        {/* Background orbs for parallax depth */}
+        <div className="parallax-bg fixed inset-0 pointer-events-none z-[-1]">
+          <div className="floating-orb floating-orb-1" />
+          <div className="floating-orb floating-orb-2" />
+          <div className="floating-orb floating-orb-3" />
+        </div>
 
         <ThemeContextProvider>
           <ActiveSectionContextProvider>
             <Provider store={store}>
-              {
-                (windowSize.width && windowSize.width > 640) ? (<Header />) : (<OffCanvasMenu/>)
-              }
+              {(windowSize.width && windowSize.width > 640) ? (<Header />) : (<OffCanvasMenu />)}
               {children}
               <Footer />
-
-              <Toaster position="top-right" />
+              <Toaster 
+                position="top-right"
+                toastOptions={{
+                  style: {
+                    background: 'var(--glass-bg)',
+                    backdropFilter: 'blur(16px)',
+                    border: '1px solid var(--glass-border)',
+                    color: 'var(--color-text-primary)',
+                    borderRadius: '12px',
+                  }
+                }}
+              />
               <ThemeSwitch />
             </Provider>
           </ActiveSectionContextProvider>
