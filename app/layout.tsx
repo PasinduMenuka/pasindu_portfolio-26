@@ -1,5 +1,6 @@
 'use client'
 import Header from "@/components/header";
+import Image from "next/image";
 import "./globals.css";
 import { Inter, Poppins } from "next/font/google";
 import ActiveSectionContextProvider from "@/context/active-section-context";
@@ -83,9 +84,11 @@ export default function RootLayout({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="loader-logo">PS</div>
-              <div className="loader-bar">
-                <div className="loader-bar-fill" />
+              <div className="flex flex-col items-center justify-center gap-6">
+                <Image src="/Logo.png" alt="Logo" width={180} height={180} priority className="animate-pulse drop-shadow-xl" />
+                <div className="loader-bar">
+                  <div className="loader-bar-fill" />
+                </div>
               </div>
             </motion.div>
           )}
