@@ -107,7 +107,7 @@ export default function Intro() {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              UI/UX Engineer
+              UI/UX Engineer / Product Designer
             </span>
           </motion.p>
 

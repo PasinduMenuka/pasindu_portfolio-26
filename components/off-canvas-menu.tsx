@@ -35,10 +35,10 @@ const OffCanvasMenu = () => {
             <motion.div
                 className='z-40 w-full flex fixed justify-between items-center top-0 left-0 px-5 h-14'
                 style={{
-                    background: 'rgba(255,255,255,0.85)',
+                    background: 'var(--glass-bg)',
                     backdropFilter: 'blur(16px)',
                     WebkitBackdropFilter: 'blur(16px)',
-                    borderBottom: '1px solid rgba(0,0,0,0.06)',
+                    borderBottom: '1px solid var(--color-border)',
                 }}
                 initial={{y: -100, opacity: 0}}
                 animate={{y: 0, opacity: 1}}
@@ -94,10 +94,10 @@ const OffCanvasMenu = () => {
                     <motion.div
                         className='fixed right-0 top-0 bottom-0 w-[72%] max-w-[280px] z-40 pt-20 pb-8 px-6 overflow-y-auto'
                         style={{
-                            background: 'rgba(255,255,255,0.95)',
+                            background: 'var(--color-surface-hover)',
                             backdropFilter: 'blur(20px)',
                             WebkitBackdropFilter: 'blur(20px)',
-                            borderLeft: '1px solid rgba(0,0,0,0.06)',
+                            borderLeft: '1px solid var(--color-border)',
                         }}
                         initial={{x: "100%", opacity: 0}}
                         animate={{x: "0%", opacity: 1}}
