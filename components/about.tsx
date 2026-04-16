@@ -64,21 +64,15 @@ export default function About() {
         </div>
 
         <p className="text-[var(--color-text-secondary)] leading-8 text-base sm:text-lg mb-4">
-          As a{" "}
-          <span className="font-bold text-[var(--color-text-primary)]">Senior UI/UX Engineer</span>{" "}
+          <span className="font-bold text-[var(--color-text-primary)]">Product Designer & UI/UX Engineer</span>{" "}
           with{" "}
-          <span className="font-bold text-[var(--color-text-primary)]">over 5 years</span>{" "}
-          of dedicated experience, I am passionate about creating meaningful and intuitive digital
-          experiences that resonate with users.
+          <span className="font-bold text-[var(--color-text-primary)]">5+ years</span>{" "}
+          of experience designing intuitive web and mobile applications. Experienced in IoT, AI-driven products, POS systems, ERP platforms, and fintech solutions, with a strong focus on user research and end-to-end product design.
         </p>
 
         <p className="text-[var(--color-text-secondary)] leading-8 text-base sm:text-lg">
-          My role has been pivotal in shaping the design and functionality of various digital products,
-          including{" "}
-          <span className="font-bold text-[var(--color-text-primary)]">web applications</span> and{" "}
-          <span className="font-bold text-[var(--color-text-primary)]">mobile apps</span>, ensuring
-          optimal user engagement and satisfaction. I specialize in transforming concepts and ideas into
-          visually appealing, scalable, and highly functional interfaces.
+          Proficient in <span className="font-bold text-[var(--color-text-primary)]">React.js</span> and{" "}
+          <span className="font-bold text-[var(--color-text-primary)]">Next.js</span>, bridging the gap between design and development. Passionate about creating scalable, user-centered, and visually compelling digital experiences.
         </p>
       </motion.div>
 
