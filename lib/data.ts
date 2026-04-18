@@ -10,7 +10,7 @@ import mediCem from "@/public/projects/mediCem_thum.svg";
 import myStartUp from "@/public/projects/myStartup_thum.svg";
 import rcb from "@/public/projects/rcb_thum.png";
 import hvacIot from "@/public/projects/Hvac iot.png";
-import sesPortal from "@/public/projects/Home.png";
+import sesPortal from "@/public/projects/SES Dasboard rev/ses main image.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
 
