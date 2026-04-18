@@ -293,7 +293,7 @@ export default function CaseStudyPage() {
         tagline: "A comprehensive HVAC Energy Management Platform that delivers smart control, real-time visibility, asset lifecycle management, and energy optimization — balancing comfort, cost-efficiency, and control in one unified enterprise dashboard. Reduces energy costs up to 30%, cuts facility management time by 50%, and dramatically improves MTTR and alert visibility.",
         
         introduction: {
-            problem: "Facility managers struggled with monitoring multiple HVAC sites in real-time, identifying critical incidents quickly, managing energy consumption efficiently, reducing maintenance time and MTTR, and handling asset tracking across multiple locations. The system needed to reduce energy costs (up to 30%), improve operational visibility, provide proactive HVAC control, and simplify complex enterprise workflows.",
+            problem: "The main goal of this case study is to explain how I improved the UX of the dashboard. The current dashboard made it difficult to handle real-time alerts, track KPIs, and manage incidents. Furthermore, users found it difficult to identify the different types of alerts, leading to slower response times. Addressing these issues to improve operational visibility and proactive HVAC control was the primary objective.",
             role: "Senior UI/UX Engineer",
             timeline: "12 weeks (Sep 2025 - Dec 2025)",
             team: "5 Engineers, 2 Product Managers, 1 UX Designer (Me), 1 QA Engineer",
@@ -368,16 +368,17 @@ export default function CaseStudyPage() {
                 "Iteration 3: Multi-step wizard flows to reduce complexity in site creation and zone provisioning"
             ],
             userFlows: [
-                "Site View → KPI Cards → System Status → Quick Filters → Active Incidents → Incident Detail",
-                "Create New Site wizard: Site Details → Site Configuration → Facility Management → Business Hours",
-                "Create Zone flow: Zone Details → Feature Config → Review → Shopping List → Scan Devices → Auto Allocate → Install Checklist"
+                "1. User Flow Diagram: Menu → Site Analytics / Site Overview → Site Analytics / Incidents → Site Summary → Site Overview -HVAC → Set Temperature → Incident → Incident View → Create Work Order → Incident View with Work Order Details → Zones → Advanced Site Settings → Devices → Add Device → Add Gateway → Gateways → Manage Role → Add Role → Manage Users → Manage Invitations",
+                "2. Site Creation Process: Site Details → Site Configuration → Facility Management → Facility Management + Select Company → Facility Management - Create New Vendor → Edit Vendor → Operating Hours"
             ],
             keyDecisions: [
                 "Dark-mode optimized dashboard for long monitoring sessions",
                 "Visual hierarchy: Red → Critical (P1), Yellow → Medium (P2), Blue → Work Orders, Teal → Active/Healthy",
                 "Multi-step guided wizards reduce cognitive load for complex configuration",
                 "Desktop-first with adaptive table behaviour and touch-friendly tablet support"
-            ]
+            ],
+            userFlowImage: "/projects/SES Dasboard rev/User flow ses.png",
+            iaImage: "/projects/SES Dasboard rev/Infomation architecture digram ses.png"
         },
         
         uiDesign: {
@@ -486,33 +487,253 @@ export default function CaseStudyPage() {
         },
         
         keyScreens: [
+            // Core User Flow
             {
-                title: "Site View — Dashboard Overview",
-                description: "Operations monitoring and incident management with MTTA, MTTR, trend charts, and quick filters.",
-                image: "/projects/Site Overview.png",
-                category: "Dashboard",
-                purpose: "Operations monitoring and incident management"
+                title: "Menu",
+                description: "Navigation menu providing quick access to all dashboard modules and settings.",
+                image: "/projects/SES Dasboard rev/Menu.png",
+                category: "Primary Flow",
+                purpose: "Main Navigation"
             },
             {
-                title: "Site Overview — HVAC Unit Management",
-                description: "Facility-level HVAC monitoring with weather summary, power usage, energy saved metrics, and unit table.",
-                image: "/projects/Site Overview -HVAC.png",
-                category: "Site Detail",
-                purpose: "Facility-level HVAC monitoring and control"
+                title: "Site Analytics & Overview",
+                description: "Comprehensive site analytics with high-level key performance indicators and status.",
+                image: "/projects/SES Dasboard rev/Site Overview.png",
+                category: "Primary Flow",
+                purpose: "Operations monitoring"
             },
             {
-                title: "Site View — Site Overview Table",
-                description: "Multi-site performance comparison with status filters, DLC filters, and pagination.",
-                image: "/projects/Incidents.png",
-                category: "Multi-Site",
-                purpose: "Multi-site performance comparison and tracking"
+                title: "Site Analytics - Incidents",
+                description: "Detailed breakdown of site incidents, allowing managers to track and analyze anomalies.",
+                image: "/projects/SES Dasboard rev/Incidents.jpg",
+                category: "Primary Flow",
+                purpose: "Incident Tracking"
             },
             {
-                title: "Site Summary — Advanced Site Management",
-                description: "Administration, filtering, and system-wide management with global search and export.",
-                image: "/projects/Site Summary.png",
-                category: "Administration",
-                purpose: "Administration, filtering, and system-wide management"
+                title: "Site Summary",
+                description: "Aggregated views of site health, energy utilization, and active alerts.",
+                image: "/projects/SES Dasboard rev/Site Summary.jpg",
+                category: "Primary Flow",
+                purpose: "Site Health Overview"
+            },
+            {
+                title: "Site Overview - HVAC",
+                description: "Deep dive into HVAC system performance, zone temperatures, and specific unit details.",
+                image: "/projects/SES Dasboard rev/Site Overview -HVAC.jpg",
+                category: "Primary Flow",
+                purpose: "HVAC Unit Monitoring"
+            },
+            {
+                title: "Set Temperature",
+                description: "Interface for remote adjustment of HVAC setpoints across multiple zones.",
+                image: "/projects/SES Dasboard rev/Set Temperature.jpg",
+                category: "Primary Flow",
+                purpose: "Remote Control"
+            },
+            {
+                title: "Incident Tracking",
+                description: "List of tracked incidents with severity levels, requiring operational attention.",
+                image: "/projects/SES Dasboard rev/Incident.jpg",
+                category: "Primary Flow",
+                purpose: "Anomaly Detection"
+            },
+            {
+                title: "Incident Details",
+                description: "Detailed view of a specific incident, displaying its origin, timestamps, and history.",
+                image: "/projects/SES Dasboard rev/Incident view.jpg",
+                category: "Primary Flow",
+                purpose: "Root Cause Analysis"
+            },
+            {
+                title: "Create Work Order",
+                description: "Streamlined workflow for creating work orders linked to specific, active incidents.",
+                image: "/projects/SES Dasboard rev/create work order.png",
+                category: "Primary Flow",
+                purpose: "Maintenance Ticketing"
+            },
+            {
+                title: "Incident View with Work Order",
+                description: "Combined view showing the original incident alongside its associated, dispatched work order.",
+                image: "/projects/SES Dasboard rev/Incident view with Work order details.jpg",
+                category: "Primary Flow",
+                purpose: "Resolution Tracking"
+            },
+            {
+                title: "Zones Management",
+                description: "Grid view of distinct zones within a facility, grouped for targeted environmental control.",
+                image: "/projects/SES Dasboard rev/zones.jpg",
+                category: "Primary Flow",
+                purpose: "Space Management"
+            },
+            {
+                title: "Advanced Site Settings",
+                description: "Root configuration view for site-wide operational parameters and preferences.",
+                image: "/projects/SES Dasboard rev/Configuration main setting.jpg",
+                category: "Primary Flow",
+                purpose: "Systems Configuration"
+            },
+            {
+                title: "Device Inventory",
+                description: "Centralized list of all connected IoT devices, including statuses and network health.",
+                image: "/projects/SES Dasboard rev/Devices.jpg",
+                category: "Primary Flow",
+                purpose: "Asset Tracking"
+            },
+            {
+                title: "Add New Device",
+                description: "Form for provisioning a new IoT device, assigning it to a zone and specific network.",
+                image: "/projects/SES Dasboard rev/Add Device.jpg",
+                category: "Primary Flow",
+                purpose: "Hardware Provisioning"
+            },
+            {
+                title: "Add Gateway",
+                description: "Wizard for onboarding a new gateway controller to link unmanaged edge devices.",
+                image: "/projects/SES Dasboard rev/Add Gateway.jpg",
+                category: "Primary Flow",
+                purpose: "Network Expansion"
+            },
+            {
+                title: "Gateway Management",
+                description: "Monitoring connected gateways, connection stability, and child devices.",
+                image: "/projects/SES Dasboard rev/Gateways.jpg",
+                category: "Primary Flow",
+                purpose: "Infrastructure Monitoring"
+            },
+            {
+                title: "Manage Roles",
+                description: "Granular access control allowing administrators to duplicate or modify user permission levels.",
+                image: "/projects/SES Dasboard rev/Manage role with duplicate icon.jpg",
+                category: "Primary Flow",
+                purpose: "Access Control"
+            },
+            {
+                title: "Add Role",
+                description: "Custom role creation interface with specific permission checklists.",
+                image: "/projects/SES Dasboard rev/Add Role.jpg",
+                category: "Primary Flow",
+                purpose: "Security Administration"
+            },
+            {
+                title: "Manage Users",
+                description: "List of registered users, their roles, and status across the platform.",
+                image: "/projects/SES Dasboard rev/Manage users.jpg",
+                category: "Primary Flow",
+                purpose: "User Administration"
+            },
+            {
+                title: "Manage Invitations",
+                description: "View and control over pending user invitations and onboarding links.",
+                image: "/projects/SES Dasboard rev/manage Invitations.jpg",
+                category: "Primary Flow",
+                purpose: "Onboarding Tracking"
+            },
+            // Site Creation Process
+            {
+                title: "Site Details Setup",
+                description: "Step one of the site creation flow, collecting basic geographical and naming information.",
+                image: "/projects/SES Dasboard rev/Site Details.png",
+                category: "Site Creation Flow",
+                purpose: "Site Initialization"
+            },
+            {
+                title: "Site Configuration",
+                description: "Step two involving core system settings and operational targets.",
+                image: "/projects/SES Dasboard rev/Site Configuration.jpg",
+                category: "Site Creation Flow",
+                purpose: "Core Setup"
+            },
+            {
+                title: "Facility Management",
+                description: "Connecting the site to facility management companies and vendors.",
+                image: "/projects/SES Dasboard rev/Facility Managment.jpg",
+                category: "Site Creation Flow",
+                purpose: "Vendor Integration"
+            },
+            {
+                title: "Select Company",
+                description: "Associating a pre-existing enterprise vendor to the new facility.",
+                image: "/projects/SES Dasboard rev/Facility Management  + select company.png",
+                category: "Site Creation Flow",
+                purpose: "Service Linkage"
+            },
+            {
+                title: "Create New Vendor",
+                description: "Inline creation of a new vendor entity if one does not exist.",
+                image: "/projects/SES Dasboard rev/Facility Management- create new vendor.jpg",
+                category: "Site Creation Flow",
+                purpose: "Partner Creation"
+            },
+            {
+                title: "Edit Vendor Details",
+                description: "Modifying vendor contacts and assigned service level agreements.",
+                image: "/projects/SES Dasboard rev/Edit Vendor.png",
+                category: "Site Creation Flow",
+                purpose: "Partner Management"
+            },
+            {
+                title: "Operating Hours",
+                description: "Final step setting regular schedule rules and occupied modes.",
+                image: "/projects/SES Dasboard rev/Operaing Hours.png",
+                category: "Site Creation Flow",
+                purpose: "Schedule Definition"
+            },
+            // System Administration & Client Management
+            {
+                title: "Add Customer",
+                description: "Form to register a new enterprise client to the portal.",
+                image: "/projects/SES Dasboard rev/Add customer.jpg",
+                category: "Client Management",
+                purpose: "Client Enrollment"
+            },
+            {
+                title: "System Alerts",
+                description: "Global alert center showing system-wide notifications and warnings.",
+                image: "/projects/SES Dasboard rev/Alert.jpg",
+                category: "System Notifications",
+                purpose: "Global Notifications"
+            },
+            {
+                title: "Customer List",
+                description: "Directory of client entities managed within the system.",
+                image: "/projects/SES Dasboard rev/Customer.jpg",
+                category: "Client Management",
+                purpose: "Entity Tracking"
+            },
+            {
+                title: "Delete Invitation",
+                description: "Revocation flow for a previously sent onboarding invite.",
+                image: "/projects/SES Dasboard rev/Delete invitation.jpg",
+                category: "User Administration",
+                purpose: "Access Revocation"
+            },
+            {
+                title: "Edit User",
+                description: "Modifying profile and access details of a specific user account.",
+                image: "/projects/SES Dasboard rev/Edit users.jpg",
+                category: "User Administration",
+                purpose: "Profile Update"
+            },
+            {
+                title: "Invite User Details",
+                description: "Detailed configuration when sending an invitation link to a user.",
+                image: "/projects/SES Dasboard rev/Invite user.jpg",
+                category: "User Administration",
+                purpose: "Targeted Onboarding"
+            },
+            {
+                title: "Resend Email",
+                description: "Action to dispatch notification or invite emails a second time.",
+                image: "/projects/SES Dasboard rev/Resend email.jpg",
+                category: "User Administration",
+                purpose: "Communication Retry"
+            },
+            {
+                title: "Temperature Trends",
+                description: "Detailed time-series graphs mapping temperature changes over extended periods.",
+                image: "/projects/SES Dasboard rev/Temperature Trend.jpg",
+                category: "Analytics & Reporting",
+                purpose: "Long-term Analytics"
             }
         ],
         
@@ -907,6 +1128,39 @@ export default function CaseStudyPage() {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Diagrams */}
+                        {(caseStudy.wireframing as any).userFlowImage && (
+                            <div className="mt-12">
+                                <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">User Flow Diagram</h3>
+                                <p className="text-gray-600 dark:text-gray-400 mb-6">A comprehensive visual representation showing the sequence of pages a user navigates through, designed to streamline real-time alert handling and KPI tracking.</p>
+                                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg overflow-hidden flex justify-center">
+                                    <Image
+                                        src={(caseStudy.wireframing as any).userFlowImage}
+                                        alt="User Flow Diagram"
+                                        width={1200}
+                                        height={800}
+                                        className="w-full h-auto object-contain rounded-lg"
+                                    />
+                                </div>
+                            </div>
+                        )}
+
+                        {(caseStudy.wireframing as any).iaImage && (
+                            <div className="mt-12">
+                                <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Information Architecture</h3>
+                                <p className="text-gray-600 dark:text-gray-400 mb-6">The restructured information architecture effectively maps out core features, establishing logical hierarchy and ensuring rapid discovery of alerts and system settings.</p>
+                                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg overflow-hidden flex justify-center">
+                                    <Image
+                                        src={(caseStudy.wireframing as any).iaImage}
+                                        alt="Information Architecture Diagram"
+                                        width={1200}
+                                        height={800}
+                                        className="w-full h-auto object-contain rounded-lg"
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </motion.div>
                 </div>
             </section>
