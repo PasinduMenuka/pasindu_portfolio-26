@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import { HiDownload } from "react-icons/hi";
@@ -40,12 +40,61 @@ export default function Intro() {
   const { ref } = useSectionInView("Home", 0.5);
   const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Background parallax — moves slower than scroll
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+
+  // Content — fades out, moves up, scales down
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -60]);
+  const contentScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+
   return (
     <section
-      ref={ref}
+      ref={(node) => {
+        // Merge both refs
+        (sectionRef as React.MutableRefObject<HTMLElement | null>).current = node;
+        if (typeof ref === "function") ref(node);
+        else if (ref) (ref as React.MutableRefObject<HTMLElement | null>).current = node;
+      }}
       id="home"
-      className="mb-28 max-w-[82rem] w-full sm:mb-0 scroll-mt-[100rem] relative px-4"
+      className="relative w-screen left-1/2 -translate-x-1/2 -mt-28 sm:-mt-36 overflow-hidden scroll-mt-[100rem] mb-16 sm:mb-0"
     >
+      {/* ── Video + Laser Background ── */}
+      <motion.div
+        className="hero-bg-container"
+        style={{ y: bgY, scale: bgScale }}
+      >
+        <video className="hero-bg-video" autoPlay muted loop playsInline>
+          <source src="/Bg-gif.mp4" type="video/mp4" />
+        </video>
+        <div className="hero-bg-overlay" />
+        <div className="hero-bg-grid" />
+        <div className="hero-vlines-glow" />
+        <div className="hero-vlines" />
+        {/* Animated laser beams traveling down the lines */}
+        <div className="hero-beams">
+          {[0,1,2,3,4,5,6,7].map((i) => (
+            <div key={i} className={`hero-beam hero-beam-${i}`}>
+              <div className="beam-glow" />
+            </div>
+          ))}
+        </div>
+        <div className="hero-vlines-shimmer" />
+        <div className="hero-bg-vignette" />
+      </motion.div>
+
+      {/* ── Content — padded to clear the fixed header ── */}
+      <motion.div
+        className="relative z-10 max-w-[82rem] mx-auto px-4 pt-28 sm:pt-36 pb-20"
+        style={{ opacity: contentOpacity, y: contentY, scale: contentScale }}
+      >
       <motion.div
         className="flex flex-col lg:flex-row items-center justify-between gap-14 lg:gap-12"
         variants={containerVariants}
@@ -343,7 +392,7 @@ export default function Intro() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="hidden lg:flex flex-col items-center gap-2 mt-20 cursor-pointer select-none"
+        className="hidden lg:flex flex-col items-center gap-2 mt-20 pb-10 cursor-pointer select-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8 }}
@@ -362,6 +411,7 @@ export default function Intro() {
           />
         </div>
       </motion.div>
+      </motion.div>{/* end z-10 content wrapper */}
     </section>
   );
 }
