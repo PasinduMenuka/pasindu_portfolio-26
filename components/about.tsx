@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
@@ -27,6 +28,26 @@ export default function About() {
       <SectionHeading subtitle="Passionate about creating meaningful digital experiences">
         About me
       </SectionHeading>
+
+      {/* Profile photo */}
+      <motion.div
+        className="about-avatar-wrap"
+        initial={{ opacity: 0, scale: 0.85 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", stiffness: 130, damping: 18, delay: 0.1 }}
+      >
+        <div className="about-avatar-ring">
+          <Image
+            src="/projects/profile image.jpeg"
+            alt="Pasindu Sannasuriya"
+            width={160}
+            height={160}
+            className="about-avatar-img"
+            priority
+          />
+        </div>
+      </motion.div>
 
       {/* Glassmorphism card */}
       <motion.div

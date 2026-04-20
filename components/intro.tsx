@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { BsArrowRight, BsLinkedin } from "react-icons/bs";
+import { BsArrowRight, BsLinkedin, BsGrid3X3Gap } from "react-icons/bs";
 import { HiDownload } from "react-icons/hi";
-import { FaGithubSquare } from "react-icons/fa";
+import { FaGithubSquare, FaReact, FaFigma, FaHtml5, FaCss3Alt, FaJsSquare } from "react-icons/fa";
+import { SiNextdotjs, SiTailwindcss, SiTypescript, SiFramer, SiRedux, SiAdobephotoshop, SiAdobexd, SiMiro } from "react-icons/si";
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
 
@@ -14,27 +14,61 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.12, delayChildren: 0.18 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 180, damping: 22 },
+    transition: { type: "spring", stiffness: 150, damping: 22 },
   },
 };
 
-const imageVariants = {
-  hidden: { opacity: 0, x: 40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { type: "spring", stiffness: 140, damping: 24, delay: 0.25 },
-  },
-};
+const heroStats = [
+  { value: "5+", label: "Years Exp." },
+  { value: "20+", label: "Projects" },
+  { value: "100%", label: "Dedication" },
+];
+
+const techStack = [
+  { name: "Next.js", icon: SiNextdotjs },
+  { name: "React", icon: FaReact },
+  { name: "TypeScript", icon: SiTypescript },
+  { name: "Tailwind", icon: SiTailwindcss },
+  { name: "Framer Motion", icon: SiFramer },
+  { name: "Redux", icon: SiRedux },
+  { name: "Figma", icon: FaFigma },
+  { name: "Shadcn UI", icon: BsGrid3X3Gap },
+  { name: "Adobe XD", icon: SiAdobexd },
+  { name: "Miro", icon: SiMiro },
+  { name: "HTML5", icon: FaHtml5 },
+  { name: "CSS3", icon: FaCss3Alt },
+  { name: "JavaScript", icon: FaJsSquare },
+  { name: "Photoshop", icon: SiAdobephotoshop },
+];
+
+function TechCarousel() {
+  const track = [...techStack, ...techStack];
+
+  return (
+    <div className="hero-tech-marquee" aria-label="Technology stack">
+      <div className="hero-tech-track">
+        {track.map((tech, index) => {
+          const Icon = tech.icon;
+          return (
+            <div key={`${tech.name}-${index}`} className="hero-tech-pill">
+              <Icon className="hero-tech-icon" />
+              <span>{tech.name}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 export default function Intro() {
   const { ref } = useSectionInView("Home", 0.5);
@@ -46,372 +80,116 @@ export default function Intro() {
     offset: ["start start", "end start"],
   });
 
-  // Background parallax — moves slower than scroll
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-
-  // Content — fades out, moves up, scales down
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -60]);
-  const contentScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.04]);
+  const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -30]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0.85]);
 
   return (
     <section
       ref={(node) => {
-        // Merge both refs
         (sectionRef as React.MutableRefObject<HTMLElement | null>).current = node;
         if (typeof ref === "function") ref(node);
         else if (ref) (ref as React.MutableRefObject<HTMLElement | null>).current = node;
       }}
       id="home"
-      className="relative w-screen left-1/2 -translate-x-1/2 -mt-28 sm:-mt-36 overflow-hidden scroll-mt-[100rem] mb-16 sm:mb-0"
+      className="relative w-screen overflow-hidden -mt-28 sm:-mt-36 scroll-mt-[100rem] mb-14 sm:mb-0"
     >
-      {/* ── Video + Laser Background ── */}
-      <motion.div
-        className="hero-bg-container"
-        style={{ y: bgY, scale: bgScale }}
-      >
-        <video className="hero-bg-video" autoPlay muted loop playsInline>
-          <source src="/Bg-gif.mp4" type="video/mp4" />
-        </video>
-        <div className="hero-bg-overlay" />
-        <div className="hero-bg-grid" />
-        <div className="hero-vlines-glow" />
-        <div className="hero-vlines" />
-        {/* Animated laser beams traveling down the lines */}
-        <div className="hero-beams">
-          {[0,1,2,3,4,5,6,7].map((i) => (
-            <div key={i} className={`hero-beam hero-beam-${i}`}>
-              <div className="beam-glow" />
-            </div>
-          ))}
-        </div>
-        <div className="hero-vlines-shimmer" />
-        <div className="hero-bg-vignette" />
+      <motion.div className="hero-modern-bg" style={{ y: bgY, scale: bgScale }}>
+        <div className="hero-modern-orb hero-modern-orb-a" />
+        <div className="hero-modern-orb hero-modern-orb-b" />
+        <div className="hero-modern-grid" />
       </motion.div>
 
-      {/* ── Content — padded to clear the fixed header ── */}
       <motion.div
-        className="relative z-10 max-w-[82rem] mx-auto px-4 pt-28 sm:pt-36 pb-20"
-        style={{ opacity: contentOpacity, y: contentY, scale: contentScale }}
-      >
-      <motion.div
-        className="flex flex-col lg:flex-row items-center justify-between gap-14 lg:gap-12"
+        className="relative z-10 mx-auto max-w-[64rem] px-4 sm:px-8 pt-20 sm:pt-40 pb-10 sm:pb-20 flex flex-col items-center text-center"
+        style={{ y: contentY, opacity: contentOpacity }}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* ── Left Content ── */}
-        <div className="flex-1 text-center lg:text-left">
-
-          {/* Available badge */}
-          <motion.div
-            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full mb-7 border"
-            style={{
-              background: 'var(--glass-bg)',
-              backdropFilter: 'blur(12px)',
-              borderColor: 'rgba(34, 197, 94, 0.3)',
-            }}
-            variants={itemVariants}
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-            </span>
-            <span className="text-sm font-medium text-green-600 dark:text-green-400">
-              Available for new opportunities
-            </span>
-          </motion.div>
-
-          {/* Name */}
-          <motion.div variants={itemVariants}>
-            <h1 className="text-5xl sm:text-6xl lg:text-[4.5rem] xl:text-[5.5rem] font-extrabold leading-[1.04] tracking-tight mb-5">
-              <span className="block text-[var(--color-text-primary)]">Hi, I'm</span>
-              <span
-                className="block"
-                style={{
-                  background: 'linear-gradient(135deg, #00D4FF 0%, #4A90E2 55%, #8B5CF6 100%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                Pasindu
-              </span>
-            </h1>
-          </motion.div>
-
-          {/* Role line */}
-          <motion.p
-            className="text-lg sm:text-xl font-medium text-[var(--color-text-secondary)] mb-2 leading-relaxed"
-            variants={itemVariants}
-          >
-            Senior{" "}
-            <span
-              className="font-bold"
-              style={{
-                background: 'linear-gradient(135deg, #00D4FF, #4A90E2)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              UI/UX Engineer / Product Designer
-            </span>
-          </motion.p>
-
-          <motion.p
-            className="text-base text-[var(--color-text-muted)] mb-9 max-w-lg mx-auto lg:mx-0"
-            variants={itemVariants}
-          >
-            Crafting user-centric digital experiences with{" "}
-            <span className="font-semibold text-[var(--color-text-secondary)]">5+ years</span>{" "}
-            of turning complex problems into beautiful, intuitive solutions.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 mb-9"
-            variants={itemVariants}
-          >
-            <Link
-              href="#contact"
-              className="btn-primary"
-              onClick={() => {
-                setActiveSection("Contact");
-                setTimeOfLastClick(Date.now());
-              }}
-            >
-              Let's work together
-              <BsArrowRight className="text-sm" />
-            </Link>
-
-            <a className="btn-secondary" href="/CV.pdf" download>
-              Download CV
-              <HiDownload className="text-sm" />
-            </a>
-          </motion.div>
-
-          {/* Social + Stats row */}
-          <motion.div
-            className="flex items-center justify-center lg:justify-start gap-3 flex-wrap"
-            variants={itemVariants}
-          >
-            {/* LinkedIn */}
-            <a
-              className="flex items-center gap-2 p-3 rounded-full border transition-all duration-300"
-              style={{
-                background: 'var(--glass-bg)',
-                backdropFilter: 'blur(12px)',
-                borderColor: 'var(--glass-border)',
-                color: 'var(--color-text-secondary)',
-              }}
-              href="https://linkedin.com"
-              target="_blank"
-              aria-label="LinkedIn Profile"
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = 'rgba(0,212,255,0.5)';
-                el.style.color = '#00D4FF';
-                el.style.boxShadow = '0 0 18px rgba(0,212,255,0.2)';
-                el.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = 'var(--glass-border)';
-                el.style.color = 'var(--color-text-secondary)';
-                el.style.boxShadow = 'none';
-                el.style.transform = 'none';
-              }}
-            >
-              <BsLinkedin className="text-xl" />
-            </a>
-
-            {/* GitHub */}
-            <a
-              className="flex items-center gap-2 p-3 rounded-full border transition-all duration-300"
-              style={{
-                background: 'var(--glass-bg)',
-                backdropFilter: 'blur(12px)',
-                borderColor: 'var(--glass-border)',
-                color: 'var(--color-text-secondary)',
-              }}
-              href="https://github.com"
-              target="_blank"
-              aria-label="GitHub Profile"
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = 'rgba(0,212,255,0.5)';
-                el.style.color = '#00D4FF';
-                el.style.boxShadow = '0 0 18px rgba(0,212,255,0.2)';
-                el.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = 'var(--glass-border)';
-                el.style.color = 'var(--color-text-secondary)';
-                el.style.boxShadow = 'none';
-                el.style.transform = 'none';
-              }}
-            >
-              <FaGithubSquare className="text-2xl" />
-            </a>
-
-            {/* Divider */}
-            <div className="hidden sm:block w-px h-8" style={{ background: 'var(--color-border)' }} />
-
-            {/* Stat pills */}
-            {[
-              { value: '5+', label: 'Years exp.' },
-              { value: '20+', label: 'Projects' },
-            ].map((s) => (
-              <div
-                key={s.label}
-                className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full border"
-                style={{
-                  background: 'var(--glass-bg)',
-                  backdropFilter: 'blur(12px)',
-                  borderColor: 'var(--glass-border)',
-                }}
-              >
-                <span
-                  className="text-sm font-bold"
-                  style={{
-                    background: 'linear-gradient(135deg, #00D4FF, #4A90E2)',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                  }}
-                >
-                  {s.value}
-                </span>
-                <span className="text-xs text-[var(--color-text-muted)]">{s.label}</span>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* ── Right — Profile Image ── */}
+        {/* Available badge */}
         <motion.div
-          className="relative flex-shrink-0 flex items-center justify-center"
-          variants={imageVariants}
+          variants={itemVariants}
+          className="inline-flex items-center gap-2 rounded-full border px-4 py-2 mb-5 sm:mb-8 hero-badge"
         >
-          {/* Static ambient glow — no rotation */}
-          <div
-            className="absolute inset-0 rounded-3xl blur-3xl opacity-30 pointer-events-none"
-            style={{
-              background: 'radial-gradient(ellipse at center, #00D4FF 0%, #4A90E2 40%, transparent 70%)',
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+          </span>
+          <span>Available for new opportunities</span>
+        </motion.div>
+
+        {/* Headline */}
+        <motion.h1 variants={itemVariants} className="hero-title">
+          <span className="block">Hi, I&apos;m</span>
+          <span className="block hero-title-accent">Pasindu</span>
+        </motion.h1>
+
+        {/* Role */}
+        <motion.p variants={itemVariants} className="hero-role">
+          Senior <span>UI/UX Engineer / Product Designer</span>
+        </motion.p>
+
+        {/* Description */}
+        <motion.p variants={itemVariants} className="hero-copy">
+          Crafting user-centric digital experiences with <span>5+ years</span> of turning
+          complex problems into beautiful, intuitive solutions.
+        </motion.p>
+
+        {/* Inline stat pills */}
+        <motion.div variants={itemVariants} className="hero-stat-pills">
+          {heroStats.map((s) => (
+            <div key={s.label} className="hero-stat-pill">
+              <span className="hero-stat-pill-value">{s.value}</span>
+              <span className="hero-stat-pill-label">{s.label}</span>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* CTA buttons */}
+        <motion.div
+          variants={itemVariants}
+          className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none mx-auto"
+        >
+          <Link
+            href="#contact"
+            className="btn-primary w-full sm:w-auto"
+            onClick={() => {
+              setActiveSection("Contact");
+              setTimeOfLastClick(Date.now());
             }}
-          />
-
-          {/* Decorative corner accent — top-left */}
-          <div
-            className="absolute -top-3 -left-3 w-14 h-14 rounded-tl-2xl border-t-2 border-l-2 pointer-events-none"
-            style={{ borderColor: '#00D4FF', opacity: 0.6 }}
-          />
-          {/* Decorative corner accent — bottom-right */}
-          <div
-            className="absolute -bottom-3 -right-3 w-14 h-14 rounded-br-2xl border-b-2 border-r-2 pointer-events-none"
-            style={{ borderColor: '#4A90E2', opacity: 0.6 }}
-          />
-
-          {/* Image frame */}
-          <div
-            className="relative h-64 w-56 sm:h-[22rem] sm:w-72 lg:h-[26rem] lg:w-80 rounded-2xl overflow-hidden shadow-2xl"
-            style={{ border: '1.5px solid rgba(0,212,255,0.25)' }}
           >
-            <Image
-              src="/projects/profile image.jpeg"
-              alt="Pasindu Sannasuriya"
-              width={320}
-              height={420}
-              quality={95}
-              priority
-              className="h-full w-full object-cover object-top"
-            />
-            {/* Subtle colour wash */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#060d1a]/30 via-transparent to-transparent pointer-events-none" />
+            Let&apos;s work together
+            <BsArrowRight className="text-sm" />
+          </Link>
+          <a className="btn-secondary w-full sm:w-auto" href="/CV.pdf" download>
+            Download CV
+            <HiDownload className="text-sm" />
+          </a>
+        </motion.div>
+
+        {/* Social links */}
+        <motion.div variants={itemVariants} className="mt-4 sm:mt-5 flex items-center justify-center gap-3">
+          <a className="hero-social" href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile">
+            <BsLinkedin />
+          </a>
+          <a className="hero-social" href="https://github.com" target="_blank" aria-label="GitHub Profile">
+            <FaGithubSquare />
+          </a>
+        </motion.div>
+
+        {/* Tech Carousel */}
+        <motion.div variants={itemVariants} className="mt-10 sm:mt-14 w-full">
+          <div className="hero-tech-panel">
+            <div className="hero-tech-header">
+              <span className="hero-tech-label">Tech Stack</span>
+              <span className="hero-tech-subtitle">Trusted tools &amp; product stack</span>
+            </div>
+            <TechCarousel />
           </div>
-
-          {/* Stat card — experience (right side) */}
-          <motion.div
-            className="absolute -right-5 top-8 flex flex-col items-center gap-0.5 px-4 py-3 rounded-xl border hidden sm:flex"
-            style={{
-              background: 'var(--glass-bg)',
-              backdropFilter: 'blur(16px)',
-              borderColor: 'rgba(0,212,255,0.25)',
-              boxShadow: '0 4px 24px rgba(0,212,255,0.12)',
-            }}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.9, type: 'spring', stiffness: 160, damping: 20 }}
-          >
-            <span
-              className="text-xl font-extrabold leading-none"
-              style={{
-                background: 'linear-gradient(135deg, #00D4FF, #4A90E2)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              5+
-            </span>
-            <span className="text-[10px] text-[var(--color-text-muted)] font-medium tracking-wide">Years</span>
-          </motion.div>
-
-          {/* Stat card — projects (bottom) */}
-          <motion.div
-            className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-3 px-5 py-3 rounded-xl border hidden sm:flex"
-            style={{
-              background: 'var(--glass-bg)',
-              backdropFilter: 'blur(16px)',
-              borderColor: 'rgba(74,144,226,0.25)',
-              boxShadow: '0 4px 24px rgba(74,144,226,0.12)',
-              whiteSpace: 'nowrap',
-            }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.05, type: 'spring', stiffness: 160, damping: 20 }}
-          >
-            <span
-              className="text-xl font-extrabold"
-              style={{
-                background: 'linear-gradient(135deg, #4A90E2, #8B5CF6)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              20+
-            </span>
-            <span className="text-xs text-[var(--color-text-muted)] font-medium">Projects Delivered</span>
-          </motion.div>
         </motion.div>
       </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="hidden lg:flex flex-col items-center gap-2 mt-20 pb-10 cursor-pointer select-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-        onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
-      >
-        <span className="text-[10px] text-[var(--color-text-muted)] tracking-[0.2em] uppercase">Scroll</span>
-        <div
-          className="w-5 h-8 rounded-full border flex items-start justify-center p-1"
-          style={{ borderColor: 'var(--color-border)' }}
-        >
-          <motion.div
-            className="w-1 h-2 rounded-full"
-            style={{ background: 'linear-gradient(180deg, #00D4FF, #4A90E2)' }}
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </div>
-      </motion.div>
-      </motion.div>{/* end z-10 content wrapper */}
     </section>
   );
 }
