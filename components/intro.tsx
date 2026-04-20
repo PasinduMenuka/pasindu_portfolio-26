@@ -163,7 +163,7 @@ export default function Intro() {
             Let&apos;s work together
             <BsArrowRight className="text-sm" />
           </Link>
-          <a className="btn-secondary w-full sm:w-auto" href="/CV.pdf" download>
+          <a className="btn-secondary w-full sm:w-auto" href="/Pasindu-Sannasuriya-Resume.pdf" download="Pasindu-Sannasuriya-Resume.pdf">
             Download CV
             <HiDownload className="text-sm" />
           </a>
