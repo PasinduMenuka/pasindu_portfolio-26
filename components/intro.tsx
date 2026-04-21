@@ -135,8 +135,7 @@ export default function Intro() {
 
         {/* Description */}
         <motion.p variants={itemVariants} className="hero-copy">
-          Crafting user-centric digital experiences with <span>5+ years</span> of turning
-          complex problems into beautiful, intuitive solutions.
+          Turning poorly defined problems into precise, scalable product experiences through rigorous <span>UX thinking</span> and technical design execution.
         </motion.p>
 
         {/* Inline stat pills */}
