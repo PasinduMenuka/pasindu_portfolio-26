@@ -9,6 +9,7 @@ import { FaGithubSquare, FaReact, FaFigma, FaHtml5, FaCss3Alt, FaJsSquare } from
 import { SiNextdotjs, SiTailwindcss, SiTypescript, SiFramer, SiRedux, SiAdobephotoshop, SiAdobexd, SiMiro } from "react-icons/si";
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
+import LaserBg from "@/components/laser-bg";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -93,8 +94,10 @@ export default function Intro() {
         else if (ref) (ref as React.MutableRefObject<HTMLElement | null>).current = node;
       }}
       id="home"
-      className="relative w-screen overflow-hidden -mt-28 sm:-mt-36 scroll-mt-[100rem] mb-14 sm:mb-0"
+      className="relative w-screen overflow-hidden -mt-28 sm:-mt-36 scroll-mt-[100rem] mb-14 sm:mb-0 cursor-none"
     >
+      <LaserBg />
+
       <motion.div className="hero-modern-bg" style={{ y: bgY, scale: bgScale }}>
         <div className="hero-modern-orb hero-modern-orb-a" />
         <div className="hero-modern-orb hero-modern-orb-b" />
@@ -122,8 +125,7 @@ export default function Intro() {
 
         {/* Headline */}
         <motion.h1 variants={itemVariants} className="hero-title">
-          <span className="block">Hi, I&apos;m</span>
-          <span className="block hero-title-accent">Pasindu</span>
+          <span className="block">Hi, I&apos;m <span className="hero-title-accent">Pasindu</span></span>
         </motion.h1>
 
         {/* Role */}
