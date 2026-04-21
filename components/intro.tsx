@@ -151,20 +151,20 @@ export default function Intro() {
         {/* CTA buttons */}
         <motion.div
           variants={itemVariants}
-          className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none mx-auto"
+          className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 w-full mx-auto"
         >
           <Link
             href="#contact"
-            className="btn-primary w-full sm:w-auto"
+            className="btn-primary w-[200px]"
             onClick={() => {
               setActiveSection("Contact");
               setTimeOfLastClick(Date.now());
             }}
           >
-            Let&apos;s work together
+            Hire Me
             <BsArrowRight className="text-sm" />
           </Link>
-          <a className="btn-secondary w-full sm:w-auto" href="/Pasindu-Sannasuriya-Resume.pdf" download="Pasindu-Sannasuriya-Resume.pdf">
+          <a className="btn-secondary w-[200px]" href="/Pasindu-Sannasuriya-Resume.pdf" download="Pasindu-Sannasuriya-Resume.pdf">
             Download CV
             <HiDownload className="text-sm" />
           </a>
