@@ -13,11 +13,11 @@ interface Spark   { x: number; y: number; ph: number; spd: number }
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 const COLS: readonly string[] = ["#38bdf8", "#818cf8", "#a78bfa", "#22d3ee", "#c084fc"];
-const TLEN      = 80;
-const N_BEAM    = 7;
-const N_AMB     = 10;
-const N_SPARK   = 50;
-const RIPPLE_MS = 120;
+const TLEN      = 35;
+const N_BEAM    = 3;
+const N_AMB     = 4;
+const N_SPARK   = 20;
+const RIPPLE_MS = 220;
 
 // ── Pure helpers (defined outside component — stable, no captures) ────────────
 function pickCol(i: number): string { return COLS[i % COLS.length] as string; }
@@ -168,8 +168,8 @@ export default function LaserBg() {
 
       // ── System 3: radial glow centred at cursor ──────────────────────────────
       if (active) {
-        const grd = ctx.createRadialGradient(mx, my, 0, mx, my, 80);
-        grd.addColorStop(0, "rgba(56,189,248,0.12)");
+        const grd = ctx.createRadialGradient(mx, my, 0, mx, my, 40);
+        grd.addColorStop(0, "rgba(56,189,248,0.06)");
         grd.addColorStop(1, "rgba(56,189,248,0)");
         ctx.fillStyle = grd;
         ctx.fillRect(0, 0, W, H);
@@ -186,17 +186,17 @@ export default function LaserBg() {
           if (b.trail.length > TLEN) b.trail.shift();
 
           // Layer 1 — wide blurred outer glow
-          ctx.shadowBlur  = 18;
+          ctx.shadowBlur  = 8;
           ctx.shadowColor = b.col;
-          drawTrail(b.trail, b.col, 6, 0.08);
+          drawTrail(b.trail, b.col, 3, 0.04);
 
           // Layer 2 — coloured mid stroke
-          ctx.shadowBlur = 8;
-          drawTrail(b.trail, b.col, 2, 0.55);
+          ctx.shadowBlur = 4;
+          drawTrail(b.trail, b.col, 1.2, 0.3);
 
           // Layer 3 — thin white inner highlight
-          ctx.shadowBlur = 4;
-          drawTrail(b.trail, "#ffffff", 0.8, 0.35);
+          ctx.shadowBlur = 2;
+          drawTrail(b.trail, "#ffffff", 0.5, 0.18);
 
           ctx.shadowBlur = 0;
         });
@@ -205,12 +205,12 @@ export default function LaserBg() {
       // ── System 2: ripple rings ────────────────────────────────────────────────
       for (let i = ripples.current.length - 1; i >= 0; i--) {
         const rp = ripples.current[i];
-        rp.r += 2.5;
-        rp.a *= 0.94;
+        rp.r += 2;
+        rp.a *= 0.90;
         ctx.beginPath();
         ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
         ctx.strokeStyle = `rgba(56,189,248,${rp.a.toFixed(3)})`;
-        ctx.lineWidth   = 1.5;
+        ctx.lineWidth   = 0.8;
         ctx.stroke();
         if (rp.a < 0.01) ripples.current.splice(i, 1);
       }
@@ -231,7 +231,7 @@ export default function LaserBg() {
             ctx.beginPath();
             ctx.moveTo(ab.trail[j - 1].x, ab.trail[j - 1].y);
             ctx.lineTo(ab.trail[j].x,     ab.trail[j].y);
-            ctx.strokeStyle = `rgba(${rgb},${(t * 0.25).toFixed(3)})`;
+            ctx.strokeStyle = `rgba(${rgb},${(t * 0.12).toFixed(3)})`;
             ctx.lineWidth   = ab.w;
             ctx.lineCap     = "round";
             ctx.stroke();
