@@ -7,6 +7,7 @@ import {useActiveSectionContext} from "@/context/active-section-context";
 import {closeMenu, openMenu} from '../app/features/appState/appStateSlice';
 import {links} from "@/lib/data";
 import Link from "next/link";
+import Image from "next/image";
 import clsx from "clsx";
 
 const OffCanvasMenu = () => {
@@ -44,17 +45,7 @@ const OffCanvasMenu = () => {
                 animate={{y: 0, opacity: 1}}
             >
                 {/* Logo */}
-                <div
-                    className='font-bold text-base tracking-tight'
-                    style={{
-                        background: 'linear-gradient(135deg, #00D4FF, #4A90E2)',
-                        WebkitBackgroundClip: 'text',
-                        backgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                    }}
-                >
-                    PS
-                </div>
+                <Image src="/Logo_new.png" alt="Logo" width={40} height={40} priority />
 
                 {/* Menu toggle */}
                 <button

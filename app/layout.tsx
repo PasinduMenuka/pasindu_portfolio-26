@@ -85,7 +85,7 @@ export default function RootLayout({
               transition={{ duration: 0.5 }}
             >
               <div className="flex flex-col items-center justify-center gap-6">
-                <Image src="/Logo.png" alt="Logo" width={180} height={180} priority className="animate-pulse drop-shadow-xl" />
+                <Image src="/Logo_new.png" alt="Logo" width={180} height={180} priority className="animate-pulse drop-shadow-xl" />
                 <div className="loader-bar">
                   <div className="loader-bar-fill" />
                 </div>
