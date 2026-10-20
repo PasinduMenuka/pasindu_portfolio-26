@@ -96,6 +96,8 @@ export const projectsData = [
   {
     id:7,
     title: "SES Portal Revamp",
+    category: "IoT Dashboard",
+    summary: "45% faster task completion",
     description:
       "Complete redesign of the Save Energy Systems dashboard, transforming a complex HVAC IoT platform into an intuitive, modern interface. Enhanced user experience through streamlined navigation, real-time data visualization, and responsive design - resulting in 45% faster task completion and 60% reduction in user errors.",
     tags: ["Figma", "Case Study", "Next.js", "Dashboard Design", "IoT Platform", "Real-time Data", "User Research", "Atomic Design"],
@@ -105,6 +107,8 @@ export const projectsData = [
   {
     id:1,
     title: "HVAC IoT Work Order Management",
+    category: "Mobile App",
+    summary: "Response times cut by 60%",
     description:
       "A comprehensive HVAC facilities management platform featuring work order tracking, real-time zone monitoring, multi-location dashboards, performance analytics, and occupancy scheduling. Streamlined maintenance workflows reducing response time by 60% across 24 locations with 156 active zones.",
     tags: ["Figma", "Case Study", "Mobile App", "React Native", "IoT Dashboard", "Real-time Data", "User Research", "Dark Mode"],
@@ -114,6 +118,8 @@ export const projectsData = [
   {
     id:2,
     title: "Aim Game",
+    category: "Sales SaaS",
+    summary: "Lead funnels, gamified",
     description:
       "Welcome to AimGame, your ultimate solution for managing leads and optimizing sales funnels! Whether you're a solo entrepreneur, a business owner, or part of a larger sales team, AimGame is designed to streamline your lead management process and supercharge your sales conversions..",
     tags: ["Adobe Xd","Case Study", "Miro", "Branding", "Prototype", "Wireframe" , "User Research"],
@@ -122,6 +128,8 @@ export const projectsData = [
   {
     id:3,
     title: "Life Line App",
+    category: "Mentoring",
+    summary: "Mentors and support, one place",
     description:
       "Welcome to Life Line App, the transformative online platform that connects individuals seeking guidance and support with experienced mentors and a comprehensive array of supportive services. Whether you're navigating your career, pursuing personal development, or seeking specialized expertise, Life Line App is your gateway to meaningful connections and personal growth.",
     tags: ["Adobe XD", "Miro", "Branding", "Case Study"],
@@ -130,6 +138,8 @@ export const projectsData = [
   {
     id:4,
     title: "MediQem App",
+    category: "Healthcare",
+    summary: "Pharmacy at your fingertips",
     description:
       "Welcome to MediQem, your trusted online platform for convenient and secure medical ordering. Whether you're in need of prescription medications, over-the-counter products, or health essentials, MediQem simplifies the process by bringing the pharmacy to your fingertips. Say goodbye to long queues and hello to hassle-free medical orders delivered directly to your doorstep.",
     tags: ["Figma", "Adobe xd","Miro", "Branding", "Case Study"],
@@ -138,6 +148,8 @@ export const projectsData = [
   {
     id:5,
     title: "MyStartup Funder",
+    category: "Crowdfunding",
+    summary: "Startups meet their backers",
     description:
       "Welcome to MyStartup Funder, the dynamic platform that bridges the gap between startup companies and passionate backers, creating a powerful ecosystem of innovation, growth, and meaningful impact. Whether you're an entrepreneur seeking funding or an individual looking to support groundbreaking ideas, MyStartup Funder provides a seamless space to connect, collaborate, and make a difference.",
     tags: ["Adobe XD", "Miro", "Branding", "React JS", "Tailwind" ,"User Research"],
@@ -146,6 +158,8 @@ export const projectsData = [
   {
     id:6,
     title: "RCB International",
+    category: "Nonprofit",
+    summary: "Donation sites made simple",
     description:
       "Welcome to RCB International, your all-in-one platform for creating and managing your online donation website with ease. Whether you're a nonprofit organization, a community group, or an individual looking to make a difference, RCB International provides you with the tools you need to build a compelling online presence and effectively manage your donors and fundraising campaigns.",
     tags: ["Adobe XD", "Miro", "Branding", "css", "PHP" ,"User Research"],

@@ -1,58 +1,59 @@
 'use client'
 import Header from "@/components/header";
-import Image from "next/image";
 import "./globals.css";
-import { Inter, Poppins } from "next/font/google";
+import "./ency.css";
+import localFont from "next/font/local";
+import { usePathname, useSearchParams } from "next/navigation";
 import ActiveSectionContextProvider from "@/context/active-section-context";
 import Footer from "@/components/footer";
-import ThemeSwitch from "@/components/theme-switch";
-import ThemeContextProvider from "@/context/theme-context";
+import Logo from "@/components/logo";
 import { Toaster } from "react-hot-toast";
-import {useEffect, useState, useRef} from "react";
-import OffCanvasMenu from "@/components/off-canvas-menu";
+import {useEffect, useState} from "react";
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const poppins = Poppins({ 
-  subsets: ["latin"], 
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-poppins"
+// Fonts are bundled in app/fonts so builds and dev never depend on reaching Google Fonts.
+const inter = localFont({ src: "./fonts/inter.woff2", weight: "100 900", variable: "--font-inter", display: "swap" });
+const poppins = localFont({
+  src: [
+    { path: "./fonts/poppins-400.woff2", weight: "400" },
+    { path: "./fonts/poppins-500.woff2", weight: "500" },
+    { path: "./fonts/poppins-600.woff2", weight: "600" },
+    { path: "./fonts/poppins-700.woff2", weight: "700" },
+    { path: "./fonts/poppins-800.woff2", weight: "800" },
+  ],
+  variable: "--font-poppins",
+  display: "swap",
 });
+const display = localFont({
+  src: "./fonts/big-shoulders-display.woff2",
+  weight: "800 900",
+  variable: "--font-display",
+  display: "swap",
+  fallback: ["Arial Narrow", "Impact", "sans-serif"],
+});
+const hand = localFont({ src: "./fonts/caveat.woff2", weight: "500 700", variable: "--font-hand", display: "swap", fallback: ["cursive"] });
+const mono = localFont({ src: "./fonts/jetbrains-mono.woff2", weight: "400 500", variable: "--font-mono", display: "swap", fallback: ["ui-monospace", "monospace"] });
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  type value = {
-    width: number | undefined,
-    height: number | undefined
-  }
-
-  const [windowSize, setWindowSize] = useState<value>({
-    width: undefined,
-    height: undefined,
-  });
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  // Pages using the Ency design: home and the full portfolio listing (/projects without ?id)
+  const isHome = pathname === "/" || (pathname === "/projects" && !searchParams?.get("id"));
   const [isLoading, setIsLoading] = useState(true);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  
+
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
   });
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowSize(prevState => ({ ...prevState, width: window.innerWidth, height: window.innerHeight }));
-    }
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   // Loading animation
   useEffect(() => {
@@ -62,30 +63,35 @@ export default function RootLayout({
 
   // Mouse tracking for cursor glow
   useEffect(() => {
+    if (isHome) return;
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isHome]);
 
   return (
     <html lang="en" className="!scroll-smooth">
       <head>
-        <meta name="theme-color" content="#060d1a" />
+        <meta name="theme-color" content={isHome ? "#0000ff" : "#060d1a"} />
       </head>
-      <body className={`${inter.variable} ${poppins.variable} font-sans bg-[var(--color-bg)] text-[var(--color-text-primary)] relative pt-28 sm:pt-36 overflow-x-hidden mesh-bg`}>
+      <body
+        className={`${inter.variable} ${poppins.variable} ${display.variable} ${hand.variable} ${mono.variable} font-sans relative overflow-x-hidden ${
+          isHome ? "is-home" : "bg-[var(--color-bg)] text-[var(--color-text-primary)] pt-28 sm:pt-36 mesh-bg"
+        }`}
+      >
         
         {/* Page loader */}
         <AnimatePresence>
-          {isLoading && (
+          {isLoading && !isHome && (
             <motion.div
               className="page-loader"
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
               <div className="flex flex-col items-center justify-center gap-6">
-                <Image src="/Logo_new.png" alt="Logo" width={180} height={180} priority className="animate-pulse drop-shadow-xl" />
+                <Logo className="w-40 h-auto animate-pulse text-[var(--color-text-primary)]" />
                 <div className="loader-bar">
                   <div className="loader-bar-fill" />
                 </div>
@@ -95,31 +101,32 @@ export default function RootLayout({
         </AnimatePresence>
 
         {/* Scroll progress bar */}
-        <motion.div
-          className="scroll-progress"
-          style={{ scaleX }}
-        />
+        {!isHome && (
+          <motion.div
+            className="scroll-progress"
+            style={{ scaleX }}
+          />
+        )}
 
         {/* Cursor glow (desktop only) */}
-        <div
+        {!isHome && <div
           className="cursor-glow hidden lg:block"
           style={{
             left: mousePos.x - 12,
             top: mousePos.y - 12,
           }}
-        />
+        />}
 
         {/* Background orbs for parallax depth */}
-        <div className="parallax-bg fixed inset-0 pointer-events-none z-[-1]">
+        {!isHome && <div className="parallax-bg fixed inset-0 pointer-events-none z-[-1]">
           <div className="floating-orb floating-orb-1" />
           <div className="floating-orb floating-orb-2" />
           <div className="floating-orb floating-orb-3" />
-        </div>
+        </div>}
 
-        <ThemeContextProvider>
           <ActiveSectionContextProvider>
             <Provider store={store}>
-              {(windowSize.width && windowSize.width > 640) ? (<Header />) : (<OffCanvasMenu />)}
+              <Header />
               {children}
               <Footer />
               <Toaster 
@@ -134,10 +141,8 @@ export default function RootLayout({
                   }
                 }}
               />
-              <ThemeSwitch />
             </Provider>
           </ActiveSectionContextProvider>
-        </ThemeContextProvider>
       </body>
     </html>
   );

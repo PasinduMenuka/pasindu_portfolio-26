@@ -1,83 +1,175 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { links } from "@/lib/data";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import clsx from "clsx";
+import { links } from "@/lib/data";
 import { useActiveSectionContext } from "@/context/active-section-context";
+import type { SectionName } from "@/lib/types";
+import Logo from "@/components/logo";
 
 export default function Header() {
   const { activeSection, setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
+  // Pick header colours from whichever section ([data-ground]) sits under it.
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const probe = 40;
+      let ground = "white";
+      document.querySelectorAll<HTMLElement>("[data-ground]").forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top <= probe && r.bottom > probe) ground = el.dataset.ground ?? "white";
+      });
+      const dark = ground === "ink" || ground === "blue" || document.documentElement.classList.contains("dark");
+      setTheme(dark ? "dark" : "light");
+      setScrolled(window.scrollY > 120);
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    const mo = new MutationObserver(onScroll);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      mo.disconnect();
+    };
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
+  const go = (name: SectionName) => {
+    setActiveSection(name);
+    setTimeOfLastClick(Date.now());
+    setMenuOpen(false);
+  };
+
   return (
-    <header className="z-[999] relative">
-      <motion.div
-        className="fixed top-0 left-1/2 -translate-x-1/2 h-[4.5rem] w-full sm:top-6 sm:h-[3.25rem] sm:w-[44rem] sm:rounded-full transition-all duration-500"
-        style={{
-          background: scrolled ? 'var(--glass-bg)' : 'transparent',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          border: scrolled ? '1px solid var(--glass-border)' : '1px solid transparent',
-          boxShadow: scrolled ? 'var(--glass-shadow)' : 'none',
-        }}
-        initial={{ y: -100, x: "-50%", opacity: 0 }}
-        animate={{ y: 0, x: "-50%", opacity: 1 }}
-        transition={{ type: "spring", stiffness: 200, damping: 25, delay: 0.1 }}
-      />
+    <>
+      <motion.header
+        className="e-header"
+        data-theme={menuOpen ? "dark" : theme}
+        data-scrolled={scrolled || menuOpen ? "" : undefined}
+        data-menu={menuOpen ? "" : undefined}
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1.1, ease: [0.19, 1, 0.22, 1] }}
+      >
+        <div className="e-container e-header__inner">
+          <Link href="/#home" className="e-header__logo" aria-label="Pasindu Sannasuriya, home" onClick={() => go("Home")}>
+            <Logo title="" />
+          </Link>
 
-      <nav className="flex fixed top-0 left-1/2 h-[4.5rem] -translate-x-1/2 items-center sm:top-6 sm:h-[3.25rem]">
-        <ul className="flex w-[22rem] flex-wrap items-center justify-center gap-y-1 text-[0.875rem] font-medium sm:w-[initial] sm:flex-nowrap sm:gap-1">
-          {links.map((link) => (
-            <motion.li
-              className="flex items-center justify-center relative"
-              key={link.hash}
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 200, damping: 25 }}
+          <nav aria-label="Primary">
+            <ul className="e-nav">
+              {links.map((link) => {
+                const active = activeSection === link.name;
+                return (
+                  <li key={link.hash}>
+                    <Link
+                      href={link.hash}
+                      className={clsx(active && "is-active")}
+                      aria-current={active ? "true" : undefined}
+                      onClick={() => go(link.name)}
+                    >
+                      {active && (
+                        <motion.span
+                          layoutId="e-nav-pill"
+                          className="e-nav__pill"
+                          transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                        />
+                      )}
+                      {link.name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <Link href="/#contact" className="e-header__cta" onClick={() => go("Contact")}>
+              <span className="e-header__avatar">
+                <span className="e-face" />
+                <span className="e-header__wave" aria-hidden="true">👋</span>
+              </span>
+              Let&apos;s talk
+            </Link>
+            <button
+              type="button"
+              className="e-burger"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((o) => !o)}
             >
-              <Link
-                className={clsx(
-                  "relative flex w-full items-center justify-center px-4 py-2 rounded-full transition-all duration-300",
-                  activeSection === link.name
-                    ? "text-white font-semibold"
-                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                )}
-                href={link.hash}
-                onClick={() => {
-                  setActiveSection(link.name);
-                  setTimeOfLastClick(Date.now());
-                }}
-              >
-                {link.name}
+              <span />
+              <span />
+            </button>
+          </div>
+        </div>
+      </motion.header>
 
-                {link.name === activeSection && (
-                  <motion.span
-                    className="absolute inset-0 rounded-full -z-10"
-                    style={{
-                      background: 'linear-gradient(135deg, #00D4FF 0%, #4A90E2 100%)',
-                      boxShadow: '0 0 15px rgba(0, 212, 255, 0.4)',
-                    }}
-                    layoutId="activeSection"
-                    transition={{
-                      type: "spring",
-                      stiffness: 380,
-                      damping: 30,
-                    }}
-                  />
-                )}
-              </Link>
-            </motion.li>
-          ))}
-        </ul>
-      </nav>
-    </header>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="e-menu"
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.7, ease: [0.77, 0, 0.175, 1] }}
+          >
+            <ul>
+              {links.map((link, i) => (
+                <li key={link.hash} className="overflow-hidden">
+                  <motion.div
+                    initial={{ y: "110%" }}
+                    animate={{ y: 0 }}
+                    exit={{ y: "110%" }}
+                    transition={{ duration: 0.9, delay: 0.15 + i * 0.05, ease: [0.19, 1, 0.22, 1] }}
+                  >
+                    <Link
+                      href={link.hash}
+                      className={clsx("e-menu__link", activeSection === link.name && "is-active")}
+                      onClick={() => go(link.name)}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                </li>
+              ))}
+            </ul>
+            <motion.div
+              className="flex flex-wrap items-center justify-between gap-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { delay: 0.5 } }}
+              exit={{ opacity: 0 }}
+            >
+              <span className="e-hand text-2xl text-[var(--e-yellow)]">say hello, I don&apos;t bite</span>
+              <a className="e-btn e-btn--white" href="mailto:sannasuriyapm@gmail.com">
+                sannasuriyapm@gmail.com
+              </a>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
