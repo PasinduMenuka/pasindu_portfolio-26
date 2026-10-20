@@ -871,42 +871,145 @@ html.dark .mesh-bg {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: var(--color-bg);
+  overflow: hidden;
+  color: #fff;
+  background-color: #0000e8;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 46%, rgba(120, 124, 255, 0.58), transparent 48%),
+    linear-gradient(145deg, #0000d8, #3439ff 58%, #1715c9);
+  background-size: 3.5rem 3.5rem, 3.5rem 3.5rem, auto, auto;
+  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 2rem;
+}
+
+.loader-content {
+  display: flex;
+  width: min(100%, 27rem);
   flex-direction: column;
-  gap: 1.5rem;
+  align-items: center;
+  text-align: center;
+  animation: loader-arrive 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.loader-mark {
+  position: relative;
+  display: grid;
+  width: 7rem;
+  height: 7rem;
+  place-items: center;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 1rem 4rem rgba(7, 8, 90, 0.22), inset 0 1px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  animation: loader-float 3s ease-in-out infinite;
 }
 
 .loader-logo {
-  font-size: 2rem;
+  width: 4.2rem;
+  height: auto;
+  color: #fff;
+}
+
+.loader-mark__spark {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.65rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--e-yellow, #ffd60a);
+  box-shadow: 0 0 1rem rgba(255, 214, 10, 0.8);
+}
+
+.loader-eyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+}
+
+.loader-eyebrow span {
+  padding-inline: 0.3rem;
+  color: #ffd60a;
+}
+
+.loader-message {
+  margin: 0.8rem 0 1.8rem;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: clamp(2rem, 7vw, 3rem);
   font-weight: 800;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -0.04em;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
 }
 
-.loader-bar {
-  width: 120px;
+.loader-track {
+  width: min(100%, 15rem);
   height: 3px;
-  background: var(--color-bg-secondary);
-  border-radius: 2px;
   overflow: hidden;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.22);
 }
 
-.loader-bar-fill {
+.loader-track span {
+  display: block;
+  width: 38%;
   height: 100%;
-  background: var(--accent-gradient);
-  border-radius: 2px;
-  animation: loader-fill 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  border-radius: inherit;
+  background: #ffd60a;
+  box-shadow: 0 0 1rem rgba(255, 214, 10, 0.55);
+  animation: loader-sweep 1.25s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
-@keyframes loader-fill {
-  from { width: 0%; }
-  to { width: 100%; }
+.loader-caption {
+  margin: 0.8rem 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.8rem;
+}
+
+.loader-dots {
+  display: inline-block;
+  width: 1.1rem;
+  overflow: hidden;
+  vertical-align: bottom;
+  animation: loader-dots 1.2s steps(4, end) infinite;
+}
+
+@keyframes loader-arrive {
+  from { opacity: 0; transform: translateY(0.8rem) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes loader-float {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-0.45rem) rotate(3deg); }
+}
+
+@keyframes loader-sweep {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(290%); }
+}
+
+@keyframes loader-dots {
+  from { width: 0; }
+  to { width: 1.1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-content,
+  .loader-mark,
+  .loader-track span,
+  .loader-dots {
+    animation: none;
+  }
+  .loader-track span { width: 100%; }
 }
 
 /* =============================================
@@ -1024,4 +1127,3 @@ html.dark .mesh-bg {
       );
   }
 }
-

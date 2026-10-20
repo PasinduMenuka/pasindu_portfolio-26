@@ -84,17 +84,23 @@ export default function RootLayout({
         
         {/* Page loader */}
         <AnimatePresence>
-          {isLoading && !isHome && (
+          {isLoading && (
             <motion.div
               className="page-loader"
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              role="status"
+              aria-label="Loading portfolio"
+              exit={{ opacity: 0, y: "-2%" }}
+              transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1] }}
             >
-              <div className="flex flex-col items-center justify-center gap-6">
-                <Logo className="w-40 h-auto animate-pulse text-[var(--color-text-primary)]" />
-                <div className="loader-bar">
-                  <div className="loader-bar-fill" />
+              <div className="loader-content">
+                <div className="loader-mark">
+                  <Logo className="loader-logo" title="Pasindu Sannasuriya" />
+                  <span className="loader-mark__spark" aria-hidden="true" />
                 </div>
+                <p className="loader-eyebrow">PASINDU SANNASURIYA <span>·</span> PORTFOLIO</p>
+                <p className="loader-message">Crafting thoughtful digital experiences.</p>
+                <div className="loader-track" aria-hidden="true"><span /></div>
+                <p className="loader-caption">Loading the good stuff<span className="loader-dots">...</span></p>
               </div>
             </motion.div>
           )}
