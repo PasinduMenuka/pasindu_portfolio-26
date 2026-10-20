@@ -106,12 +106,17 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link href="/#contact" className="e-header__cta" onClick={() => go("Contact")}>
+            <a
+              href="https://wa.me/94776217729"
+              className="e-header__cta"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span className="e-header__avatar">
                 <span className="e-face" />
               </span>
               Let&apos;s talk
-            </Link>
+            </a>
             <button
               type="button"
               className="e-burger"
