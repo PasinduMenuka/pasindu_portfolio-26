@@ -441,17 +441,13 @@ button:hover > .e-arrow svg:last-child,
 .e-hero__stage { position: relative; align-self: stretch; min-height: 30rem; }
 .e-hero__shape {
   position: absolute;
-  right: -6%;
+  right: -8%;
   top: 0;
-  width: 108%;
-  color: #6a6eff;
-  z-index: -1;
-  animation: hero-shape 14s ease-in-out infinite alternate;
-}
-@keyframes hero-shape {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(-1.5%, 1.5%); }
-  100% { transform: translate(1.5%, -1%); }
+  width: 112%;
+  color: #999cff;
+  opacity: 0.72;
+  z-index: 0;
+  pointer-events: none;
 }
 .e-hero__photo {
   position: absolute;
@@ -464,8 +460,11 @@ button:hover > .e-arrow svg:last-child,
   object-fit: contain;
   object-position: bottom;
   filter: drop-shadow(0 1.5rem 2.5rem rgba(0, 0, 60, 0.35));
-  transition: transform 1.2s var(--e-ease-glide);
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.8s var(--e-ease-glide), transform 1.2s var(--e-ease-glide);
 }
+.e-hero__photo.is-visible { opacity: 1; z-index: 2; }
 .e-hero__stage:hover .e-hero__photo { transform: translateX(-50%) translateY(-0.5rem); }
 .e-hero__note {
   position: absolute;
@@ -483,10 +482,13 @@ button:hover > .e-arrow svg:last-child,
 @media (max-width: 991px) {
   .e-hero { min-height: 0; }
   .e-hero__grid { grid-template-columns: minmax(0, 1fr); }
-  /* Phones/tablets: no portrait, the arrow becomes a backdrop behind the copy */
+  /* Phones/tablets: keep the arrow subtle behind the copy. */
   .e-hero__stage { position: absolute; right: -14%; bottom: 2rem; width: min(78vw, 30rem); min-height: 0; aspect-ratio: 1; z-index: -1; pointer-events: none; }
-  .e-hero__shape { position: absolute; inset: 0; width: 100%; right: auto; color: rgba(106, 110, 255, 0.55); }
+  .e-hero__shape { position: absolute; inset: 0; width: 100%; right: auto; color: #999cff; opacity: 0.42; }
   .e-hero__photo, .e-hero__note { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .e-hero__photo { transition: none; }
 }
 
 /* Proof / tools marquee (yellow panel straddling the hero edge) */

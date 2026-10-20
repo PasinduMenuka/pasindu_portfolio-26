@@ -56,6 +56,14 @@ export default function Intro() {
   const { ref } = useSectionInView("Home", 0.5);
   const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
   const underline = useInViewOnce<SVGSVGElement>();
+  const [hasScrolled, setHasScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const updatePortrait = () => setHasScrolled(window.scrollY > 120);
+    updatePortrait();
+    window.addEventListener("scroll", updatePortrait, { passive: true });
+    return () => window.removeEventListener("scroll", updatePortrait);
+  }, []);
 
   return (
     <>
@@ -111,10 +119,22 @@ export default function Intro() {
 
           <Reveal delay={1} className="e-hero__stage">
             <svg className="e-hero__shape" viewBox="0 0 200 200" aria-hidden="true">
-              <path d="M28 8H192V172H150V80L58 172L28 142L120 50H28Z" fill="currentColor" />
+              <path d="M12 140 112 40H72V10H190V128H160V88L42 206Z" fill="currentColor" />
             </svg>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="e-hero__photo" src="/profile-cutout.png" alt="Pasindu Sannasuriya" />
+            <img
+              className={`e-hero__photo${hasScrolled ? "" : " is-visible"}`}
+              src="/hero-portrait.png"
+              alt={hasScrolled ? "" : "Pasindu Sannasuriya"}
+              aria-hidden={hasScrolled}
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className={`e-hero__photo${hasScrolled ? " is-visible" : ""}`}
+              src="/hero-portrait-scroll.png"
+              alt={hasScrolled ? "Pasindu Sannasuriya" : ""}
+              aria-hidden={!hasScrolled}
+            />
             <HeroNote />
           </Reveal>
         </div>
