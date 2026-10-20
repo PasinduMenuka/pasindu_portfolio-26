@@ -1015,17 +1015,27 @@ html.dark .mesh-bg {
 /* =============================================
    SCROLLBAR
    ============================================= */
+html {
+  scrollbar-color: #8588ff rgba(22, 16, 95, 0.16);
+  scrollbar-width: thin;
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-secondary);
+  background: rgba(22, 16, 95, 0.12);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
-  border-radius: 3px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffd60a 0%, #999cff 48%, #0000ff 100%) padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffe45c 0%, #8588ff 48%, #0000c4 100%) padding-box;
 }
 
 /* =============================================

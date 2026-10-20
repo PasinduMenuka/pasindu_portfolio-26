@@ -109,7 +109,6 @@ export default function Header() {
             <Link href="/#contact" className="e-header__cta" onClick={() => go("Contact")}>
               <span className="e-header__avatar">
                 <span className="e-face" />
-                <span className="e-header__wave" aria-hidden="true">👋</span>
               </span>
               Let&apos;s talk
             </Link>
