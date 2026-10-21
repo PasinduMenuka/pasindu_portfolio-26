@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { motion, useMotionValue, useScroll, useSpring, useTransform, MotionValue } from "framer-motion";
 import { links } from "@/lib/data";
+import { BsEnvelopeFill, BsTelephoneFill } from "react-icons/bs";
 import Logo from "@/components/logo";
 import { useInViewOnce } from "@/components/motion/reveal";
 
@@ -21,7 +22,7 @@ const columns: { heading: string; items: FooterLink[] }[] = [
       { label: "SES Portal Revamp", href: "/projects/7" },
       { label: "HVAC IoT Platform", href: "/projects/1" },
       { label: "All projects", href: "/projects" },
-      { label: "Download CV", href: "/Pasindu-Sannasuriya-Resume.pdf", download: true },
+      { label: "Download CV", href: "https://drive.google.com/file/d/1AuQ0pFahUC0L0MWK41k-5Ddj1mu37n5t/view?usp=sharing", external: true },
     ],
   },
   {
@@ -29,9 +30,13 @@ const columns: { heading: string; items: FooterLink[] }[] = [
     items: [
       { label: "LinkedIn", href: "https://linkedin.com", external: true },
       { label: "GitHub", href: "https://github.com", external: true },
-      { label: "Email", href: "mailto:sannasuriyapm@gmail.com" },
     ],
   },
+];
+
+const contactItems = [
+  { label: "sannasuriyapm@gmail.com", href: "mailto:sannasuriyapm@gmail.com", icon: BsEnvelopeFill },
+  { label: "+94 77 621 7729", href: "tel:+94776217729", icon: BsTelephoneFill },
 ];
 
 /** Link text that rolls up to a duplicate on hover. */
@@ -136,6 +141,18 @@ export default function Footer() {
               <Logo title="" />
             </Link>
             <p>Senior UI/UX Engineer &amp; Product Designer based in Sri Lanka, working with product teams worldwide.</p>
+            <ul className="e-footer2__contact">
+              {contactItems.map(({ label, href, icon: Icon }) => (
+                <li key={href}>
+                  <a href={href} className="e-footer2__link">
+                    <span className="e-footer2__icon">
+                      <Icon />
+                    </span>
+                    <Roll>{label}</Roll>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
           {columns.map((col) => (
             <nav key={col.heading} className="e-footer2__col" aria-label={col.heading}>

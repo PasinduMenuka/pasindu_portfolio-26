@@ -396,9 +396,27 @@ button:hover > .e-arrow svg:last-child,
 .e-menu a.e-menu__link { font-family: var(--font-display), Impact, sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(3rem, 14vw, 5rem); line-height: 0.95; display: inline-block; }
 .e-menu a.e-menu__link.is-active { color: var(--e-yellow); }
 
+.e-fab-talk { display: none; }
+
 @media (max-width: 900px) {
   .e-nav, .e-header__cta { display: none; }
   .e-burger { opacity: 1; width: 2.75rem; margin-left: 0; transform: none; pointer-events: auto; }
+  .e-header__cta.e-fab-talk {
+    display: inline-flex;
+    position: fixed;
+    right: 1rem;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    z-index: 997;
+    height: 2.4rem;
+    gap: 0.45rem;
+    padding: 0 0.9rem 0 0.25rem;
+    font-size: 0.78rem;
+    background: var(--e-blue);
+    color: #fff;
+    box-shadow: 0 0.6rem 1.6rem -0.6rem rgba(22, 16, 95, 0.55);
+  }
+  .e-fab-talk .e-header__avatar { width: 1.9rem; height: 1.9rem; }
+  .e-fab-talk .e-header__avatar::after { border-color: var(--e-blue); }
 }
 
 /* =============================================================
@@ -859,6 +877,9 @@ html.dark .e-footer2__logo { color: #fff; }
 .e-footer2__logo:hover { color: var(--e-ink); }
 .e-footer2__logo svg { height: clamp(3.25rem, 5vw, 4.5rem); width: auto; }
 .e-footer2__brand p { margin-top: 1.5rem; max-width: 22rem; color: var(--e-body); font-size: 0.95rem; line-height: 1.55; }
+.e-footer2__contact { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.e-footer2__contact .e-footer2__link { gap: 0.65rem; }
+.e-footer2__icon { display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; flex-shrink: 0; border-radius: 50%; background: var(--e-blue); color: #fff; font-size: 0.8rem; }
 .e-footer2__heading { color: var(--e-muted); margin-bottom: 1.25rem; }
 .e-footer2__col li + li { margin-top: 0.85rem; }
 .e-footer2__link { display: inline-flex; align-items: center; gap: 0.3em; font-size: 0.95rem; color: var(--e-text); }

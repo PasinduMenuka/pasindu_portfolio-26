@@ -111,7 +111,7 @@ export default function Intro() {
               >
                 Hire me
               </ArrowButton>
-              <ArrowButton variant="ghost" href="/Pasindu-Sannasuriya-Resume.pdf" download="Pasindu-Sannasuriya-Resume.pdf">
+              <ArrowButton variant="ghost" href="https://drive.google.com/file/d/1AuQ0pFahUC0L0MWK41k-5Ddj1mu37n5t/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                 Download my CV
               </ArrowButton>
             </Reveal>

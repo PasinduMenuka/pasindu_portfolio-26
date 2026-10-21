@@ -131,6 +131,21 @@ export default function Header() {
         </div>
       </motion.header>
 
+      {/* Floating copy of the CTA for mobile, where the header pill is hidden */}
+      {!menuOpen && (
+        <a
+          href="https://wa.me/94776217729"
+          className="e-header__cta e-fab-talk"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span className="e-header__avatar">
+            <span className="e-face" />
+          </span>
+          Let&apos;s talk
+        </a>
+      )}
+
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -169,6 +184,9 @@ export default function Header() {
               <span className="e-hand text-2xl text-[var(--e-yellow)]">say hello, I don&apos;t bite</span>
               <a className="e-btn e-btn--white" href="mailto:sannasuriyapm@gmail.com">
                 sannasuriyapm@gmail.com
+              </a>
+              <a className="e-btn e-btn--white" href="tel:+94776217729">
+                +94 77 621 7729
               </a>
             </motion.div>
           </motion.div>
