@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useRef } from "react";
-import toast from "react-hot-toast";
 import { BsEnvelopeFill, BsTelephoneFill } from "react-icons/bs";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { useSectionInView } from "@/lib/hooks";
+import { validateContactForm } from "@/lib/utils";
 import { sendEmail } from "@/actions/sendEmail";
 import SubmitBtn from "./submit-btn";
+import { showFormToast } from "./form-toast";
 import { HandTag, Reveal, SplitHeading } from "@/components/motion/reveal";
 
 const contactLinks = [
@@ -52,13 +53,21 @@ export default function Contact() {
           <form
             ref={formRef}
             className="e-form"
+            noValidate
             action={async (formData) => {
-              const { error } = await sendEmail(formData);
-              if (error) {
-                toast.error(error);
+              const invalid = validateContactForm(formData.get("senderEmail"), formData.get("message"));
+              if (invalid) {
+                showFormToast("error", "Check the form", invalid.error);
+                (formRef.current?.elements.namedItem(invalid.field) as HTMLElement | null)?.focus();
                 return;
               }
-              toast.success("Email sent successfully! I'll get back to you soon.");
+
+              const { error } = await sendEmail(formData);
+              if (error) {
+                showFormToast("error", "Couldn't send", error);
+                return;
+              }
+              showFormToast("success", "Message sent", "Thanks for reaching out! I'll get back to you soon.");
               formRef.current?.reset();
             }}
           >
