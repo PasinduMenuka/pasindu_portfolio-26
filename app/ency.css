@@ -814,6 +814,38 @@ html.dark .e-xp-card__more { color: #8a8dff; }
 .e-field input:focus, .e-field textarea:focus { border-color: var(--e-blue); background: #fff; box-shadow: 0 0 0 4px rgba(0, 0, 255, 0.12); }
 .e-form__foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
 .e-form__note { color: var(--e-blue); font-size: 1.3rem; transform: rotate(-3deg); }
+.e-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  width: min(19rem, calc(100vw - 2rem));
+  padding: 0.75rem 0.55rem 0.8rem 0.9rem;
+  background: #fff;
+  color: var(--e-ink);
+  border: 1px solid rgba(22, 16, 95, 0.12);
+  border-radius: 1rem;
+  box-shadow: 0 1.5rem 3rem -2rem rgba(0, 0, 40, 0.6), 0 0.4rem 1.2rem -0.8rem rgba(22, 16, 95, 0.4);
+  opacity: 0;
+  transform: translateY(0.75rem) scale(0.97);
+  transition: opacity 0.45s var(--e-ease-glide), transform 0.6s var(--e-ease-glide);
+}
+.e-toast[data-visible="true"] { opacity: 1; transform: none; }
+/* keep clear of the floating "Let's talk" button on small screens */
+@media (max-width: 900px) { .e-toast { margin-bottom: 2.9rem; } }
+.e-toast__dot { position: relative; flex-shrink: 0; width: 0.45rem; height: 0.45rem; margin-top: 0.25rem; border-radius: 50%; background: var(--e-cross); }
+.e-toast--success .e-toast__dot { background: var(--e-live); }
+.e-toast__dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: inherit; animation: live-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite; }
+.e-toast__body { flex: 1; min-width: 0; }
+.e-toast__title { color: var(--e-muted); }
+.e-toast--error .e-toast__title { color: var(--e-cross); }
+.e-toast__title.e-mono { font-size: 0.62rem; }
+.e-toast__text { margin-top: 0.2rem; font-size: 0.82rem; line-height: 1.4; color: var(--e-ink); }
+.e-toast__close { flex-shrink: 0; align-self: center; display: inline-flex; align-items: center; justify-content: center; width: 1.4rem; height: 1.4rem; border-radius: 50%; font-size: 1rem; line-height: 1; color: var(--e-muted); transition: background-color 0.3s, color 0.3s; }
+.e-toast__close:hover { background: #f6f7ff; color: var(--e-ink); }
+@media (prefers-reduced-motion: reduce) {
+  .e-toast { transition: opacity 0.2s; transform: none; }
+  .e-toast__dot::after { animation: none; }
+}
 @media (max-width: 991px) { .e-contact__grid { grid-template-columns: 1fr; } }
 
 /* =============================================================

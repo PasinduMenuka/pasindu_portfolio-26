@@ -1,43 +1,75 @@
 "use server";
 
 import React from "react";
-import { Resend } from "resend";
-import { validateString, getErrorMessage } from "@/lib/utils";
+import nodemailer from "nodemailer";
+import { render } from "@react-email/components";
+import { validateContactForm, getErrorMessage } from "@/lib/utils";
 import ContactFormEmail from "@/email/contact-form-email";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const { GMAIL_USER, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN } = process.env;
 
 export const sendEmail = async (formData: FormData) => {
   const senderEmail = formData.get("senderEmail");
+  const contactNumber = formData.get("contactNumber");
   const message = formData.get("message");
 
-  // simple server-side validation
-  if (!validateString(senderEmail, 500)) {
+  // never trust the client: run the same validation again on the server
+  const invalid = validateContactForm(senderEmail, contactNumber, message);
+  if (invalid) {
     return {
-      error: "Invalid sender email",
+      error: invalid.error,
     };
   }
-  if (!validateString(message, 5000)) {
+
+  if (!GMAIL_USER || !GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET || !GOOGLE_REFRESH_TOKEN) {
+    console.error("sendEmail: missing Gmail OAuth2 environment variables");
     return {
-      error: "Invalid message",
+      error: "Email service isn't configured yet. Please reach me at sannasuriyapm@gmail.com.",
     };
   }
+
+  const email = (senderEmail as string).trim();
+  const phone = (contactNumber as string).trim();
+  const body = (message as string).trim();
+  const sentAt = new Intl.DateTimeFormat("en-GB", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Asia/Colombo",
+  }).format(new Date());
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      type: "OAuth2",
+      user: GMAIL_USER,
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      refreshToken: GOOGLE_REFRESH_TOKEN,
+    },
+  });
 
   let data;
   try {
-    data = await resend.emails.send({
-      from: "Contact Form <onboarding@resend.dev>",
-      to: "bytegrad@gmail.com",
-      subject: "Message from contact form",
-      reply_to: senderEmail,
-      react: React.createElement(ContactFormEmail, {
-        message: message,
-        senderEmail: senderEmail,
-      }),
+    const info = await transporter.sendMail({
+      from: `Portfolio Contact <${GMAIL_USER}>`,
+      to: GMAIL_USER,
+      replyTo: email,
+      subject: `New message from ${email}`,
+      html: render(
+        React.createElement(ContactFormEmail, {
+          message: body,
+          senderEmail: email,
+          contactNumber: phone,
+          sentAt,
+        })
+      ),
+      text: `New message from your portfolio\n\nFrom: ${email}\nContact number: ${phone}\nSent: ${sentAt} (Colombo)\n\n${body}`,
     });
+    data = { id: info.messageId };
   } catch (error: unknown) {
+    console.error("sendEmail:", getErrorMessage(error));
     return {
-      error: getErrorMessage(error),
+      error: "Couldn't send your message right now. Please try again in a moment.",
     };
   }
 
