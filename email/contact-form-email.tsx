@@ -14,6 +14,7 @@ import {
 type ContactFormEmailProps = {
   message: string;
   senderEmail: string;
+  contactNumber: string;
   sentAt: string;
 };
 
@@ -88,6 +89,7 @@ const styles = {
 export default function ContactFormEmail({
   message,
   senderEmail,
+  contactNumber,
   sentAt,
 }: ContactFormEmailProps) {
   const preview = message.length > 90 ? `${message.slice(0, 90)}…` : message;
@@ -111,6 +113,13 @@ export default function ContactFormEmail({
             <Text style={styles.from}>
               <Link href={`mailto:${senderEmail}`} style={styles.fromLink}>
                 {senderEmail}
+              </Link>
+            </Text>
+
+            <Text style={styles.label}>Contact number</Text>
+            <Text style={styles.from}>
+              <Link href={`tel:${contactNumber.replace(/[^\d+]/g, "")}`} style={styles.fromLink}>
+                {contactNumber}
               </Link>
             </Text>
 

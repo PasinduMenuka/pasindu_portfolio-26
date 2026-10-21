@@ -55,7 +55,11 @@ export default function Contact() {
             className="e-form"
             noValidate
             action={async (formData) => {
-              const invalid = validateContactForm(formData.get("senderEmail"), formData.get("message"));
+              const invalid = validateContactForm(
+                formData.get("senderEmail"),
+                formData.get("contactNumber"),
+                formData.get("message")
+              );
               if (invalid) {
                 showFormToast("error", "Check the form", invalid.error);
                 (formRef.current?.elements.namedItem(invalid.field) as HTMLElement | null)?.focus();
@@ -75,6 +79,10 @@ export default function Contact() {
             <label className="e-field">
               <span className="e-mono">Your email</span>
               <input name="senderEmail" type="email" required maxLength={500} placeholder="you@company.com" />
+            </label>
+            <label className="e-field">
+              <span className="e-mono">Your contact number</span>
+              <input name="contactNumber" type="tel" inputMode="tel" autoComplete="tel" required maxLength={30} placeholder="+94 77 123 4567" />
             </label>
             <label className="e-field">
               <span className="e-mono">Your message</span>

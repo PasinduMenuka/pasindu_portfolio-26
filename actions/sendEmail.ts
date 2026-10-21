@@ -10,10 +10,11 @@ const { GMAIL_USER, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN
 
 export const sendEmail = async (formData: FormData) => {
   const senderEmail = formData.get("senderEmail");
+  const contactNumber = formData.get("contactNumber");
   const message = formData.get("message");
 
   // never trust the client: run the same validation again on the server
-  const invalid = validateContactForm(senderEmail, message);
+  const invalid = validateContactForm(senderEmail, contactNumber, message);
   if (invalid) {
     return {
       error: invalid.error,
@@ -28,6 +29,7 @@ export const sendEmail = async (formData: FormData) => {
   }
 
   const email = (senderEmail as string).trim();
+  const phone = (contactNumber as string).trim();
   const body = (message as string).trim();
   const sentAt = new Intl.DateTimeFormat("en-GB", {
     dateStyle: "medium",
@@ -57,10 +59,11 @@ export const sendEmail = async (formData: FormData) => {
         React.createElement(ContactFormEmail, {
           message: body,
           senderEmail: email,
+          contactNumber: phone,
           sentAt,
         })
       ),
-      text: `New message from your portfolio\n\nFrom: ${email}\nSent: ${sentAt} (Colombo)\n\n${body}`,
+      text: `New message from your portfolio\n\nFrom: ${email}\nContact number: ${phone}\nSent: ${sentAt} (Colombo)\n\n${body}`,
     });
     data = { id: info.messageId };
   } catch (error: unknown) {
