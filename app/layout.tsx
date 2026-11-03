@@ -2,6 +2,8 @@
 import Header from "@/components/header";
 import "./globals.css";
 import "./ency.css";
+import "./case-study.css";
+import { encyCaseStudyPaths } from "@/lib/data";
 import localFont from "next/font/local";
 import { usePathname, useSearchParams } from "next/navigation";
 import ActiveSectionContextProvider from "@/context/active-section-context";
@@ -44,7 +46,8 @@ export default function RootLayout({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   // Pages using the Ency design: home and the full portfolio listing (/projects without ?id)
-  const isHome = pathname === "/" || (pathname === "/projects" && !searchParams?.get("id"));
+  const isHome =
+    pathname === "/" || (pathname === "/projects" && !searchParams?.get("id")) || encyCaseStudyPaths.includes(pathname ?? "");
   const [isLoading, setIsLoading] = useState(true);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 

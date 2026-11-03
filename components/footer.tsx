@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { motion, useMotionValue, useScroll, useSpring, useTransform, MotionValue } from "framer-motion";
-import { links } from "@/lib/data";
+import { encyCaseStudyPaths, links } from "@/lib/data";
 import { BsEnvelopeFill, BsTelephoneFill } from "react-icons/bs";
 import Logo from "@/components/logo";
 import { useInViewOnce } from "@/components/motion/reveal";
@@ -77,7 +77,7 @@ export default function Footer() {
 
   // Hide the footer on individual project/case study pages (the full listing keeps it)
   const isListing = pathname === "/projects" && !searchParams?.get("id");
-  if (pathname?.startsWith("/projects") && !isListing) {
+  if (pathname?.startsWith("/projects") && !isListing && !encyCaseStudyPaths.includes(pathname)) {
     return null;
   }
 

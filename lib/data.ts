@@ -13,6 +13,10 @@ import hvacIot from "@/public/projects/Hvac iot.png";
 import sesPortal from "@/public/projects/SES Dasboard rev/ses main image.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
+import infinityGiftCard from "@/public/projects/infini-gift-card/cover.webp";
+
+// Case studies built with the Ency design (they keep the site header, footer and theme).
+export const encyCaseStudyPaths = ["/projects/8"];
 
 export const links = [
   {
@@ -93,6 +97,17 @@ export const experiencesData = [
 ] as const;
 
 export const projectsData = [
+  {
+    id:8,
+    title: "Infinity Gift Card Revamp 2.0",
+    category: "E-commerce",
+    summary: "+42% purchase conversion",
+    description:
+      "A complete UX & UI redesign of Infinity Gift Card, a Sri Lankan e-commerce platform for digital gift cards. Rebuilt the information architecture, turned buying into a guided four-step Design-a-card flow, and shipped a mobile-first UI across 24 desktop and 5 mobile screens.",
+    tags: ["Figma", "Miro", "Case Study", "Next.js", "Tailwind CSS", "shadcn/ui", "Claude Code", "Figma MCP", "E-commerce", "Mobile UI"],
+    imageUrl: infinityGiftCard,
+    hasDetailedCaseStudy: true,
+  },
   {
     id:7,
     title: "SES Portal Revamp",

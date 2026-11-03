@@ -6,8 +6,16 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BsArrowLeft, BsCheck2Circle, BsX, BsChevronLeft, BsChevronRight, BsZoomIn, BsZoomOut, BsArrowsFullscreen } from 'react-icons/bs';
 import { FiUsers, FiClock, FiTarget, FiTrendingUp } from 'react-icons/fi';
+import InfinityGiftCardCaseStudy from '@/components/case-studies/infinity-gift-card';
+import FrontendBuild from '@/components/case-studies/frontend-build';
+import { frontendBuilds } from '@/lib/frontend-builds';
 
-export default function CaseStudyPage() {
+export default function ProjectCaseStudyPage() {
+    const params = useParams();
+    return params.id === '8' ? <InfinityGiftCardCaseStudy /> : <CaseStudyPage />;
+}
+
+function CaseStudyPage() {
     const params = useParams();
     const router = useRouter();
     const projectId = params.id;
@@ -282,7 +290,7 @@ export default function CaseStudyPage() {
             ]
         },
         
-        technologies: ["Figma", "React Native", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Node.js", "MongoDB"],
+        technologies: ["Figma", "React Native", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Node.js", "MongoDB", "Claude Code", "Figma MCP"],
     };
 
     // SES Portal Revamp Case Study Data
@@ -763,7 +771,7 @@ export default function CaseStudyPage() {
             ]
         },
         
-        technologies: ["Figma", "FigJam", "HTML", "CSS", "ReactJS", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Recharts"],
+        technologies: ["Figma", "FigJam", "HTML", "CSS", "ReactJS", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Recharts", "Claude Code", "Figma MCP"],
     };
 
     const caseStudy = getCaseStudy();
@@ -1436,6 +1444,9 @@ export default function CaseStudyPage() {
                     </motion.div>
                 </div>
             </section>
+
+            {/* Front-end Development Section */}
+            <FrontendBuild data={frontendBuilds[projectId === '7' ? '7' : '1']} />
 
             {/* Key Screens Section */}
             <section className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800/50 dark:to-gray-900">
