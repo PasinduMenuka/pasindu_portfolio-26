@@ -3,7 +3,6 @@ import Collaborations from "@/components/collaborations";
 import Contact from "@/components/contact";
 import Experience from "@/components/experience";
 import Intro from "@/components/intro";
-import ProjectInvolvement from "@/components/project-involvement";
 import Projects from "@/components/projects";
 import Skills from "@/components/skills";
 
@@ -21,7 +20,6 @@ export default function Home() {
       <Collaborations />
       <Skills />
       <Experience />
-      <ProjectInvolvement />
       <Contact />
     </main>
   );

@@ -37,11 +37,12 @@ export function LoaderLogo({ className = "", title = "Pasindu Sannasuriya" }: { 
           <animateTransform
             attributeName="gradientTransform"
             type="translate"
-            values="-700 520; 700 -520"
+            values="-330 246; 420 -313"
             keyTimes="0; 1"
-            dur="1.6s"
+            dur="1.1s"
+            begin="0s"
             calcMode="spline"
-            keySplines="0.65 0 0.35 1"
+            keySplines="0.35 0 0.55 1"
             repeatCount="indefinite"
           />
         </linearGradient>

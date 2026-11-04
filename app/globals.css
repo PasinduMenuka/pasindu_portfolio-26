@@ -902,8 +902,8 @@ html.dark .mesh-bg {
   overflow: visible;
   filter: drop-shadow(0 0.6rem 2.2rem rgba(7, 8, 90, 0.35));
 }
-.loader-logo__letter { animation: loader-fade 0.7s cubic-bezier(0.19, 1, 0.22, 1) both; }
-.loader-logo__slash { opacity: 0.35; animation: loader-fade-slash 0.7s ease 0.15s both; }
+.loader-logo__letter { animation: loader-fade 0.4s ease both; }
+.loader-logo__slash { opacity: 0.35; animation: loader-fade-slash 0.4s ease both; }
 .loader-logo__light { filter: drop-shadow(0 0 10px rgba(255, 214, 10, 0.95)) drop-shadow(0 0 28px rgba(255, 214, 10, 0.6)); }
 
 .loader-eyebrow {
