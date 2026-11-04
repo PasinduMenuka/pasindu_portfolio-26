@@ -889,51 +889,30 @@ html.dark .mesh-bg {
 
 .loader-content {
   display: flex;
-  width: min(100%, 27rem);
   flex-direction: column;
   align-items: center;
   text-align: center;
-  animation: loader-arrive 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 
-.loader-mark {
-  position: relative;
-  display: grid;
-  width: 7rem;
-  height: 7rem;
-  place-items: center;
-  margin-bottom: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  border-radius: 2rem;
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 1rem 4rem rgba(7, 8, 90, 0.22), inset 0 1px rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
-  animation: loader-float 3s ease-in-out infinite;
-}
-
+/* PS monogram: fixed in place. P and S fade in once; a glowing light keeps running along the centre slash. */
 .loader-logo {
-  width: 4.2rem;
+  width: clamp(7rem, 18vw, 9.5rem);
   height: auto;
   color: #fff;
+  overflow: visible;
+  filter: drop-shadow(0 0.6rem 2.2rem rgba(7, 8, 90, 0.35));
 }
-
-.loader-mark__spark {
-  position: absolute;
-  top: 0.55rem;
-  right: 0.65rem;
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
-  background: var(--e-yellow, #ffd60a);
-  box-shadow: 0 0 1rem rgba(255, 214, 10, 0.8);
-}
+.loader-logo__letter { animation: loader-fade 0.7s cubic-bezier(0.19, 1, 0.22, 1) both; }
+.loader-logo__slash { opacity: 0.35; animation: loader-fade-slash 0.7s ease 0.15s both; }
+.loader-logo__light { filter: drop-shadow(0 0 10px rgba(255, 214, 10, 0.95)) drop-shadow(0 0 28px rgba(255, 214, 10, 0.6)); }
 
 .loader-eyebrow {
-  margin: 0;
+  margin: 2rem 0 0;
   color: rgba(255, 255, 255, 0.72);
   font-family: var(--font-mono), monospace;
   font-size: 0.68rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.22em;
+  animation: loader-fade 0.8s ease 0.25s both;
 }
 
 .loader-eyebrow span {
@@ -941,21 +920,14 @@ html.dark .mesh-bg {
   color: #ffd60a;
 }
 
-.loader-message {
-  margin: 0.8rem 0 1.8rem;
-  font-family: var(--font-display), Impact, sans-serif;
-  font-size: clamp(2rem, 7vw, 3rem);
-  font-weight: 800;
-  line-height: 0.98;
-  letter-spacing: -0.025em;
-}
-
 .loader-track {
-  width: min(100%, 15rem);
-  height: 3px;
+  width: 8rem;
+  height: 2px;
+  margin-top: 1rem;
   overflow: hidden;
   border-radius: 99px;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.2);
+  animation: loader-fade 0.8s ease 0.35s both;
 }
 
 .loader-track span {
@@ -968,28 +940,14 @@ html.dark .mesh-bg {
   animation: loader-sweep 1.25s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
-.loader-caption {
-  margin: 0.8rem 0 0;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 0.8rem;
+@keyframes loader-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.loader-dots {
-  display: inline-block;
-  width: 1.1rem;
-  overflow: hidden;
-  vertical-align: bottom;
-  animation: loader-dots 1.2s steps(4, end) infinite;
-}
-
-@keyframes loader-arrive {
-  from { opacity: 0; transform: translateY(0.8rem) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes loader-float {
-  0%, 100% { transform: translateY(0) rotate(-3deg); }
-  50% { transform: translateY(-0.45rem) rotate(3deg); }
+@keyframes loader-fade-slash {
+  from { opacity: 0; }
+  to { opacity: 0.35; }
 }
 
 @keyframes loader-sweep {
@@ -997,18 +955,16 @@ html.dark .mesh-bg {
   to { transform: translateX(290%); }
 }
 
-@keyframes loader-dots {
-  from { width: 0; }
-  to { width: 1.1rem; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .loader-content,
-  .loader-mark,
-  .loader-track span,
-  .loader-dots {
+  .loader-logo__letter,
+  .loader-logo__slash,
+  .loader-eyebrow,
+  .loader-track,
+  .loader-track span {
     animation: none;
   }
+  .loader-logo__slash { opacity: 1; }
+  .loader-logo__light { display: none; }
   .loader-track span { width: 100%; }
 }
 

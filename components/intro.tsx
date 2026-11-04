@@ -124,11 +124,8 @@ export default function Intro() {
             </svg>
 
             <Reveal delay={2} play={ready} as="p" className="e-lead e-hero__copy">
-              I&apos;m Pasindu, a Senior UI/UX Engineer &amp; Product Designer based in Sri Lanka. For 5+ years,
-              I&apos;ve turned complex problems into scalable products across IoT, fintech, POS, and cloud Wi-Fi
-              solutions. I also champion practical AI adoption: connecting Figma to AI coding assistants with Figma
-              MCP, designing AI-driven monitoring dashboards, and using generative AI for research, prototyping and
-              code reviews.
+              I&apos;m Pasindu, a Senior UI/UX Engineer &amp; Product Designer from Sri Lanka. 5+ years turning
+              complex IoT, fintech and POS problems into simple products, designed in Figma and built faster with AI.
             </Reveal>
 
             <Reveal delay={3} play={ready} className="e-hero__ctas">

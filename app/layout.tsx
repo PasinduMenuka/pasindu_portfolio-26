@@ -8,7 +8,7 @@ import localFont from "next/font/local";
 import { usePathname, useSearchParams } from "next/navigation";
 import ActiveSectionContextProvider from "@/context/active-section-context";
 import Footer from "@/components/footer";
-import Logo from "@/components/logo";
+import { LoaderLogo } from "@/components/logo";
 import { Toaster } from "react-hot-toast";
 import {useEffect, useState} from "react";
 import { Provider } from 'react-redux';
@@ -102,14 +102,9 @@ export default function RootLayout({
               transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1] }}
             >
               <div className="loader-content">
-                <div className="loader-mark">
-                  <Logo className="loader-logo" title="Pasindu Sannasuriya" />
-                  <span className="loader-mark__spark" aria-hidden="true" />
-                </div>
+                <LoaderLogo className="loader-logo" title="Pasindu Sannasuriya" />
                 <p className="loader-eyebrow">PASINDU SANNASURIYA <span>·</span> PORTFOLIO</p>
-                <p className="loader-message">Crafting thoughtful digital experiences.</p>
                 <div className="loader-track" aria-hidden="true"><span /></div>
-                <p className="loader-caption">Loading the good stuff<span className="loader-dots">...</span></p>
               </div>
             </motion.div>
           )}
