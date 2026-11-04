@@ -792,6 +792,12 @@ html.dark .e-stat__num { color: #fff; }
 .e-xp-card__desc.is-open { -webkit-line-clamp: unset; }
 .e-xp-card__more { margin-top: 0.6rem; font-size: 0.85rem; font-weight: 500; color: var(--e-blue); text-decoration: underline; text-underline-offset: 0.25em; }
 html.dark .e-xp-card__more { color: #8a8dff; }
+.e-xp-card__products { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.9rem; }
+.e-xp-card__products a { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.65rem; border: 1px solid rgba(22, 16, 95, 0.18); border-radius: 100em; color: var(--e-blue); font-size: 0.8rem; font-weight: 500; transition: background-color 0.25s, color 0.25s; }
+.e-xp-card__products a:hover { background: var(--e-blue); color: #fff; }
+.e-xp-card__products a:focus-visible { outline: 2px solid var(--e-blue); outline-offset: 2px; }
+html.dark .e-xp-card__products a { border-color: rgba(255, 255, 255, 0.22); color: #aaaaff; }
+html.dark .e-xp-card__products a:hover { background: #8a8dff; color: #16105f; }
 .e-xp__progress { margin: 2rem clamp(1rem, 4vw, 3rem) 0; height: 2px; width: 14rem; background: var(--e-line); border-radius: 2px; overflow: hidden; }
 .e-xp__progress span { display: block; height: 100%; background: var(--e-text); transform-origin: left; transition: transform 0.4s var(--e-ease-glide); }
 

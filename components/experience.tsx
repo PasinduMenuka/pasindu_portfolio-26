@@ -24,6 +24,16 @@ function XpCard({ item, index }: { item: (typeof experiencesData)[number]; index
             {open ? "Show less" : "Read more"}
           </button>
         )}
+        {"relatedProducts" in item && item.relatedProducts.length > 0 && (
+          <nav className="e-xp-card__products" aria-label="Nvision products">
+            {item.relatedProducts.map((product) => (
+              <a key={product.name} href={product.href} target="_blank" rel="noopener noreferrer">
+                {product.name}
+                <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </nav>
+        )}
       </div>
     </article>
   );

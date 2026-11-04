@@ -409,12 +409,15 @@ export default function SalesPlayCaseStudy() {
                 lines={[{ text: "SalesPlay POS", block: true }, { text: "Revamp", className: "is-soft", block: true }]}
               />
               <Reveal delay={1} as="p" className="e-lead mt-6">
-                A UX and UI redesign of SalesPlay’s Android point of sale, used by more than 100,000 businesses. The focus was the moment
-                that matters most at the counter: taking payment quickly and correctly, on a tablet or a phone.
+                I worked across SalesPlay’s web, Android, and iOS products, including its web POS and Back Office ERP. This case study
+                focuses on redesigning the Android point of sale, used by more than 100,000 businesses, to make checkout faster and more
+                reliable on a tablet or phone.
               </Reveal>
               <Reveal delay={2} className="igc-chips">
                 <span>POS</span>
-                <span>Android tablet & phone</span>
+                <span>Web POS</span>
+                <span>Back Office ERP</span>
+                <span>Android & iOS</span>
                 <span>Payments</span>
                 <span>Onboarding</span>
                 <span>Design system</span>
@@ -429,11 +432,11 @@ export default function SalesPlayCaseStudy() {
               <dl>
                 <div>
                   <dt className="e-mono">My role</dt>
-                  <dd>UI/UX design · UX research · Front-end handoff</dd>
+                  <dd>UI/UX design · UX research · Front-end implementation</dd>
                 </div>
                 <div>
                   <dt className="e-mono">Platform</dt>
-                  <dd>Android POS: tablet landscape + phone portrait</dd>
+                  <dd>Web POS and Back Office ERP · Android and iOS POS</dd>
                 </div>
                 <div>
                   <dt className="e-mono">Tools</dt>
@@ -445,7 +448,7 @@ export default function SalesPlayCaseStudy() {
                 </div>
                 <div>
                   <dt className="e-mono">Scope</dt>
-                  <dd>Onboarding, payment, split, printer setup, errors, snackbars</dd>
+                  <dd>Web POS, Back Office ERP, onboarding, payments, split checkout, printer setup, and error states</dd>
                 </div>
               </dl>
             </Reveal>

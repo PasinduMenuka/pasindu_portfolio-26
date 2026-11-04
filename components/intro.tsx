@@ -2,8 +2,22 @@
 
 import React from "react";
 import { BsGrid3X3Gap } from "react-icons/bs";
-import { FaReact, FaFigma, FaHtml5, FaCss3Alt, FaJsSquare } from "react-icons/fa";
-import { SiNextdotjs, SiTailwindcss, SiTypescript, SiFramer, SiRedux, SiAdobephotoshop, SiAdobexd, SiMiro } from "react-icons/si";
+import { FaReact, FaFigma, FaHtml5, FaCss3Alt, FaJsSquare, FaRobot, FaCode, FaGithub, FaGitlab } from "react-icons/fa";
+import {
+  SiNextdotjs,
+  SiTailwindcss,
+  SiTypescript,
+  SiFramer,
+  SiRedux,
+  SiAdobephotoshop,
+  SiAdobexd,
+  SiMiro,
+  SiSass,
+  SiPhp,
+  SiWordpress,
+  SiBitbucket,
+  SiOpenai,
+} from "react-icons/si";
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import ArrowButton from "@/components/arrow-button";
@@ -11,19 +25,32 @@ import { Reveal, SplitHeading, useInViewOnce } from "@/components/motion/reveal"
 
 const techStack = [
   { name: "Figma", icon: FaFigma },
+  { name: "Figma MCP Server", icon: FaFigma },
+  { name: "Figma AI", icon: FaFigma },
+  { name: "Adobe XD", icon: SiAdobexd },
+  { name: "Adobe Photoshop", icon: SiAdobephotoshop },
+  { name: "Miro", icon: SiMiro },
+  { name: "JavaScript", icon: FaJsSquare },
+  { name: "ReactJS", icon: FaReact },
   { name: "Next.js", icon: SiNextdotjs },
-  { name: "React", icon: FaReact },
   { name: "TypeScript", icon: SiTypescript },
-  { name: "Tailwind", icon: SiTailwindcss },
+  { name: "HTML5", icon: FaHtml5 },
+  { name: "CSS3", icon: FaCss3Alt },
+  { name: "SCSS", icon: SiSass },
+  { name: "Tailwind CSS", icon: SiTailwindcss },
+  { name: "PHP", icon: SiPhp },
+  { name: "WordPress", icon: SiWordpress },
   { name: "Framer Motion", icon: SiFramer },
   { name: "Redux", icon: SiRedux },
   { name: "Shadcn UI", icon: BsGrid3X3Gap },
-  { name: "Adobe XD", icon: SiAdobexd },
-  { name: "Miro", icon: SiMiro },
-  { name: "HTML5", icon: FaHtml5 },
-  { name: "CSS3", icon: FaCss3Alt },
-  { name: "JavaScript", icon: FaJsSquare },
-  { name: "Photoshop", icon: SiAdobephotoshop },
+  { name: "Claude & Claude Code", icon: FaRobot },
+  { name: "ChatGPT", icon: SiOpenai },
+  { name: "GitHub Copilot", icon: FaGithub },
+  { name: "Cursor", icon: FaCode },
+  { name: "Prompt Engineering", icon: FaRobot },
+  { name: "GitHub", icon: FaGithub },
+  { name: "GitLab", icon: FaGitlab },
+  { name: "Bitbucket", icon: SiBitbucket },
 ];
 
 function HeroNote() {
@@ -95,9 +122,11 @@ export default function Intro() {
             </svg>
 
             <Reveal delay={2} as="p" className="e-lead e-hero__copy">
-              I&apos;m Pasindu, a Senior UI/UX Engineer &amp; Product Designer based in Sri Lanka. For 5+ years
-              I&apos;ve been turning messy, poorly defined problems into precise, scalable product experiences across
-              IoT, fintech, POS and AI. Research, design and the front-end code, all from one person.
+              I&apos;m Pasindu, a Senior UI/UX Engineer &amp; Product Designer based in Sri Lanka. For 5+ years,
+              I&apos;ve turned complex problems into scalable products across IoT, fintech, POS, and cloud Wi-Fi
+              solutions. I also champion practical AI adoption: connecting Figma to AI coding assistants with Figma
+              MCP, designing AI-driven monitoring dashboards, and using generative AI for research, prototyping and
+              code reviews.
             </Reveal>
 
             <Reveal delay={3} className="e-hero__ctas">
@@ -144,7 +173,7 @@ export default function Intro() {
         <div className="e-container">
           <Reveal className="e-proof__panel">
             <p className="e-mono e-proof__label">Tools I design &amp; build with</p>
-            <div className="e-marquee" style={{ ["--dur" as any]: "45s" }}>
+            <div className="e-marquee" style={{ ["--dur" as any]: "90s" }}>
               <div className="e-marquee__track">
                 {[...techStack, ...techStack].map((tech, i) => {
                   const Icon = tech.icon;

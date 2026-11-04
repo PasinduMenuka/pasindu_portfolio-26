@@ -7,7 +7,7 @@ import Skills from "@/components/skills";
 
 export const metadata = {
     title: "Pasindu Sannasuriya | Personal Portfolio",
-    description: "Pasindu is a experienced Senior UI/UX Engineer with over 5 years of experience.",
+    description: "Pasindu is a Senior UI/UX Engineer, Senior Web Developer, and AI-driven Product Designer with 5+ years of experience.",
 };
 
 export default function Home() {

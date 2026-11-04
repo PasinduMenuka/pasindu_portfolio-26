@@ -60,7 +60,12 @@ export const experiencesData = [
     title: "Senior UI/UX Engineer",
     location: "Nvision (Pvt) Ltd",
     description:
-      "Drove the design and development of user-centered interfaces to deliver high-quality results within tight timelines. Led the UI/UX design for the SaleMore POS system across Android, iOS, and web dashboards, ensuring a consistent cross-platform experience. Redesigned the POS admin dashboard, improving usability, navigation, and operational efficiency. Created user flows, wireframes, interactive prototypes, and high-fidelity designs using Figma. Implemented frontend UI components using PHP, React.js, CSS, and Tailwind CSS.",
+      "Led UX/UI design and front-end delivery across Nvision products in telecom, digital signage, and retail. Worked on Monyfi, Nvision's network access platform for telcos, and MediaXGo, a cloud dashboard for managing digital-signage screens and scheduled content. Designed SalesPlay POS experiences across web, Android, and iOS, including web POS and Back Office ERP dashboards. Created user flows, prototypes, and high-fidelity Figma designs, and implemented front-end components using PHP, React.js, CSS, and Tailwind CSS.",
+    relatedProducts: [
+      { name: "Monyfi", href: "https://monyfi.com/" },
+      { name: "MediaXGo", href: "https://mediaxgo.com/" },
+      { name: "SalesPlay", href: "https://salesplay.com/" },
+    ],
     icon: React.createElement(CgWorkAlt),
     date: "Nov 2023 - Sep 2025",
   },
@@ -135,11 +140,11 @@ export const projectsData = [
   {
     id:10,
     title: "SalesPlay POS Revamp",
-    category: "POS",
-    summary: "Faster, safer checkout",
+    category: "POS & Back Office ERP",
+    summary: "POS across web, Android and iOS",
     description:
-      "A UX & UI redesign of SalesPlay's Android point of sale, used by 100,000+ businesses. Rebuilt the payment screen with quick cash amounts, explicit confirms, card surcharges, dual pricing, rounding, alternative currency and split payments, plus a step-by-step onboarding flow and a 32-variant snackbar system for tablet and phone.",
-    tags: ["Figma", "Case Study", "Android", "Material Design", "Jetpack Compose", "Claude Code", "Figma MCP", "POS", "Tablet UI"],
+      "Worked across SalesPlay POS on web, Android and iOS, including its web point of sale and Back Office ERP dashboards. The detailed case study focuses on the Android POS redesign: faster, safer checkout with quick cash amounts, explicit confirms, card surcharges, dual pricing, rounding, alternative currency and split payments, plus step-by-step onboarding for tablet and phone.",
+    tags: ["Figma", "Case Study", "Web POS", "Back Office ERP", "Android", "iOS", "Material Design", "Jetpack Compose", "Claude Code", "Figma MCP"],
     imageUrl: salesPlayPos,
     hasDetailedCaseStudy: true,
   },

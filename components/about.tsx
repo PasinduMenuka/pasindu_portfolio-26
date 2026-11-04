@@ -11,6 +11,7 @@ const strengths = [
   "Build atomic design systems that scale",
   "Run user research & usability testing",
   "Translate fluently between design and engineering",
+  "Champion practical AI adoption across product teams",
 ];
 
 const stats = [
@@ -137,9 +138,14 @@ export default function About() {
                 I lead UX from research and flows through to high-fidelity Figma and production-ready front-end, so
                 nothing gets lost between the design file and the shipped product.
               </p>
+              <p>
+                I also champion practical AI adoption: connecting Figma frames and tokens to AI coding assistants
+                through Figma MCP, designing AI-driven dashboards for real-time monitoring, and using generative AI
+                for research synthesis, UX copy, prototyping and code reviews.
+              </p>
             </Reveal>
             <Reveal delay={2} className="e-about__meta">
-              {["IoT", "Fintech", "AI", "POS", "ERP", "Dashboards"].map((t) => (
+              {["IoT", "Fintech", "POS", "Cloud Wi-Fi", "AI & Automation", "ERP", "Dashboards"].map((t) => (
                 <span key={t} className="e-chip e-mono">
                   {t}
                 </span>
