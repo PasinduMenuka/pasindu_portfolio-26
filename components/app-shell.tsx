@@ -10,6 +10,8 @@ import {useEffect, useState} from "react";
 import { Provider } from 'react-redux';
 import { store } from '@/app/store';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 /** Client side of the root layout: loader, page chrome and providers. Renders <body> so its classes can depend on the route. */
 export default function AppShell({ children, fontClassName }: { children: React.ReactNode; fontClassName: string }) {
@@ -123,6 +125,9 @@ export default function AppShell({ children, fontClassName }: { children: React.
               />
             </Provider>
           </ActiveSectionContextProvider>
+          {/* Visits and Core Web Vitals in the Vercel dashboard (enable both in the project's tabs). */}
+          <Analytics />
+          <SpeedInsights route={pathname} />
       </body>
   );
 }
