@@ -93,7 +93,7 @@ function Portfolio() {
     );
 }
 
-export default function Projects() {
+export default function ProjectsListing() {
     const searchParams = useSearchParams()
     const id = searchParams.get('id')
 

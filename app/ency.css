@@ -992,3 +992,6 @@ html.dark .e-brand { border-color: rgba(255, 255, 255, 0.1); }
 .e-brand__link { position: absolute; top: 0.95rem; right: 0.95rem; display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.25rem 0.6rem; border-radius: 100em; background: var(--e-blue); color: #fff; font-size: 0.68rem; font-weight: 600; opacity: 0; transform: translateY(-4px); transition: opacity 0.4s, transform 0.4s var(--e-ease-glide); }
 .e-brand.is-link:hover .e-brand__link, .e-brand.is-link:focus-visible .e-brand__link { opacity: 1; transform: none; }
 @media (hover: none) { .e-brand__link { position: static; align-self: flex-start; margin: 0 0.5rem 0.4rem; opacity: 1; transform: none; } }
+
+/* Social links in the footer "Follow" column carry an icon chip like the contact rows. */
+.e-footer2__col .e-footer2__link:has(.e-footer2__icon) { gap: 0.65rem; }

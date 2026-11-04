@@ -2,14 +2,17 @@
 
 import React, { useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { motion, useMotionValue, useScroll, useSpring, useTransform, MotionValue } from "framer-motion";
 import { encyCaseStudyPaths, links } from "@/lib/data";
 import { BsEnvelopeFill, BsTelephoneFill } from "react-icons/bs";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import type { IconType } from "react-icons";
+import { PERSON } from "@/lib/site";
 import Logo from "@/components/logo";
 import { useInViewOnce } from "@/components/motion/reveal";
 
-type FooterLink = { label: string; href: string; external?: boolean; download?: boolean };
+type FooterLink = { label: string; href: string; external?: boolean; download?: boolean; icon?: IconType };
 
 const columns: { heading: string; items: FooterLink[] }[] = [
   {
@@ -22,14 +25,14 @@ const columns: { heading: string; items: FooterLink[] }[] = [
       { label: "SES Portal Revamp", href: "/projects/7" },
       { label: "HVAC IoT Platform", href: "/projects/1" },
       { label: "All projects", href: "/projects" },
-      { label: "Download CV", href: "https://drive.google.com/file/d/1AuQ0pFahUC0L0MWK41k-5Ddj1mu37n5t/view?usp=sharing", external: true },
+      { label: "Download CV", href: "https://drive.google.com/file/d/1PUnX36aga7dHJqw5DEGdk00hDmhkzinn/view?usp=sharing", external: true },
     ],
   },
   {
     heading: "Follow",
     items: [
-      { label: "LinkedIn", href: "https://linkedin.com", external: true },
-      { label: "GitHub", href: "https://github.com", external: true },
+      { label: "LinkedIn", href: PERSON.linkedin, external: true, icon: FaLinkedin },
+      { label: "GitHub", href: PERSON.github, external: true, icon: FaGithub },
     ],
   },
 ];
@@ -63,7 +66,9 @@ function TalkRow({ progress, index, opacity }: { progress: MotionValue<number>; 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // Read ?id after mount; useSearchParams here would stop every page from pre-rendering.
+  const [hasIdParam, setHasIdParam] = useState(false);
+  React.useEffect(() => setHasIdParam(new URLSearchParams(window.location.search).has("id")), [pathname]);
   const talkRef = useRef<HTMLAnchorElement>(null);
   const cta = useInViewOnce<HTMLDivElement>(0.3);
   const { scrollYProgress } = useScroll({ target: talkRef, offset: ["start end", "end 0.85"] });
@@ -76,7 +81,7 @@ export default function Footer() {
   const cy = useSpring(my, { stiffness: 260, damping: 26, mass: 0.6 });
 
   // Hide the footer on individual project/case study pages (the full listing keeps it)
-  const isListing = pathname === "/projects" && !searchParams?.get("id");
+  const isListing = pathname === "/projects" && !hasIdParam;
   if (pathname?.startsWith("/projects") && !isListing && !encyCaseStudyPaths.includes(pathname)) {
     return null;
   }
@@ -164,9 +169,14 @@ export default function Footer() {
                       href={item.href}
                       className="e-footer2__link"
                       target={item.external ? "_blank" : undefined}
-                      rel={item.external ? "noopener" : undefined}
+                      rel={item.external ? (item.icon ? "me noopener" : "noopener") : undefined}
                       download={item.download || undefined}
                     >
+                      {item.icon && (
+                        <span className="e-footer2__icon" aria-hidden="true">
+                          <item.icon />
+                        </span>
+                      )}
                       <Roll>{item.label}</Roll>
                       {item.external && <span aria-hidden="true">↗</span>}
                     </a>

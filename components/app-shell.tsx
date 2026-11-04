@@ -1,53 +1,27 @@
 'use client'
 import Header from "@/components/header";
-import "./globals.css";
-import "./ency.css";
-import "./case-study.css";
 import { encyCaseStudyPaths } from "@/lib/data";
-import localFont from "next/font/local";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import ActiveSectionContextProvider from "@/context/active-section-context";
 import Footer from "@/components/footer";
 import { LoaderLogo } from "@/components/logo";
 import { Toaster } from "react-hot-toast";
 import {useEffect, useState} from "react";
 import { Provider } from 'react-redux';
-import { store } from './store';
+import { store } from '@/app/store';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 
-// Fonts are bundled in app/fonts so builds and dev never depend on reaching Google Fonts.
-const inter = localFont({ src: "./fonts/inter.woff2", weight: "100 900", variable: "--font-inter", display: "swap" });
-const poppins = localFont({
-  src: [
-    { path: "./fonts/poppins-400.woff2", weight: "400" },
-    { path: "./fonts/poppins-500.woff2", weight: "500" },
-    { path: "./fonts/poppins-600.woff2", weight: "600" },
-    { path: "./fonts/poppins-700.woff2", weight: "700" },
-    { path: "./fonts/poppins-800.woff2", weight: "800" },
-  ],
-  variable: "--font-poppins",
-  display: "swap",
-});
-const display = localFont({
-  src: "./fonts/big-shoulders-display.woff2",
-  weight: "800 900",
-  variable: "--font-display",
-  display: "swap",
-  fallback: ["Arial Narrow", "Impact", "sans-serif"],
-});
-const hand = localFont({ src: "./fonts/caveat.woff2", weight: "500 700", variable: "--font-hand", display: "swap", fallback: ["cursive"] });
-const mono = localFont({ src: "./fonts/jetbrains-mono.woff2", weight: "400 500", variable: "--font-mono", display: "swap", fallback: ["ui-monospace", "monospace"] });
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+/** Client side of the root layout: loader, page chrome and providers. Renders <body> so its classes can depend on the route. */
+export default function AppShell({ children, fontClassName }: { children: React.ReactNode; fontClassName: string }) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // Read ?id after mount instead of useSearchParams, which would opt every page out of static HTML.
+  const [hasIdParam, setHasIdParam] = useState(false);
+  useEffect(() => {
+    setHasIdParam(new URLSearchParams(window.location.search).has("id"));
+  }, [pathname]);
   // Pages using the Ency design: home and the full portfolio listing (/projects without ?id)
   const isHome =
-    pathname === "/" || (pathname === "/projects" && !searchParams?.get("id")) || encyCaseStudyPaths.includes(pathname ?? "");
+    pathname === "/" || (pathname === "/projects" && !hasIdParam) || encyCaseStudyPaths.includes(pathname ?? "");
   const [isLoading, setIsLoading] = useState(true);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -75,12 +49,8 @@ export default function RootLayout({
   }, [isHome]);
 
   return (
-    <html lang="en" className="!scroll-smooth">
-      <head>
-        <meta name="theme-color" content={isHome ? "#0000ff" : "#060d1a"} />
-      </head>
       <body
-        className={`${inter.variable} ${poppins.variable} ${display.variable} ${hand.variable} ${mono.variable} font-sans relative overflow-x-hidden ${
+        className={`${fontClassName} font-sans relative overflow-x-hidden ${
           isHome ? "is-home" : "bg-[var(--color-bg)] text-[var(--color-text-primary)] pt-28 sm:pt-36 mesh-bg"
         }`}
       >
@@ -104,7 +74,7 @@ export default function RootLayout({
               <div className="loader-content">
                 <LoaderLogo className="loader-logo" title="Pasindu Sannasuriya" />
                 <p className="loader-eyebrow">PASINDU SANNASURIYA <span>·</span> PORTFOLIO</p>
-                <div className="loader-track" aria-hidden="true"><span /></div>
+                <div className="loader-dots" aria-hidden="true"><span /><span /><span /></div>
               </div>
             </motion.div>
           )}
@@ -154,6 +124,5 @@ export default function RootLayout({
             </Provider>
           </ActiveSectionContextProvider>
       </body>
-    </html>
   );
 }

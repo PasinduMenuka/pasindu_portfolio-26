@@ -102,6 +102,7 @@ export default function Intro() {
               as="h1"
               className="e-hero__title"
               play={ready}
+              srPrefix="Pasindu Sannasuriya, Senior UI/UX Engineer and Product Designer:"
               lines={[
                 { text: "Products that feel", className: "e-hero__line", block: true },
                 { text: "effortless", className: "is-soft e-hero__line", block: true },
@@ -139,7 +140,7 @@ export default function Intro() {
               >
                 Hire me
               </ArrowButton>
-              <ArrowButton variant="ghost" href="https://drive.google.com/file/d/1AuQ0pFahUC0L0MWK41k-5Ddj1mu37n5t/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+              <ArrowButton variant="ghost" href="https://drive.google.com/file/d/1PUnX36aga7dHJqw5DEGdk00hDmhkzinn/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                 Download my CV
               </ArrowButton>
             </Reveal>
@@ -153,14 +154,14 @@ export default function Intro() {
             <img
               className={`e-hero__photo${hasScrolled ? "" : " is-visible"}`}
               src="/hero-portrait.png"
-              alt={hasScrolled ? "" : "Pasindu Sannasuriya"}
+              alt={hasScrolled ? "" : "Pasindu Sannasuriya, Senior UI/UX Engineer from Sri Lanka"}
               aria-hidden={hasScrolled}
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               className={`e-hero__photo${hasScrolled ? " is-visible" : ""}`}
               src="/hero-portrait-scroll.png"
-              alt={hasScrolled ? "Pasindu Sannasuriya" : ""}
+              alt={hasScrolled ? "Pasindu Sannasuriya, Senior UI/UX Engineer from Sri Lanka" : ""}
               aria-hidden={!hasScrolled}
             />
             <HeroNote play={ready} />

@@ -920,25 +920,24 @@ html.dark .mesh-bg {
   color: #ffd60a;
 }
 
-.loader-track {
-  width: 8rem;
-  height: 2px;
-  margin-top: 1rem;
-  overflow: hidden;
-  border-radius: 99px;
-  background: rgba(255, 255, 255, 0.2);
-  animation: loader-fade 0.8s ease 0.35s both;
+.loader-dots {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+  animation: loader-fade 0.4s ease 0.2s both;
 }
 
-.loader-track span {
-  display: block;
-  width: 38%;
-  height: 100%;
-  border-radius: inherit;
-  background: #ffd60a;
-  box-shadow: 0 0 1rem rgba(255, 214, 10, 0.55);
-  animation: loader-sweep 1.25s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+/* Three white dots that rise and brighten one after another. */
+.loader-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.3;
+  animation: loader-dot 1s ease-in-out infinite;
 }
+.loader-dots span:nth-child(2) { animation-delay: 0.16s; }
+.loader-dots span:nth-child(3) { animation-delay: 0.32s; }
 
 @keyframes loader-fade {
   from { opacity: 0; }
@@ -950,22 +949,22 @@ html.dark .mesh-bg {
   to { opacity: 0.35; }
 }
 
-@keyframes loader-sweep {
-  from { transform: translateX(-110%); }
-  to { transform: translateX(290%); }
+@keyframes loader-dot {
+  0%, 70%, 100% { opacity: 0.3; transform: translateY(0) scale(1); }
+  35% { opacity: 1; transform: translateY(-5px) scale(1.15); box-shadow: 0 0 10px rgba(255, 255, 255, 0.7); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .loader-logo__letter,
   .loader-logo__slash,
   .loader-eyebrow,
-  .loader-track,
-  .loader-track span {
+  .loader-dots,
+  .loader-dots span {
     animation: none;
   }
   .loader-logo__slash { opacity: 1; }
   .loader-logo__light { display: none; }
-  .loader-track span { width: 100%; }
+  .loader-dots span { opacity: 0.8; }
 }
 
 /* =============================================

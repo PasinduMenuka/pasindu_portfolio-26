@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site";
 import About from "@/components/about";
 import Collaborations from "@/components/collaborations";
 import Contact from "@/components/contact";
@@ -6,9 +8,10 @@ import Intro from "@/components/intro";
 import Projects from "@/components/projects";
 import Skills from "@/components/skills";
 
-export const metadata = {
-    title: "Pasindu Sannasuriya | Personal Portfolio",
-    description: "Pasindu is a Senior UI/UX Engineer, Senior Web Developer, and AI-driven Product Designer with 5+ years of experience.",
+export const metadata: Metadata = {
+  title: { absolute: SITE_TITLE },
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
 };
 
 export default function Home() {

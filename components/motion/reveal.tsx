@@ -107,10 +107,13 @@ export function SplitHeading({
   lines,
   className = "",
   play = true,
+  srPrefix,
 }: {
   as?: keyof JSX.IntrinsicElements;
   lines: { text: string; className?: string; block?: boolean }[];
   className?: string;
+  /** Text read by screen readers and search engines before the animated lines (visually hidden). */
+  srPrefix?: string;
   /** Hold the reveal until this is true. */
   play?: boolean;
 }) {
@@ -119,6 +122,7 @@ export function SplitHeading({
   let idx = 0;
   return (
     <Tag ref={ref} className={`e-display ${className} ${inView && play ? "is-in" : ""}`}>
+      {srPrefix ? <span className="sr-only">{srPrefix} </span> : null}
       {lines.map((line, i) => {
         const start = idx;
         idx += line.text.split(/\s+/).filter(Boolean).length;

@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { BsEnvelopeFill, BsTelephoneFill } from "react-icons/bs";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { PERSON } from "@/lib/site";
 import { useSectionInView } from "@/lib/hooks";
 import { validateContactForm } from "@/lib/utils";
 import { sendEmail } from "@/actions/sendEmail";
@@ -13,8 +14,8 @@ import { HandTag, Reveal, SplitHeading } from "@/components/motion/reveal";
 const contactLinks = [
   { label: "sannasuriyapm@gmail.com", href: "mailto:sannasuriyapm@gmail.com", icon: BsEnvelopeFill },
   { label: "+94 77 621 7729", href: "tel:+94776217729", icon: BsTelephoneFill },
-  { label: "LinkedIn", href: "https://linkedin.com", icon: FaLinkedin },
-  { label: "GitHub", href: "https://github.com", icon: FaGithub },
+  { label: "LinkedIn", href: PERSON.linkedin, icon: FaLinkedin },
+  { label: "GitHub", href: PERSON.github, icon: FaGithub },
 ];
 
 export default function Contact() {
