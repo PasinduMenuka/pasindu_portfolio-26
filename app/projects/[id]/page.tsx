@@ -7,12 +7,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { BsArrowLeft, BsCheck2Circle, BsX, BsChevronLeft, BsChevronRight, BsZoomIn, BsZoomOut, BsArrowsFullscreen } from 'react-icons/bs';
 import { FiUsers, FiClock, FiTarget, FiTrendingUp } from 'react-icons/fi';
 import InfinityGiftCardCaseStudy from '@/components/case-studies/infinity-gift-card';
+import BloomingBoxCaseStudy from '@/components/case-studies/blooming-box';
+import SalesPlayCaseStudy from '@/components/case-studies/salesplay-pos';
 import FrontendBuild from '@/components/case-studies/frontend-build';
 import { frontendBuilds } from '@/lib/frontend-builds';
 
 export default function ProjectCaseStudyPage() {
     const params = useParams();
-    return params.id === '8' ? <InfinityGiftCardCaseStudy /> : <CaseStudyPage />;
+    if (params.id === '8') return <InfinityGiftCardCaseStudy />;
+    if (params.id === '9') return <BloomingBoxCaseStudy />;
+    if (params.id === '10') return <SalesPlayCaseStudy />;
+    return <CaseStudyPage />;
 }
 
 function CaseStudyPage() {

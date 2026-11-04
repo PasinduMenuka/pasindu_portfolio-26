@@ -24,7 +24,7 @@ export default function Project({ id, title, category, summary, imageUrl, hasDet
         </span>
       </div>
       <div className="e-card__meta">
-        <h3 className="e-card__title">{title}</h3>
+        <h3 className="e-card__title" title={title}>{title}</h3>
         <span className="e-card__tag e-mono">{category}</span>
       </div>
       <p className="e-card__summary">{summary}</p>

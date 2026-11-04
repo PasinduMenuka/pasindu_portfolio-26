@@ -376,3 +376,167 @@ html.dark .igc-btn.is-ghost { color: var(--igc-red-soft); box-shadow: inset 0 0 
 .igc-learn ul { margin-top: 0.9rem; display: grid; gap: 0.7rem; }
 .igc-learn li { position: relative; padding-left: 1.4rem; line-height: 1.5; color: rgba(255, 255, 255, 0.92); }
 .igc-learn li::before { content: "→"; position: absolute; left: 0; color: #ffd1d9; }
+
+/* =============================================================
+   CASE STUDY · BLOOMINGBOX
+   Same layout as .igc, re-themed with BloomingBox's blush & ink.
+   ============================================================= */
+
+.igc.bbx {
+  --igc-red: #b4646b;
+  --igc-red-deep: #8f4a51;
+  --igc-red-soft: #e4a3a8;
+  --igc-blush: #f4ebe6;
+  --igc-night: #13171b;
+  --igc-ink: #13171b;
+  --igc-line: rgba(19, 23, 27, 0.1);
+}
+html.dark .igc.bbx {
+  --igc-blush: #1c1817;
+  --igc-tile: #241f1e;
+  --igc-line: rgba(255, 255, 255, 0.12);
+}
+.bbx .igc-hero {
+  background:
+    radial-gradient(60rem 30rem at 85% 10%, rgba(228, 190, 194, 0.42), transparent 60%),
+    radial-gradient(40rem 26rem at 0% 100%, rgba(210, 137, 141, 0.25), transparent 60%),
+    linear-gradient(180deg, #1d2025 0%, var(--igc-night) 100%);
+}
+.bbx .igc-ia__col ul { border-left-color: rgba(180, 100, 107, 0.4); }
+.bbx .igc-flow__lane.is-alt { fill: rgba(180, 100, 107, 0.05); }
+.bbx .igc-blush .igc-journey ol li { background: rgba(180, 100, 107, 0.1); }
+.bbx .igc-wizard__step[aria-selected="true"] { background: rgba(228, 163, 168, 0.14); }
+.bbx .igc-browser__bar span { background: rgba(180, 100, 107, 0.4); }
+.bbx .igc-stepper i.is-on { box-shadow: 0 0 0 4px rgba(180, 100, 107, 0.2); }
+.bbx .igc-btn { background: var(--igc-ink); }
+html.dark .bbx .igc-btn { background: #fff; color: var(--igc-ink); }
+.bbx .igc-btn.is-ghost { background: transparent; color: var(--e-text); box-shadow: inset 0 0 0 1.5px currentColor; }
+.bbx .igc-results { background: radial-gradient(50rem 30rem at 100% 0%, rgba(228, 190, 194, 0.45), transparent 60%), linear-gradient(135deg, #13171b 0%, #3a2a2c 55%, #8f4a51 100%); }
+.bbx .igc-results .e-display .is-soft, .bbx .igc-results .igc-eyebrow, .bbx .igc-learn .e-mono, .bbx .igc-learn li::before { color: #f2c9cc; }
+
+/* Before / after */
+.bbx-compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.75rem); }
+@media (max-width: 760px) { .bbx-compare { grid-template-columns: 1fr; } }
+.bbx-compare .igc-browser__view { height: clamp(20rem, 36vw, 32rem); }
+.bbx-label { display: inline-flex; align-items: center; gap: 0.4rem; margin-left: auto; padding: 0.2rem 0.65rem; border-radius: 100em; font-family: var(--font-mono), monospace; font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.bbx-label.is-before { background: rgba(19, 23, 27, 0.08); color: var(--e-muted); }
+.bbx-label.is-after { background: var(--igc-ink); color: #fff; }
+html.dark .bbx-label.is-before { background: rgba(255, 255, 255, 0.1); }
+html.dark .bbx-label.is-after { background: #fff; color: var(--igc-ink); }
+.bbx-notes { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+@media (max-width: 760px) { .bbx-notes { grid-template-columns: 1fr; } }
+.bbx-notes > div { padding: 1.1rem 1.25rem; border-radius: var(--e-radius-card); background: var(--igc-tile); border: 1px solid var(--igc-line); }
+.bbx-notes .e-mono { color: var(--igc-red); }
+.bbx-notes ul { margin-top: 0.6rem; display: grid; gap: 0.45rem; }
+.bbx-notes li { position: relative; padding-left: 1.2rem; font-size: 0.92rem; line-height: 1.5; color: var(--e-body); }
+.bbx-notes li::before { content: "–"; position: absolute; left: 0; color: var(--e-muted); }
+.bbx-notes .is-after li::before { content: "✓"; color: var(--igc-red); font-weight: 700; }
+.bbx-phones-compare { display: flex; justify-content: center; gap: clamp(1rem, 4vw, 3rem); }
+.bbx-phones-compare .igc-phone { width: min(17rem, 44vw); }
+.bbx-phones-compare .igc-phone figcaption { display: flex; align-items: center; gap: 0.5rem; color: var(--e-text); }
+.bbx-phones-compare .bbx-label { margin-left: 0; }
+
+/* Feature spotlight (image + copy) */
+.bbx-feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+.bbx-feature + .bbx-feature { margin-top: clamp(3rem, 6vw, 5rem); }
+.bbx-feature.is-flip > :first-child { order: 2; }
+@media (max-width: 900px) { .bbx-feature { grid-template-columns: 1fr; } .bbx-feature.is-flip > :first-child { order: 0; } }
+.bbx-feature h3 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 700; line-height: 1.15; color: var(--e-text); }
+.bbx-feature p { margin-top: 0.85rem; line-height: 1.65; color: var(--e-body); }
+.bbx-feature ul { margin-top: 1rem; display: grid; gap: 0.5rem; }
+.bbx-feature li { position: relative; padding-left: 1.4rem; font-size: 0.95rem; color: var(--e-body); }
+.bbx-feature li::before { content: "✓"; position: absolute; left: 0; color: var(--igc-red); font-weight: 700; }
+.bbx-feature__media { display: flex; gap: 1rem; align-items: flex-start; }
+.bbx-feature__media .igc-phone { flex: 0 0 min(15rem, 46%); }
+.bbx-feature__media .igc-browser { flex: 1; min-width: 0; }
+.bbx-feature__media .igc-browser__view { height: auto; max-height: clamp(16rem, 30vw, 26rem); }
+.igc-dark .bbx-feature h3 { color: #fff; }
+.igc-dark .bbx-feature p, .igc-dark .bbx-feature li { color: rgba(255, 255, 255, 0.75); }
+.igc-dark .bbx-feature .igc-browser { border-color: rgba(255, 255, 255, 0.12); }
+
+/* Account & BLACK loyalty */
+.bbx-account { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(14rem, 1fr); gap: clamp(1rem, 2vw, 1.5rem); overflow-x: auto; overflow-y: hidden; padding-bottom: 1rem; scroll-snap-type: x mandatory; }
+.bbx-account figcaption strong { color: var(--e-text); }
+.bbx-account figcaption p { color: var(--e-body); }
+.bbx-black-intro { display: grid; grid-template-columns: repeat(2, minmax(0, 17rem)); gap: clamp(1rem, 3vw, 2.5rem); }
+@media (max-width: 560px) { .bbx-black-intro { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.bbx-tiers { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+@media (max-width: 992px) { .bbx-tiers { grid-template-columns: 1fr; } .bbx-tiers__phones { order: -1; } }
+.bbx-tiers__badge { display: block; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--igc-red-soft); }
+.bbx-tiers__perks { margin-top: 0.75rem; display: grid; gap: 0.35rem; }
+.bbx-tiers__perks li { position: relative; padding-left: 1.3rem; font-size: 0.88rem; color: rgba(255, 255, 255, 0.85); }
+.bbx-tiers__perks li::before { content: "✓"; position: absolute; left: 0; color: #e8c98f; font-weight: 700; }
+.bbx-tiers__phones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(0.75rem, 2vw, 1.5rem); animation: igc-fade 0.6s var(--e-ease-glide); }
+
+/* =============================================================
+   CASE STUDY · SALESPLAY POS
+   Same layout as .igc, re-themed with SalesPlay blue.
+   ============================================================= */
+
+.igc.spx {
+  --igc-red: #007aff;
+  --igc-red-deep: #0a4fa3;
+  --igc-red-soft: #7fbcff;
+  --igc-blush: #eef5ff;
+  --igc-night: #0b1424;
+  --igc-ink: #1f2329;
+  --igc-line: rgba(31, 35, 41, 0.1);
+}
+html.dark .igc.spx {
+  --igc-blush: #0f1a2b;
+  --igc-tile: #142238;
+  --igc-line: rgba(255, 255, 255, 0.12);
+}
+.spx .igc-hero {
+  background:
+    radial-gradient(60rem 30rem at 85% 10%, rgba(0, 122, 255, 0.45), transparent 60%),
+    radial-gradient(40rem 26rem at 0% 100%, rgba(255, 216, 77, 0.16), transparent 60%),
+    linear-gradient(180deg, #0f1c33 0%, var(--igc-night) 100%);
+}
+.spx .igc-ia__col ul { border-left-color: rgba(0, 122, 255, 0.35); }
+.spx .igc-flow__lane.is-alt { fill: rgba(0, 122, 255, 0.04); }
+.spx .igc-blush .igc-journey ol li { background: rgba(0, 122, 255, 0.08); }
+.spx .igc-wizard__step[aria-selected="true"] { background: rgba(0, 122, 255, 0.18); }
+.spx .igc-browser__bar span { background: rgba(0, 122, 255, 0.35); }
+.spx .igc-stepper i.is-on { box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.18); }
+.spx .igc-results { background: radial-gradient(50rem 30rem at 100% 0%, rgba(255, 216, 77, 0.28), transparent 60%), linear-gradient(135deg, #0a2f6b 0%, #0062d6 60%, #2b8cff 100%); }
+.spx .igc-results .e-display .is-soft, .spx .igc-results .igc-eyebrow, .spx .igc-learn .e-mono, .spx .igc-learn li::before { color: #ffe27a; }
+
+/* Tablet frame (screens are 1280 × 800, shown whole) */
+.sp-tablet { margin: 0; }
+.sp-tablet__frame { padding: clamp(0.4rem, 0.9vw, 0.7rem); border-radius: clamp(1rem, 2vw, 1.6rem); background: linear-gradient(160deg, #2a3240, #0d1117); box-shadow: 0 1.5rem 3rem -1.5rem rgba(0, 10, 40, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
+.sp-tablet__frame img { display: block; width: 100%; height: auto; border-radius: clamp(0.5rem, 1vw, 0.9rem); }
+.sp-tablet figcaption { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; margin-top: 0.9rem; }
+.sp-tablet figcaption strong { color: var(--e-text); }
+.sp-tablet figcaption p { margin-top: 0.2rem; font-size: 0.88rem; line-height: 1.5; color: var(--e-body); }
+.igc-dark .sp-tablet figcaption strong { color: #fff; }
+.igc-dark .sp-tablet figcaption p { color: rgba(255, 255, 255, 0.7); }
+.sp-tablets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.25rem, 2.5vw, 2rem); }
+@media (max-width: 760px) { .sp-tablets { grid-template-columns: 1fr; } }
+.spx .igc-wizard__shot { aspect-ratio: 1280 / 800; background: #fff; }
+
+/* Old app strip */
+.sp-old { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(16rem, 1fr); gap: 1rem; overflow-x: auto; padding-bottom: 0.75rem; scroll-snap-type: x mandatory; }
+.sp-old figure { scroll-snap-align: start; margin: 0; }
+.sp-old img { display: block; width: 100%; height: auto; border-radius: 0.9rem; border: 1px solid var(--igc-line); }
+.sp-old figcaption { margin-top: 0.6rem; font-size: 0.85rem; color: var(--e-body); }
+
+/* Flow boards */
+.sp-board .igc-browser__view { height: clamp(18rem, 34vw, 30rem); overflow: auto; }
+.sp-board .igc-browser__view img { width: auto; max-width: none; height: auto; }
+.sp-board.is-fit .igc-browser__view img { width: 100%; height: auto; }
+
+/* Phones on light grounds */
+.sp-phones-light figcaption strong { color: var(--e-text); }
+.sp-phones-light figcaption p { color: var(--e-body); }
+.sp-phone-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: clamp(0.9rem, 2vw, 1.5rem); }
+
+/* Snackbar demo */
+.sp-snack { display: grid; gap: 0.6rem; }
+.sp-snack span { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 0.9rem; border-radius: 0.4rem; font-size: 0.85rem; color: #fff; background: #363b4b; border: 1px solid var(--snk); }
+.sp-snack span::before { content: ""; flex-shrink: 0; width: 0.9rem; height: 0.9rem; border-radius: 50%; border: 2px solid var(--snk); }
+.sp-snack .is-success { --snk: #3fbf6f; }
+.sp-snack .is-info { --snk: #5b8cff; }
+.sp-snack .is-warning { --snk: #f2b62f; }
+.sp-snack .is-error { --snk: #ec5454; }
+.sp-snack em { margin-left: auto; font-style: normal; opacity: 0.8; }

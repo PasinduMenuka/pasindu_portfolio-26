@@ -258,4 +258,159 @@ export type CardDraft = z.infer<typeof recipientStep> & z.infer<typeof channelSt
       "Strict TypeScript & ESLint",
     ],
   },
+  // BloomingBox Revamp (responsive web + iOS)
+  "9": {
+    accent: "#B4646B",
+    intro:
+      "I built the redesigned storefront with Next.js, Tailwind CSS and shadcn/ui. Category and product pages are rendered on the server for speed and SEO, while the bag, add-ons and checkout run as client islands that share one typed store.",
+    aiNote:
+      "Claude Code read the Figma file through the Figma MCP server and turned the product card, option chips, bottom bar and checkout steps into shadcn/ui-based components, using the same names and tokens as the design. I reviewed every diff and spent the saved time on delivery-slot logic and RTL.",
+    stack: [
+      {
+        group: "Framework",
+        items: [
+          { name: "Next.js (App Router)", use: "Server-rendered catalogue & SEO" },
+          { name: "React", use: "Component model" },
+          { name: "TypeScript", use: "Typed products, options & orders" },
+        ],
+      },
+      {
+        group: "Styling & UI",
+        items: [
+          { name: "Tailwind CSS", use: "Blush & ink tokens, RTL-aware utilities" },
+          { name: "shadcn/ui + Radix UI", use: "Sheets, dialogs, tabs & selects" },
+          { name: "Embla Carousel", use: "Product galleries & rails" },
+        ],
+      },
+      {
+        group: "Data & state",
+        items: [
+          { name: "Zustand (persisted)", use: "Bag & checkout draft" },
+          { name: "TanStack Query", use: "Stock, slots & pricing per emirate" },
+          { name: "next-intl", use: "English & Arabic, AED formatting" },
+        ],
+      },
+      {
+        group: "Forms, motion & media",
+        items: [
+          { name: "React Hook Form + Zod", use: "Receiver, card & slot validation" },
+          { name: "Framer Motion", use: "Sheets, chips & countdown" },
+          { name: "next/image", use: "Responsive, lazy product images" },
+        ],
+      },
+    ],
+    architecture: [
+      { title: "Delivery city as context", body: "The selected emirate lives in a cookie and a React context. Server components read it to price and filter stock, so the page never shows a product that can’t be delivered." },
+      { title: "Checkout as small steps", body: "Greeting card, receiver, slot and payment each have their own Zod schema. The draft is persisted, so a sender who leaves can come back to the same step." },
+      { title: "Theme layer for partners", body: "Collaboration pages set a data-theme attribute. Tailwind reads CSS variables, so Netflix or Mercedes-Benz skins need no component changes." },
+      { title: "Tokens from Figma", body: "Ink, blush, petal and rose, the radii, blur and type scale sit in tailwind.config, matching the Figma variables one to one." },
+    ],
+    snippet: {
+      file: "features/checkout/receiver-schema.ts",
+      caption: "The receiver step covers delivery, pickup and surprise gifts",
+      code: `export const receiverStep = z.discriminatedUnion("method", [
+  z.object({
+    method: z.literal("delivery"),
+    name: z.string().min(2, "Who is this gift for?"),
+    mobile: z.string().regex(/^\\+971\\d{8,9}$/),
+    // Surprise gifts: we call the receiver for the address
+    address: z.union([addressSchema, z.literal("call-receiver")]),
+  }),
+  z.object({
+    method: z.literal("pickup"),
+    store: z.string(),
+  }),
+]);
+
+export const slotStep = z.object({
+  type: z.enum(["free", "priority"]),
+  date: z.coerce.date().min(startOfToday()),
+  window: z.string(),
+});`,
+    },
+    practices: [
+      "Mobile-first, 48 px tap targets",
+      "Arabic RTL from day one",
+      "Server-rendered catalogue",
+      "Focus-trapped sheets & dialogs",
+      "Lazy images & code-split checkout",
+      "Strict TypeScript & ESLint",
+    ],
+  },
+  // SalesPlay POS Revamp (Android tablet + phone)
+  "10": {
+    accent: "#007AFF",
+    intro:
+      "The POS is a native Android app, so the handoff went to Jetpack Compose with Material 3. I set up the design tokens and the shared components (payment buttons, quick-amount chips, split rows and the snackbar), so tablet and phone layouts are built from the same pieces.",
+    aiNote:
+      "Claude Code read the payment and onboarding frames through the Figma MCP server and drafted Compose components and previews for each state, such as surcharge, dual price and offline. I checked every diff against the design and the payment rules before it merged.",
+    stack: [
+      {
+        group: "Platform",
+        items: [
+          { name: "Kotlin", use: "App language" },
+          { name: "Jetpack Compose", use: "Declarative UI for tablet & phone" },
+          { name: "Material 3", use: "Theming, dialogs & snackbars" },
+        ],
+      },
+      {
+        group: "Layout",
+        items: [
+          { name: "Window size classes", use: "Two panels on tablet, one column on phone" },
+          { name: "Compose previews", use: "Every payment state reviewed in isolation" },
+          { name: "Design tokens", use: "Colour, type & spacing from Figma variables" },
+        ],
+      },
+      {
+        group: "Data & state",
+        items: [
+          { name: "ViewModel + StateFlow", use: "One payment state per ticket" },
+          { name: "Room", use: "Offline sales, synced later" },
+          { name: "Kotlin coroutines", use: "Card terminal & sync calls" },
+        ],
+      },
+      {
+        group: "Quality",
+        items: [
+          { name: "Compose UI tests", use: "Cash, card & split paths" },
+          { name: "Screenshot tests", use: "Catch visual regressions per state" },
+          { name: "TalkBack checks", use: "Labels on every payment action" },
+        ],
+      },
+    ],
+    architecture: [
+      { title: "Payment as a state machine", body: "A ticket moves through Due → Method → Confirm → Paid. Split payments are a list of the same state, so cash, card and split share one set of rules." },
+      { title: "Rules as modifiers", body: "Surcharge, dual price, rounding and currency each change the amount due in one place, and the UI only reads the result." },
+      { title: "Offline first", body: "Sales are saved locally and synced when the connection returns. The snackbar tells the cashier which state they are in." },
+      { title: "One snackbar host", body: "Type, size, title and dismissable are parameters on one component, so all 32 variants come from the same code." },
+    ],
+    snippet: {
+      file: "payment/PaymentState.kt",
+      caption: "One state model drives cash, card and split",
+      code: `sealed interface PaymentStep {
+  data object Due : PaymentStep
+  data class Method(val type: PayType) : PaymentStep
+  data class Confirm(val amount: Money, val surcharge: Money?) : PaymentStep
+  data class Paid(val change: Money) : PaymentStep
+}
+
+data class SplitLine(
+  val type: PayType,
+  val amount: Money,
+  val step: PaymentStep = PaymentStep.Due,
+)
+
+// Rules change the amount due in one place
+fun Money.applyRules(rules: PriceRules): Money =
+  rules.dualPrice(this).let(rules::round).let(rules::toCurrency)`,
+    },
+    practices: [
+      "48 dp touch targets",
+      "Confirm before every charge",
+      "Offline-first sales",
+      "Snackbars for every failure",
+      "Screenshot tests per state",
+      "TalkBack labels",
+    ],
+  },
 };

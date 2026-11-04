@@ -14,9 +14,11 @@ import sesPortal from "@/public/projects/SES Dasboard rev/ses main image.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
 import infinityGiftCard from "@/public/projects/infini-gift-card/cover.webp";
+import bloomingBox from "@/public/projects/blooming-box/cover.webp";
+import salesPlayPos from "@/public/projects/salesplay-pos/cover.webp";
 
 // Case studies built with the Ency design (they keep the site header, footer and theme).
-export const encyCaseStudyPaths = ["/projects/8"];
+export const encyCaseStudyPaths = ["/projects/8", "/projects/9", "/projects/10"];
 
 export const links = [
   {
@@ -97,6 +99,28 @@ export const experiencesData = [
 ] as const;
 
 export const projectsData = [
+  {
+    id:10,
+    title: "SalesPlay POS Revamp",
+    category: "POS",
+    summary: "Faster, safer checkout",
+    description:
+      "A UX & UI redesign of SalesPlay's Android point of sale, used by 100,000+ businesses. Rebuilt the payment screen with quick cash amounts, explicit confirms, card surcharges, dual pricing, rounding, alternative currency and split payments, plus a step-by-step onboarding flow and a 32-variant snackbar system for tablet and phone.",
+    tags: ["Figma", "Case Study", "Android", "Material Design", "Jetpack Compose", "Claude Code", "Figma MCP", "POS", "Tablet UI"],
+    imageUrl: salesPlayPos,
+    hasDetailedCaseStudy: true,
+  },
+  {
+    id:9,
+    title: "BloomingBox Revamp",
+    category: "E-commerce",
+    summary: "Same-day gifting, fewer taps",
+    description:
+      "A full UX & UI redesign of BloomingBox, the UAE's same-day flower and gift store. Replaced blocking pop-ups with an inline delivery city, surfaced the 2-hour delivery cut-off on every product, added inline Make-it-special add-ons and a checkout built for surprise gifts, across 40+ desktop and iOS screens.",
+    tags: ["Figma", "Case Study", "Next.js", "Tailwind CSS", "shadcn/ui", "Claude Code", "Figma MCP", "E-commerce", "iOS App"],
+    imageUrl: bloomingBox,
+    hasDetailedCaseStudy: true,
+  },
   {
     id:8,
     title: "Infinity Gift Card Revamp 2.0",

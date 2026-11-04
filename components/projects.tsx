@@ -76,7 +76,7 @@ export default function Projects() {
               />
               <Reveal delay={1} className="e-work__sub">
                 <ArrowButton variant="white" href="/projects">
-                  See my portfolio
+                  All projects
                 </ArrowButton>
                 <span className="e-work__hint e-hand" aria-hidden="true">
                   {isPinned ? "keep scrolling" : "swipe"}
