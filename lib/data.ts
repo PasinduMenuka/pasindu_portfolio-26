@@ -10,7 +10,7 @@ import mediCem from "@/public/projects/mediCem_thum.svg";
 import myStartUp from "@/public/projects/myStartup_thum.svg";
 import rcb from "@/public/projects/rcb_thum.png";
 import hvacIot from "@/public/projects/Hvac iot.png";
-import sesPortal from "@/public/projects/SES Dasboard rev/ses main image.png";
+import sesPortal from "@/public/projects/ses-portal/cover.webp";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
 import infinityGiftCard from "@/public/projects/infini-gift-card/cover.webp";
@@ -18,7 +18,7 @@ import bloomingBox from "@/public/projects/blooming-box/cover.webp";
 import salesPlayPos from "@/public/projects/salesplay-pos/cover.webp";
 
 // Case studies built with the Ency design (they keep the site header, footer and theme).
-export const encyCaseStudyPaths = ["/projects/8", "/projects/9", "/projects/10"];
+export const encyCaseStudyPaths = ["/projects/7", "/projects/8", "/projects/9", "/projects/10"];
 
 export const links = [
   {

@@ -547,3 +547,56 @@ html.dark .igc.spx {
 .igc-dark .sp-printer__notes > div { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.12); }
 .igc-dark .sp-printer__notes li { color: rgba(255, 255, 255, 0.78); }
 .igc-dark .sp-printer__notes .e-mono { color: var(--igc-red-soft); }
+
+/* =============================================================
+   CASE STUDY · SES HVAC ENERGY MANAGEMENT
+   Same layout as .igc, re-themed with the product's teal on slate.
+   ============================================================= */
+
+.igc.sesx {
+  --igc-red: #069999;
+  --igc-red-deep: #057a7a;
+  --igc-red-soft: #5fd4d4;
+  --igc-blush: #eef6f6;
+  --igc-night: #1a1d23;
+  --igc-ink: #1a1d23;
+  --igc-line: rgba(26, 29, 35, 0.1);
+}
+html.dark .igc.sesx {
+  --igc-blush: #161b1f;
+  --igc-tile: #1d2429;
+  --igc-line: rgba(255, 255, 255, 0.12);
+}
+.sesx .igc-hero {
+  background:
+    radial-gradient(60rem 30rem at 85% 10%, rgba(6, 153, 153, 0.42), transparent 60%),
+    radial-gradient(40rem 26rem at 0% 100%, rgba(6, 153, 153, 0.18), transparent 60%),
+    linear-gradient(180deg, #20242b 0%, var(--igc-night) 100%);
+}
+.sesx .igc-ia__col ul { border-left-color: rgba(6, 153, 153, 0.4); }
+.sesx .igc-flow__lane.is-alt { fill: rgba(6, 153, 153, 0.05); }
+.sesx .igc-blush .igc-journey ol li { background: rgba(6, 153, 153, 0.1); }
+.sesx .igc-wizard__step[aria-selected="true"] { background: rgba(6, 153, 153, 0.18); }
+.sesx .igc-browser__bar { background: #23262d; }
+.sesx .igc-browser__bar span { background: rgba(255, 255, 255, 0.25); }
+.sesx .igc-browser__bar em { color: rgba(255, 255, 255, 0.55); }
+.sesx .igc-browser__view { background: #1a1d23; }
+.sesx .igc-stepper i.is-on { box-shadow: 0 0 0 4px rgba(6, 153, 153, 0.2); }
+.sesx .igc-wizard__shot { aspect-ratio: 1553 / 895; background: #1a1d23; }
+.sesx .igc-results { background: radial-gradient(50rem 30rem at 100% 0%, rgba(95, 212, 212, 0.3), transparent 60%), linear-gradient(135deg, #12161a 0%, #0b4f52 60%, #069999 100%); }
+.sesx .igc-results .e-display .is-soft, .sesx .igc-results .igc-eyebrow, .sesx .igc-learn .e-mono, .sesx .igc-learn li::before { color: #9ff0ef; }
+
+/* Severity badges */
+.ses-sev { display: grid; gap: 0.6rem; }
+.ses-sev span { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0.8rem; border-radius: 0.6rem; background: #23262d; color: #fff; font-size: 0.85rem; border-left: 4px solid var(--sev); }
+.ses-sev b { padding: 0.1rem 0.45rem; border-radius: 100em; background: var(--sev); color: #111; font-size: 0.7rem; }
+.ses-sev .is-p1 { --sev: #fb2c36; }
+.ses-sev .is-p2 { --sev: #e5a800; }
+.ses-sev .is-wo { --sev: #3b82f6; }
+.ses-sev .is-ok { --sev: #069999; }
+
+/* Device-type explorer and gallery */
+.ses-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); }
+@media (max-width: 760px) { .ses-pair { grid-template-columns: 1fr; } }
+.ses-nav-shot { max-width: 22rem; }
+.ses-nav-shot img { display: block; width: 100%; height: auto; border-radius: var(--e-radius-card); }
