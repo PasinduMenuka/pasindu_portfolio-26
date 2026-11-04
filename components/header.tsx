@@ -75,7 +75,7 @@ export default function Header() {
       >
         <div className="e-container e-header__inner">
           <Link href="/#home" className="e-header__logo" aria-label="Pasindu Sannasuriya, home" onClick={() => go("Home")}>
-            <Logo title="" />
+            <Logo title="" shine />
           </Link>
 
           <nav aria-label="Primary">

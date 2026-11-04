@@ -173,16 +173,21 @@ export default function Intro() {
           <Reveal className="e-proof__panel">
             <p className="e-mono e-proof__label">Tools I design &amp; build with</p>
             <div className="e-marquee" style={{ ["--dur" as any]: "90s" }}>
+              {/* Two identical groups: the track slides by exactly one group (-50%), so the loop has no seam. */}
               <div className="e-marquee__track">
-                {[...techStack, ...techStack].map((tech, i) => {
-                  const Icon = tech.icon;
-                  return (
-                    <span key={`${tech.name}-${i}`} className="e-proof__item" aria-hidden={i >= techStack.length}>
-                      <Icon />
-                      {tech.name}
-                    </span>
-                  );
-                })}
+                {[0, 1].map((copy) => (
+                  <div key={copy} className="e-marquee__group" aria-hidden={copy === 1 || undefined}>
+                    {techStack.map((tech) => {
+                      const Icon = tech.icon;
+                      return (
+                        <span key={tech.name} className="e-proof__item">
+                          <Icon />
+                          {tech.name}
+                        </span>
+                      );
+                    })}
+                  </div>
+                ))}
               </div>
             </div>
           </Reveal>
