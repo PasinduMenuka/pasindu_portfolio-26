@@ -111,6 +111,25 @@ const boards: (Screen & { fit?: boolean })[] = [
   { file: "board-landscape-register", title: "Landscape registration", note: "Tablet registration from start to success. Scroll sideways.", w: 3982, h: 508 },
 ];
 
+const printerSteps = [
+  {
+    screen: tab("t-printer-empty", "1 · No printers yet", "An empty state that explains what’s missing, with one button: Setup now."),
+    tag: "Empty state",
+  },
+  {
+    screen: { file: "t-printer-add", title: "2 · Add printer", note: "Name, model and connection, then Search finds paired Bluetooth devices. Paper size, the key toggles and Test Print are on the same screen.", w: 1280, h: 1144 },
+    tag: "Connect",
+  },
+  {
+    screen: { file: "t-printer-receipt", title: "3 · What it prints", note: "Toggles grouped by job: receipts & bills, KOT/BOT for the kitchen and bar, and printer groups. Each group only opens when its main switch is on.", w: 1280, h: 1521 },
+    tag: "Configure",
+  },
+  {
+    screen: { file: "t-printer-advanced", title: "4 · Advanced settings", note: "Print mode, extra space at the receipt edge, paper size and drawer ESC/POS commands, kept out of the way.", w: 1280, h: 819 },
+    tag: "Fine-tune",
+  },
+];
+
 const errorScreens: Screen[] = [
   tab("t-pay-error", "Offline while paying", "The payment screen dims and a snackbar explains what to check."),
   tab("t-pay-disabled", "Card unavailable", "Methods that can’t be used right now are disabled, not hidden."),
@@ -426,7 +445,7 @@ export default function SalesPlayCaseStudy() {
                 </div>
                 <div>
                   <dt className="e-mono">Scope</dt>
-                  <dd>Onboarding, payment, split, errors, snackbar system</dd>
+                  <dd>Onboarding, payment, split, printer setup, errors, snackbars</dd>
                 </div>
               </dl>
             </Reveal>
@@ -763,11 +782,53 @@ export default function SalesPlayCaseStudy() {
         </div>
       </section>
 
+      {/* Printer setup */}
+      <section data-ground="ink" className="igc-dark e-section">
+        <div className="e-container">
+          <Reveal>
+            <p className="e-mono igc-eyebrow">12 · Printer setup</p>
+          </Reveal>
+          <SplitHeading className="igc-h2" lines={[{ text: "Receipt printer", block: true }, { text: "ready in four steps", className: "is-soft", block: true }]} />
+          <Reveal delay={1} as="p" className="e-lead mt-6">
+            Printing used to be a support call: a long settings list, technical terms and no way to check the result. The new setup starts
+            from a friendly empty state, finds paired Bluetooth printers with one Search, and groups options by job. Receipts, kitchen and
+            bar tickets (KOT/BOT) and printer groups each have their own block. Technical settings move to an Advanced screen, and Test Print
+            is always one tap away.
+          </Reveal>
+          <div className="sp-tablets sp-printer mt-12">
+            {printerSteps.map((p, i) => (
+              <Reveal key={p.screen.file} delay={(i % 2) as 0 | 1}>
+                <span className="e-mono sp-printer__tag">{p.tag}</span>
+                <Tablet screen={p.screen} />
+              </Reveal>
+            ))}
+          </div>
+          <div className="bbx-notes sp-printer__notes">
+            <div>
+              <p className="e-mono">Before</p>
+              <ul>
+                <li>One long list of printer settings</li>
+                <li>Technical options mixed with everyday ones</li>
+                <li>No quick way to check that it works</li>
+              </ul>
+            </div>
+            <div className="is-after">
+              <p className="e-mono">After</p>
+              <ul>
+                <li>Empty state → Add printer → options → advanced</li>
+                <li>Toggles grouped by job, with info icons for each one</li>
+                <li>Test Print and Delete printer at the bottom of every printer</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Errors & feedback */}
       <section data-ground="white" className="igc-blush e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">12 · Errors & feedback</p>
+            <p className="e-mono igc-eyebrow">13 · Errors & feedback</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "Clear when things", block: true }, { text: "go wrong", className: "is-soft", block: true }]} />
           <Reveal delay={1} as="p" className="e-lead mt-6">
@@ -801,7 +862,7 @@ export default function SalesPlayCaseStudy() {
       <section data-ground="ink" className="igc-dark e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">13 · Final UI · phone</p>
+            <p className="e-mono igc-eyebrow">14 · Final UI · phone</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "The same checkout,", block: true }, { text: "in one hand", className: "is-soft", block: true }]} />
           <Reveal delay={1} as="p" className="e-lead mt-6">
@@ -829,7 +890,7 @@ export default function SalesPlayCaseStudy() {
       <section data-ground="white" className="g-white e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">14 · UI kit</p>
+            <p className="e-mono igc-eyebrow">15 · UI kit</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "Material at heart,", block: true }, { text: "SalesPlay in tone", className: "is-soft", block: true }]} />
           <div className="igc-ds mt-12">
@@ -879,13 +940,13 @@ export default function SalesPlayCaseStudy() {
         </div>
       </section>
 
-      <FrontendBuild data={frontendBuilds["10"]} index="15 · Front-end development" />
+      <FrontendBuild data={frontendBuilds["10"]} index="16 · Front-end development" />
 
       {/* Outcome */}
       <section data-ground="blue" className="igc-results e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">16 · Outcome</p>
+            <p className="e-mono igc-eyebrow">17 · Outcome</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "A checkout that", block: true }, { text: "keeps the queue moving", className: "is-soft", block: true }]} />
           <div className="igc-grid-3 mt-12">
@@ -910,7 +971,7 @@ export default function SalesPlayCaseStudy() {
               <p className="e-mono">What’s next</p>
               <ul>
                 <li>The redesigned sale screen and product grid</li>
-                <li>The KOT kitchen display and printer setup in the same system</li>
+                <li>The KOT kitchen display in the same system</li>
                 <li>Reports and the owner dashboard app</li>
               </ul>
             </Reveal>

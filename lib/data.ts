@@ -100,17 +100,6 @@ export const experiencesData = [
 
 export const projectsData = [
   {
-    id:10,
-    title: "SalesPlay POS Revamp",
-    category: "POS",
-    summary: "Faster, safer checkout",
-    description:
-      "A UX & UI redesign of SalesPlay's Android point of sale, used by 100,000+ businesses. Rebuilt the payment screen with quick cash amounts, explicit confirms, card surcharges, dual pricing, rounding, alternative currency and split payments, plus a step-by-step onboarding flow and a 32-variant snackbar system for tablet and phone.",
-    tags: ["Figma", "Case Study", "Android", "Material Design", "Jetpack Compose", "Claude Code", "Figma MCP", "POS", "Tablet UI"],
-    imageUrl: salesPlayPos,
-    hasDetailedCaseStudy: true,
-  },
-  {
     id:9,
     title: "BloomingBox Revamp",
     category: "E-commerce",
@@ -141,6 +130,17 @@ export const projectsData = [
       "Complete redesign of the Save Energy Systems dashboard, transforming a complex HVAC IoT platform into an intuitive, modern interface. Enhanced user experience through streamlined navigation, real-time data visualization, and responsive design - resulting in 45% faster task completion and 60% reduction in user errors.",
     tags: ["Figma", "Case Study", "Next.js", "Dashboard Design", "IoT Platform", "Real-time Data", "User Research", "Atomic Design"],
     imageUrl: sesPortal,
+    hasDetailedCaseStudy: true,
+  },
+  {
+    id:10,
+    title: "SalesPlay POS Revamp",
+    category: "POS",
+    summary: "Faster, safer checkout",
+    description:
+      "A UX & UI redesign of SalesPlay's Android point of sale, used by 100,000+ businesses. Rebuilt the payment screen with quick cash amounts, explicit confirms, card surcharges, dual pricing, rounding, alternative currency and split payments, plus a step-by-step onboarding flow and a 32-variant snackbar system for tablet and phone.",
+    tags: ["Figma", "Case Study", "Android", "Material Design", "Jetpack Compose", "Claude Code", "Figma MCP", "POS", "Tablet UI"],
+    imageUrl: salesPlayPos,
     hasDetailedCaseStudy: true,
   },
   {

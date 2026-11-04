@@ -540,3 +540,10 @@ html.dark .igc.spx {
 .sp-snack .is-warning { --snk: #f2b62f; }
 .sp-snack .is-error { --snk: #ec5454; }
 .sp-snack em { margin-left: auto; font-style: normal; opacity: 0.8; }
+
+/* Printer setup */
+.sp-printer { align-items: start; }
+.sp-printer__tag { display: inline-block; margin-bottom: 0.7rem; padding: 0.25rem 0.7rem; border-radius: 100em; background: rgba(0, 122, 255, 0.2); color: var(--igc-red-soft); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.igc-dark .sp-printer__notes > div { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.12); }
+.igc-dark .sp-printer__notes li { color: rgba(255, 255, 255, 0.78); }
+.igc-dark .sp-printer__notes .e-mono { color: var(--igc-red-soft); }
