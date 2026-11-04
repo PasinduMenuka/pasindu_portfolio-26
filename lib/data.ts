@@ -211,6 +211,84 @@ export const projectsData = [
   },
 ] as const;
 
+// Brands and products I have designed or built for. href links to a case study when there is one.
+export const collaborationsData = [
+  { name: "BloomingBox", logo: "/clients/bloomingbox.webp", w: 640, h: 30, tag: "Gifting · UAE", href: "/projects/9", wide: true },
+  { name: "SalesPlay POS", logo: "/clients/salesplay.webp", w: 384, h: 132, tag: "Point of sale", href: "/projects/10" },
+  { name: "Infinity Gift Card", logo: "/clients/infinity-gift-card.webp", w: 162, h: 64, tag: "Gift cards", href: "/projects/8" },
+  { name: "MediaXGo", logo: "/clients/mediaxgo.webp", w: 640, h: 140, tag: "Digital signage" },
+  { name: "Monyfi", logo: "/clients/monyfi.webp", w: 384, h: 174, tag: "Wi-Fi monetisation" },
+  { name: "Technifyit", logo: "/clients/technifyit.webp", w: 640, h: 247, tag: "IT services" },
+  { name: "Unique Pharmacy", logo: "/clients/unique-pharmacy.webp", w: 284, h: 260, tag: "Healthcare" },
+  { name: "Enliven Designers", logo: "/clients/enliven-designers.webp", w: 640, h: 259, tag: "Design studio", dark: true },
+] as const;
+
+// Recent product work, newest first. href links to a case study when there is one.
+export const projectInvolvementData = [
+  {
+    name: "BloomingBox",
+    product: "E-commerce web & iOS app",
+    roles: ["UI/UX design", "Front-end development"],
+    tech: ["Figma", "Next.js", "Tailwind CSS", "shadcn/ui"],
+    points: [
+      "Worked as UI/UX engineer on the redesign of a UAE same-day flower and gift store, across desktop web and the iOS app.",
+      "Designed the new information architecture, product pages, Make-it-special add-ons, a checkout built for surprise gifts and the BLACK loyalty programme.",
+      "Built the front end in Next.js, Tailwind CSS and shadcn/ui directly from the Figma design system.",
+    ],
+    href: "/projects/9",
+    recent: true,
+  },
+  {
+    name: "Infinity Gift Card",
+    product: "E-commerce website",
+    roles: ["UI/UX design", "Front-end development"],
+    tech: ["Figma", "Next.js", "Tailwind CSS", "shadcn/ui"],
+    points: [
+      "Designed screens and flows for Sri Lanka's digital gift-card store, including a guided four-step Design-a-card flow and a mobile-first UI.",
+      "Delivered 24 desktop and 5 mobile screens, a UI kit and an advanced interactive prototype.",
+      "Developed the front end in Next.js, Tailwind CSS and shadcn/ui.",
+    ],
+    href: "/projects/8",
+    recent: true,
+  },
+  {
+    name: "Save Energy Systems",
+    product: "IoT Web Portal",
+    roles: ["UI/UX design", "Front-end development"],
+    tech: ["ReactJS", "NextJS", "Figma"],
+    points: [
+      "Revamped the IoT web application UI with a modernised design system and improved information architecture, streamlining device management workflows for enterprise operators.",
+      "Designed AI-driven dashboard interfaces for real-time device monitoring with clear data-visualisation hierarchies.",
+      "Delivered high-fidelity Figma prototypes and interaction flows validated through internal usability testing.",
+    ],
+    href: "/projects/7",
+  },
+  {
+    name: "Save Energy Systems",
+    product: "Mobile App (iOS & Android)",
+    roles: ["UI/UX design"],
+    tech: ["Figma", "iOS", "Android"],
+    points: [
+      "Designed the full mobile UI for real-time device monitoring, work order management, and data visualisation.",
+      "Redesigned navigation and task flows, improving information hierarchy and reducing steps to complete key actions.",
+      "Optimised for mobile usability across iOS and Android screen sizes and interaction patterns.",
+    ],
+    href: "/projects/1",
+  },
+  {
+    name: "SalesPlay",
+    product: "POS System & Back Office ERP",
+    roles: ["UI/UX design", "Front-end development"],
+    tech: ["ReactJS", "PHP", "HTML/CSS", "JavaScript", "Figma"],
+    points: [
+      "Contributed to design and front-end development of SalesPlay POS, a multi-platform web application covering Web, Android, and iOS POS devices, tablets, desktops, and mobile.",
+      "Designed Back Office ERP dashboards covering sales management, inventory tracking, reporting, and admin workflows.",
+      "Built front-end components in ReactJS, PHP, HTML, CSS, and JavaScript, working alongside the engineering team for accurate implementation.",
+    ],
+    href: "/projects/10",
+  },
+] as const;
+
 export const skillsData = [
   "User Research",
   "Information Architecture",

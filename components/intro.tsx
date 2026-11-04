@@ -21,7 +21,7 @@ import {
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import ArrowButton from "@/components/arrow-button";
-import { Reveal, SplitHeading, useInViewOnce } from "@/components/motion/reveal";
+import { Reveal, SplitHeading, useAppReady, useInViewOnce } from "@/components/motion/reveal";
 
 const techStack = [
   { name: "Figma", icon: FaFigma },
@@ -53,10 +53,10 @@ const techStack = [
   { name: "Bitbucket", icon: SiBitbucket },
 ];
 
-function HeroNote() {
+function HeroNote({ play }: { play: boolean }) {
   const { ref, inView } = useInViewOnce<HTMLDivElement>();
   return (
-    <div ref={ref} className={`e-hero__note e-hand ${inView ? "is-in" : ""}`} aria-hidden="true">
+    <div ref={ref} className={`e-hero__note e-hand ${inView && play ? "is-in" : ""}`} aria-hidden="true">
       that&apos;s me. I design it <em>and</em> build it
       <svg className="e-pen" viewBox="0 0 90 60" fill="none">
         <path
@@ -83,6 +83,7 @@ export default function Intro() {
   const { ref } = useSectionInView("Home", 0.5);
   const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
   const underline = useInViewOnce<SVGSVGElement>();
+  const ready = useAppReady();
   const [hasScrolled, setHasScrolled] = React.useState(false);
 
   React.useEffect(() => {
@@ -100,6 +101,7 @@ export default function Intro() {
             <SplitHeading
               as="h1"
               className="e-hero__title"
+              play={ready}
               lines={[
                 { text: "Products that feel", className: "e-hero__line", block: true },
                 { text: "effortless", className: "is-soft e-hero__line", block: true },
@@ -107,7 +109,7 @@ export default function Intro() {
             />
             <svg
               ref={underline.ref}
-              className={`e-hero__underline e-pen ${underline.inView ? "is-in" : ""}`}
+              className={`e-hero__underline e-pen ${underline.inView && ready ? "is-in" : ""}`}
               viewBox="0 0 400 22"
               fill="none"
               aria-hidden="true"
@@ -117,11 +119,11 @@ export default function Intro() {
                 stroke="currentColor"
                 strokeWidth="5"
                 strokeLinecap="round"
-                style={{ ["--len" as any]: 420, ["--pen-d" as any]: "0.75s" }}
+                style={{ ["--len" as any]: 420, ["--pen-d" as any]: "0.85s" }}
               />
             </svg>
 
-            <Reveal delay={2} as="p" className="e-lead e-hero__copy">
+            <Reveal delay={2} play={ready} as="p" className="e-lead e-hero__copy">
               I&apos;m Pasindu, a Senior UI/UX Engineer &amp; Product Designer based in Sri Lanka. For 5+ years,
               I&apos;ve turned complex problems into scalable products across IoT, fintech, POS, and cloud Wi-Fi
               solutions. I also champion practical AI adoption: connecting Figma to AI coding assistants with Figma
@@ -129,7 +131,7 @@ export default function Intro() {
               code reviews.
             </Reveal>
 
-            <Reveal delay={3} className="e-hero__ctas">
+            <Reveal delay={3} play={ready} className="e-hero__ctas">
               <ArrowButton
                 variant="white"
                 href="#contact"
@@ -146,7 +148,7 @@ export default function Intro() {
             </Reveal>
           </div>
 
-          <Reveal delay={1} className="e-hero__stage">
+          <div className="e-hero__stage">
             <svg className="e-hero__shape" viewBox="0 0 200 200" aria-hidden="true">
               <path d="M12 140 112 40H72V10H190V128H160V88L42 206Z" fill="currentColor" />
             </svg>
@@ -164,8 +166,8 @@ export default function Intro() {
               alt={hasScrolled ? "Pasindu Sannasuriya" : ""}
               aria-hidden={!hasScrolled}
             />
-            <HeroNote />
-          </Reveal>
+            <HeroNote play={ready} />
+          </div>
         </div>
       </section>
 

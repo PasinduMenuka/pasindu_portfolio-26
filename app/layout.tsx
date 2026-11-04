@@ -86,7 +86,13 @@ export default function RootLayout({
       >
         
         {/* Page loader */}
-        <AnimatePresence>
+        <AnimatePresence
+          onExitComplete={() => {
+            // Lets first-screen animations (the hero) start only once the loader has gone.
+            document.documentElement.dataset.ready = "1";
+            window.dispatchEvent(new Event("app:ready"));
+          }}
+        >
           {isLoading && (
             <motion.div
               className="page-loader"

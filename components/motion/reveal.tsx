@@ -30,15 +30,32 @@ export function useInViewOnce<T extends Element>(threshold = 0.12) {
   return { ref, inView };
 }
 
+/** True once the page loader has gone (the layout sets `data-ready` on <html>), so first-screen animations aren't hidden under it. */
+export function useAppReady() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (document.documentElement.dataset.ready === "1") {
+      setReady(true);
+      return;
+    }
+    const on = () => setReady(true);
+    window.addEventListener("app:ready", on);
+    return () => window.removeEventListener("app:ready", on);
+  }, []);
+  return ready;
+}
+
 type RevealProps = {
   as?: keyof JSX.IntrinsicElements;
   delay?: 0 | 1 | 2 | 3 | 4;
+  /** Hold the reveal until this is true (e.g. until the page loader has gone). */
+  play?: boolean;
   className?: string;
   children: React.ReactNode;
 } & Omit<React.HTMLAttributes<HTMLElement>, "className" | "children">;
 
 /** Fade + rise reveal (Ency `data-reveal`). */
-export function Reveal({ as = "div", delay = 0, className = "", children, ...rest }: RevealProps) {
+export function Reveal({ as = "div", delay = 0, play = true, className = "", children, ...rest }: RevealProps) {
   const { ref, inView } = useInViewOnce<HTMLElement>();
   const Tag = as as any;
   return (
@@ -46,7 +63,7 @@ export function Reveal({ as = "div", delay = 0, className = "", children, ...res
       ref={ref}
       data-reveal=""
       data-delay={delay || undefined}
-      className={`${className} ${inView ? "is-in" : ""}`}
+      className={`${className} ${inView && play ? "is-in" : ""}`}
       {...rest}
     >
       {children}
@@ -70,7 +87,7 @@ export function SplitText({
       {words.map((w, i) => (
         <React.Fragment key={i}>
           <span className="split-w">
-            <span className="split-wi" style={{ transitionDelay: `${Math.min(startIndex + i, 12) * 40}ms` }}>
+            <span className="split-wi" style={{ transitionDelay: `calc(${Math.min(startIndex + i, 12)} * var(--split-stagger, 40ms))` }}>
               {w}
             </span>
           </span>
@@ -89,16 +106,19 @@ export function SplitHeading({
   as = "h2",
   lines,
   className = "",
+  play = true,
 }: {
   as?: keyof JSX.IntrinsicElements;
   lines: { text: string; className?: string; block?: boolean }[];
   className?: string;
+  /** Hold the reveal until this is true. */
+  play?: boolean;
 }) {
   const { ref, inView } = useInViewOnce<HTMLElement>();
   const Tag = as as any;
   let idx = 0;
   return (
-    <Tag ref={ref} className={`e-display ${className} ${inView ? "is-in" : ""}`}>
+    <Tag ref={ref} className={`e-display ${className} ${inView && play ? "is-in" : ""}`}>
       {lines.map((line, i) => {
         const start = idx;
         idx += line.text.split(/\s+/).filter(Boolean).length;
