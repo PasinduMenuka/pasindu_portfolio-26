@@ -531,17 +531,22 @@ button:hover > .e-arrow svg:last-child,
 }
 .e-proof__label { text-align: center; margin-bottom: 1.1rem; opacity: 0.7; }
 .e-marquee { overflow-x: clip; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); }
-.e-marquee__track { display: flex; width: max-content; animation: e-marquee var(--dur, 40s) linear infinite; will-change: transform; }
+.e-marquee__track { display: flex; width: max-content; }
+/* Each copy animates on its own (-100% of its own width) instead of moving the whole doubled track.
+   That halves the size of each GPU layer: a single ~10,000px layer is too big for phone GPUs and
+   showed blank stretches near the end of the list. */
+.e-marquee__track > * { flex-shrink: 0; animation: e-marquee var(--dur, 40s) linear infinite; backface-visibility: hidden; }
 /* Each group carries its own trailing gap so both halves are exactly equal and -50% lands on the seam. */
 .e-marquee__group { display: flex; flex-shrink: 0; align-items: center; gap: var(--marquee-gap, 3.5rem); padding-right: var(--marquee-gap, 3.5rem); }
 @supports not (overflow: clip) { .e-marquee { overflow: hidden; } }
-.e-marquee:hover .e-marquee__track { animation-play-state: paused; }
-.e-marquee--reverse .e-marquee__track { animation-direction: reverse; }
-@keyframes e-marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+/* Pause on hover only for real pointers: on touch screens a tap leaves :hover stuck and froze the row. */
+@media (hover: hover) and (pointer: fine) { .e-marquee:hover .e-marquee__track > * { animation-play-state: paused; } }
+.e-marquee--reverse .e-marquee__track > * { animation-direction: reverse; }
+@keyframes e-marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-100%, 0, 0); } }
 .e-proof__item { display: inline-flex; align-items: center; gap: 0.65rem; font-weight: 700; font-size: clamp(1.05rem, 1.5vw, 1.35rem); letter-spacing: -0.01em; white-space: nowrap; }
 .e-proof__item svg { font-size: 1.5em; }
 /* Reduced motion: one still row that can be scrolled sideways, without the duplicate group. */
-@media (prefers-reduced-motion: reduce) { .e-marquee { overflow-x: auto; scrollbar-width: none; } .e-marquee__track { animation: none; } .e-marquee__group[aria-hidden] { display: none; } }
+@media (prefers-reduced-motion: reduce) { .e-marquee { overflow-x: auto; scrollbar-width: none; } .e-marquee__track > * { animation: none; } .e-marquee__group[aria-hidden] { display: none; } }
 
 /* =============================================================
    ABOUT (note-paper checklist)

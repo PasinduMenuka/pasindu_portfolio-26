@@ -174,7 +174,7 @@ export default function Intro() {
           <Reveal className="e-proof__panel">
             <p className="e-mono e-proof__label">Tools I design &amp; build with</p>
             <div className="e-marquee" style={{ ["--dur" as any]: "90s" }}>
-              {/* Two identical groups: the track slides by exactly one group (-50%), so the loop has no seam. */}
+              {/* Two identical groups: each one slides by exactly its own width (-100%), so the loop has no seam. */}
               <div className="e-marquee__track">
                 {[0, 1].map((copy) => (
                   <div key={copy} className="e-marquee__group" aria-hidden={copy === 1 || undefined}>
