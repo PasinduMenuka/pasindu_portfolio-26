@@ -92,6 +92,123 @@ const auditFindings = [
   { title: "Off-brand UI", body: "Mixed button styles, stock imagery and low contrast made the brand feel less trustworthy at the moment of paying." },
 ];
 
+/* The live site before the revamp. Pin positions are % of each screenshot, so they stay put at any size. */
+type OldIssue = { x: number; y: number; tag: string; title: string; body: string };
+type OldShot = { file: string; device: "desktop" | "mobile"; w: number; h: number; caption: string; issues: OldIssue[] };
+
+const oldSite: OldShot[] = [
+  {
+    file: "old-desktop-hero",
+    device: "desktop",
+    w: 1440,
+    h: 900,
+    caption: "Home · first screen on a 1440px laptop",
+    issues: [
+      { x: 84.9, y: 13, tag: "Conversion", title: "The loudest button asks for an account", body: "“Create an account” is the only solid red button in the header, so the first thing the site pushes is sign-up, not a gift." },
+      { x: 20.5, y: 71.2, tag: "Conversion", title: "“Gift Now” is small and far away", body: "The real call to action sits at the bottom-left, cut off from the headline by empty space, and is smaller than the sign-up button." },
+      { x: 50, y: 69.3, tag: "Clarity", title: "The promise keeps changing", body: "The hero auto-rotates between dining, stays and “Send Joy”. Each visitor sees a different message, and none says how the card works." },
+      { x: 8.5, y: 85.5, tag: "Content", title: "Two headlines run together", body: "“One Gift Card. 100+ Brands, Multiple Swaps…” and “Infinity Smart Gift Cards” are stacked in the same style, so nothing reads as the main point." },
+    ],
+  },
+  {
+    file: "old-desktop-cards",
+    device: "desktop",
+    w: 1440,
+    h: 900,
+    caption: "Home · Smart Gift Cards row",
+    issues: [
+      { x: 50, y: 33, tag: "Discovery", title: "Cards are just pictures", body: "No card name, price or brand count, and no button. Buyers have to open each card to learn what it is." },
+      { x: 62.2, y: 21.3, tag: "Clarity", title: "A mystery globe icon", body: "Every card has an unlabelled globe badge. It hints at “online use”, but nothing on the page explains it." },
+      { x: 56.8, y: 55.9, tag: "Pattern", title: "Two ways to browse at once", body: "A sideways carousel and a “Load More” button sit together, so it is unclear whether to swipe, scroll or click." },
+    ],
+  },
+  {
+    file: "old-desktop-features",
+    device: "desktop",
+    w: 1440,
+    h: 900,
+    caption: "Home · benefits band",
+    issues: [
+      { x: 50, y: 21.8, tag: "Accessibility", title: "Arrows you can barely see", body: "The carousel arrows are pale pink outlines on white, well below readable contrast." },
+      { x: 9.3, y: 52.3, tag: "Content", title: "Three headings, one message", body: "An all-caps line, a bold line and a paragraph all repeat “freedom to choose”. The same idea appears four times on the home page." },
+      { x: 66, y: 77.5, tag: "Hierarchy", title: "The best facts are the smallest text", body: "“36 months validity” and “swap up to five retailers” are the strongest selling points, but they are the tiniest text on the page." },
+    ],
+  },
+  {
+    file: "old-mobile-hero",
+    device: "mobile",
+    w: 780,
+    h: 1688,
+    caption: "Home on a phone (390 × 844)",
+    issues: [
+      { x: 17, y: 70.2, tag: "Mobile", title: "Chat pops over the page", body: "The chat bubble opens by itself and covers the middle of the screen, on every page and every visit." },
+      { x: 28.5, y: 82, tag: "Conversion", title: "“Gift Now” is hidden", body: "The main button sits near the bottom, half-covered by the chat buttons “I have a question” and “Tell me more”." },
+      { x: 57.7, y: 56.3, tag: "Mobile", title: "A collage too small to read", body: "The desktop hero image is shrunk to fit, so dozens of brand logos become tiny thumbnails." },
+    ],
+  },
+  {
+    file: "old-mobile-cards",
+    device: "mobile",
+    w: 780,
+    h: 1688,
+    caption: "Scrolling down on a phone",
+    issues: [
+      { x: 80, y: 22, tag: "Mobile", title: "A headline that fills the screen", body: "Desktop headings aren’t resized for phones, so one sentence takes up four big lines." },
+      { x: 76.9, y: 37.2, tag: "Discovery", title: "Swipe, but for what?", body: "Cards show artwork only. With no name or price, swiping through them tells the buyer nothing." },
+      { x: 73, y: 59.3, tag: "Pattern", title: "“Load More” for a swipe row", body: "A full-width button adds more cards to a row you can’t see the end of." },
+    ],
+  },
+];
+
+function OldShotFigure({ shot, offset }: { shot: OldShot; offset: number }) {
+  return (
+    <figure className={`igc-old__shot is-${shot.device}`}>
+      <div className="igc-old__frame">
+        {shot.device === "desktop" && (
+          <div className="igc-old__bar" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+            <span>infinitygiftcard.com</span>
+          </div>
+        )}
+        <div className="igc-old__img">
+          <Image src={`${IMG}/${shot.file}.webp`} alt={`Existing Infinity Gift Card site: ${shot.caption}`} width={shot.w} height={shot.h} unoptimized />
+          {shot.issues.map((issue, i) => (
+            <span key={issue.title} className="igc-old__pin" style={{ left: `${issue.x}%`, top: `${issue.y}%` }} aria-hidden="true">
+              {offset + i + 1}
+            </span>
+          ))}
+        </div>
+      </div>
+      <figcaption className="e-mono">{shot.caption}</figcaption>
+    </figure>
+  );
+}
+
+function OldIssueList({ shot, offset }: { shot: OldShot; offset: number }) {
+  return (
+    <ol className="igc-old__issues" start={offset + 1}>
+      {shot.issues.map((issue, i) => (
+        <li key={issue.title}>
+          <span className="igc-old__n" aria-hidden="true">
+            {offset + i + 1}
+          </span>
+          <div>
+            <p className="e-mono igc-old__tag">{issue.tag}</p>
+            <h3>{issue.title}</h3>
+            <p>{issue.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/* Running issue numbers across all screenshots. */
+const oldOffsets = oldSite.map((_, i) => oldSite.slice(0, i).reduce((n, s) => n + s.issues.length, 0));
+const oldIssueCount = oldSite.reduce((n, s) => n + s.issues.length, 0);
+
 const personas = [
   {
     name: "Nadeesha",
@@ -524,11 +641,49 @@ export default function InfinityGiftCardCaseStudy() {
         </div>
       </section>
 
+      {/* The existing website, annotated */}
+      <section data-ground="ink" className="igc-dark e-section">
+        <div className="e-container">
+          <Reveal>
+            <p className="e-mono igc-eyebrow">02 · The existing website</p>
+          </Reveal>
+          <SplitHeading className="igc-h2" lines={[{ text: "Where the old site", block: true }, { text: "got in the way", className: "is-soft", block: true }]} />
+          <Reveal delay={1} as="p" className="e-lead mt-6 igc-old__lead">
+            Screenshots of the live infinitygiftcard.com, taken on a 1440px laptop and a 390px phone. Each number marks one of the{" "}
+            {oldIssueCount} issues I found while walking through it as a first-time buyer.
+          </Reveal>
+
+          <div className="igc-old mt-12">
+            {oldSite
+              .map((shot, i) => ({ shot, offset: oldOffsets[i] }))
+              .filter(({ shot }) => shot.device === "desktop")
+              .map(({ shot, offset }) => (
+                <Reveal key={shot.file} className="igc-old__row">
+                  <OldShotFigure shot={shot} offset={offset} />
+                  <OldIssueList shot={shot} offset={offset} />
+                </Reveal>
+              ))}
+
+            <div className="igc-old__phones">
+              {oldSite
+                .map((shot, i) => ({ shot, offset: oldOffsets[i] }))
+                .filter(({ shot }) => shot.device === "mobile")
+                .map(({ shot, offset }) => (
+                  <Reveal key={shot.file} className="igc-old__phone">
+                    <OldShotFigure shot={shot} offset={offset} />
+                    <OldIssueList shot={shot} offset={offset} />
+                  </Reveal>
+                ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Problem / audit */}
       <section data-ground="white" className="igc-blush e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">02 · The problem</p>
+            <p className="e-mono igc-eyebrow">03 · The problem</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "What the audit", block: true }, { text: "turned up", className: "is-soft", block: true }]} />
           <Reveal delay={1} as="p" className="e-lead mt-6">
@@ -550,7 +705,7 @@ export default function InfinityGiftCardCaseStudy() {
       <section data-ground="white" className="g-white e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">03 · The process</p>
+            <p className="e-mono igc-eyebrow">04 · The process</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "Five stages,", block: true }, { text: "one loop", className: "is-soft", block: true }]} />
           <ol className="igc-process mt-12">
@@ -574,7 +729,7 @@ export default function InfinityGiftCardCaseStudy() {
       <section data-ground="white" className="igc-blush e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">04 · Who we designed for</p>
+            <p className="e-mono igc-eyebrow">05 · Who we designed for</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "Two buyers,", block: true }, { text: "two speeds", className: "is-soft", block: true }]} />
           <div className="igc-grid-2 mt-12">
@@ -618,7 +773,7 @@ export default function InfinityGiftCardCaseStudy() {
       <section data-ground="white" className="g-white e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">05 · Information architecture</p>
+            <p className="e-mono igc-eyebrow">06 · Information architecture</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "A sitemap built", block: true }, { text: "around intent", className: "is-soft", block: true }]} />
           <Reveal delay={1} as="p" className="e-lead mt-6">
@@ -635,7 +790,7 @@ export default function InfinityGiftCardCaseStudy() {
       <section data-ground="white" className="igc-blush e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">06 · User flow</p>
+            <p className="e-mono igc-eyebrow">07 · User flow</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "From browsing to", block: true }, { text: "delivered", className: "is-soft", block: true }]} />
           <Reveal delay={1} as="p" className="e-lead mt-6">
@@ -668,7 +823,7 @@ export default function InfinityGiftCardCaseStudy() {
       <section data-ground="white" className="g-white e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">07 · Key UX decisions</p>
+            <p className="e-mono igc-eyebrow">08 · Key UX decisions</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "Six moves that", block: true }, { text: "changed the numbers", className: "is-soft", block: true }]} />
           <div className="igc-grid-3 mt-12">
@@ -690,7 +845,7 @@ export default function InfinityGiftCardCaseStudy() {
       <section data-ground="ink" className="igc-dark e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">08 · The hero flow</p>
+            <p className="e-mono igc-eyebrow">09 · The hero flow</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "Design a card", block: true }, { text: "in four steps", className: "is-soft", block: true }]} />
           <div className="igc-wizard mt-12">
@@ -723,7 +878,7 @@ export default function InfinityGiftCardCaseStudy() {
       <section data-ground="white" className="g-white e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">09 · Final UI · desktop</p>
+            <p className="e-mono igc-eyebrow">10 · Final UI · desktop</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "24 screens,", block: true }, { text: "one system", className: "is-soft", block: true }]} />
           <Reveal delay={1} as="p" className="e-lead mt-6">
@@ -749,7 +904,7 @@ export default function InfinityGiftCardCaseStudy() {
       <section data-ground="ink" className="igc-dark e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">10 · Final UI · mobile</p>
+            <p className="e-mono igc-eyebrow">11 · Final UI · mobile</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "Designed for", block: true }, { text: "one thumb", className: "is-soft", block: true }]} />
           <Reveal delay={1} as="p" className="e-lead mt-6">
@@ -778,7 +933,7 @@ export default function InfinityGiftCardCaseStudy() {
       <section data-ground="white" className="g-white e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">11 · UI kit</p>
+            <p className="e-mono igc-eyebrow">12 · UI kit</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "Modern,", block: true }, { text: "on-brand", className: "is-soft", block: true }]} />
           <div className="igc-ds mt-12">
@@ -840,13 +995,13 @@ export default function InfinityGiftCardCaseStudy() {
         </div>
       </section>
 
-      <FrontendBuild data={frontendBuilds["8"]} index="12 · Front-end development" />
+      <FrontendBuild data={frontendBuilds["8"]} index="13 · Front-end development" />
 
       {/* Results */}
       <section data-ground="blue" className="igc-results e-section">
         <div className="e-container">
           <Reveal>
-            <p className="e-mono igc-eyebrow">13 · Results</p>
+            <p className="e-mono igc-eyebrow">14 · Results</p>
           </Reveal>
           <SplitHeading className="igc-h2" lines={[{ text: "Smoother to use,", block: true }, { text: "better for business", className: "is-soft", block: true }]} />
           <div className="igc-grid-3 mt-12">
