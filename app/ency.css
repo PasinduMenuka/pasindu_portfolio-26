@@ -422,105 +422,11 @@ button:hover > .e-arrow svg:last-child,
   .e-fab-talk .e-header__avatar::after { border-color: var(--e-blue); }
 }
 
-/* =============================================================
-   HERO
-   ============================================================= */
-.e-hero {
-  position: relative;
-  min-height: 100svh;
-  padding-top: calc(var(--e-header-h) + clamp(1.5rem, 4vw, 3.5rem));
-  --hero-pb: clamp(6rem, 10vw, 9rem);
-  padding-bottom: var(--hero-pb);
-  overflow: hidden;
-  isolation: isolate;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    var(--e-gradient-blue-down);
-  background-size: 6rem 6rem, 6rem 6rem, 100% 100%;
-  background-position: center top;
-}
-.e-hero__grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr); gap: 2rem; align-items: end; }
-.e-hero__title { font-size: clamp(3.4rem, 8.3vw, 9.5rem); line-height: 0.84; }
-.e-hero__line { white-space: nowrap; }
-@media (max-width: 991px) { .e-hero__title { font-size: min(11.5vw, 6.5rem); } }
-@media (min-width: 992px) { .e-hero__title { font-size: clamp(4rem, 6.8vw, 8.5rem); } }
-.e-hero__title .is-soft { position: relative; }
-.e-hero__underline { display: block; width: min(100%, 34rem); height: auto; margin-top: -0.2rem; color: var(--e-yellow); }
-.e-hero__copy { margin-top: clamp(1.5rem, 3vw, 2.25rem); }
-.e-hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 1.5rem; margin-top: 2rem; }
-
-.e-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.45rem 0.9rem 0.45rem 0.7rem;
-  border-radius: 100em;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  font-size: 0.8rem;
-  font-weight: 500;
-  margin-bottom: 1.5rem;
-}
-.e-live__dot { position: relative; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--e-live); }
-.e-live__dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--e-live); animation: live-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite; }
-@keyframes live-ping { 75%, 100% { transform: scale(2.6); opacity: 0; } }
-
-.e-hero__stage { position: relative; align-self: stretch; min-height: 30rem; }
-.e-hero__shape {
-  position: absolute;
-  right: -8%;
-  top: 0;
-  width: 112%;
-  color: #999cff;
-  opacity: 0.72;
-  z-index: 0;
-  pointer-events: none;
-}
-.e-hero__photo {
-  position: absolute;
-  left: 50%;
-  bottom: calc(-1 * var(--hero-pb));
-  height: calc(100% + var(--hero-pb) - 1.5rem);
-  width: auto;
-  max-width: none;
-  transform: translateX(-50%);
-  object-fit: contain;
-  object-position: bottom;
-  filter: drop-shadow(0 1.5rem 2.5rem rgba(0, 0, 60, 0.35));
-  opacity: 0;
-  z-index: 1;
-  transition: opacity 0.8s var(--e-ease-glide), transform 1.2s var(--e-ease-glide);
-}
-.e-hero__photo.is-visible { opacity: 1; z-index: 2; }
-.e-hero__stage:hover .e-hero__photo { transform: translateX(-50%) translateY(-0.5rem); }
-.e-hero__note {
-  position: absolute;
-  left: -38%;
-  top: 46%;
-  width: 11rem;
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 1.45rem;
-  line-height: 1;
-  transform: rotate(-9deg);
-  z-index: 2;
-}
-.e-hero__note svg { width: 5.5rem; margin: 0.4rem 0 0 4.5rem; color: rgba(255, 255, 255, 0.85); }
-
-@media (max-width: 991px) {
-  .e-hero { min-height: 0; }
-  .e-hero__grid { grid-template-columns: minmax(0, 1fr); }
-  /* Phones/tablets: keep the arrow subtle behind the copy. */
-  .e-hero__stage { position: absolute; right: -14%; bottom: 2rem; width: min(78vw, 30rem); min-height: 0; aspect-ratio: 1; z-index: -1; pointer-events: none; }
-  .e-hero__shape { position: absolute; inset: 0; width: 100%; right: auto; color: #999cff; opacity: 0.42; }
-  .e-hero__photo, .e-hero__note { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .e-hero__photo { transition: none; }
-}
+/* HERO — see app/hero.css */
 
 /* Proof / tools marquee (yellow panel straddling the hero edge) */
-.e-proof { position: relative; background: linear-gradient(to bottom, #6166ff 50%, var(--e-surface) 50%); }
+/* Straddles the hero edge: the top half carries the hero's light ground. */
+.e-proof { position: relative; background: linear-gradient(to bottom, #f7fafb 50%, var(--e-surface) 50%); }
 .e-proof__panel {
   background: var(--e-yellow);
   border-radius: 1.5rem;

@@ -1,0 +1,157 @@
+/* =============================================================
+   HOME HERO — light sheet, WebGL portrait, bracket panels.
+   Everything is scoped to .kh. Sizes use --rem, which is 16px
+   below 1280 and one 1440-frame pixel (100vw / 1440 × 16) above,
+   so the block scales like its 1440 design without touching the
+   site's own root font size.
+   ============================================================= */
+.kh {
+  --rem: 16px;
+  --background: #f7fafb;
+  /* The site palette: ink copy, electric-blue accent, yellow pen. */
+  --foreground: #16105f;
+  --foreground-muted: rgb(22 16 95 / 0.45);
+  --surface-dark: #0c0940;
+  --surface-black: #16105f;
+  --surface-soft: #dfe5e9;
+  --border-muted: #dfe5e9;
+  --accent: #0000ff;
+  --accent-soft: #6166ff;
+  --pen: #ffd60a;
+  --ease-entrance: cubic-bezier(0.2, 0, 0, 1);
+  --ease-plate: cubic-bezier(0.33, 0, 0, 1);
+
+  --type-impact: calc(6 * var(--rem));
+  --type-display-lg: calc(4.375 * var(--rem));
+  --type-heading: calc(2.375 * var(--rem));
+  --type-title: calc(1.25 * var(--rem));
+  --type-lead: calc(1.125 * var(--rem));
+  --type-label: calc(1 * var(--rem));
+  --type-body: calc(0.875 * var(--rem));
+  --type-eyebrow: calc(0.75 * var(--rem));
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  color-scheme: only light;
+}
+@media (min-width: 1280px) { .kh { --rem: 1.1111vw; } }
+
+/* :where keeps this at element weight, so site buttons (.e-btn--blue) keep their own colours. */
+:where(.kh) a { color: inherit; }
+:where(.kh) :is(dl, dd, ul) { margin: 0; padding: 0; list-style: none; }
+.kh-hover { transition: color 150ms var(--ease-entrance); }
+.kh-hover:hover { color: var(--accent); }
+
+/* Text engine: one inline-block per word or letter. No overflow clip — tight leadings would shave descenders. */
+.kh-split { display: flex; flex-wrap: wrap; column-gap: 0.3em; }
+.kh-unit { display: inline-block; will-change: transform, opacity; }
+
+/* Scene layers */
+.kh-scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; transform: translateZ(0); backface-visibility: hidden; }
+.kh-scene canvas { display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 400ms var(--ease-entrance); }
+.kh-scene canvas.is-ready { opacity: 1; }
+.kh-fallback { position: absolute; left: 50%; bottom: 0; height: 93%; width: auto; transform: translateX(-46%); }
+.kh-fitwrap { position: absolute; inset: 0; margin: 0 calc(-1.5 * var(--rem)); pointer-events: none; display: none; }
+.kh-fitbox { position: absolute; left: 0; right: 0; bottom: 0; height: calc(100% - 4 * var(--rem)); }
+.kh-ramp, .kh-ramp2 { display: none; position: absolute; left: 0; right: 0; z-index: 10; pointer-events: none; }
+.kh-ramp {
+  bottom: 0; height: 22%;
+  background-image: linear-gradient(to bottom,
+    color-mix(in srgb, var(--background) 0%, transparent) 0%,
+    color-mix(in srgb, var(--background) 6%, transparent) 26%,
+    color-mix(in srgb, var(--background) 20%, transparent) 46%,
+    color-mix(in srgb, var(--background) 45%, transparent) 64%,
+    color-mix(in srgb, var(--background) 74%, transparent) 80%,
+    color-mix(in srgb, var(--background) 93%, transparent) 91%,
+    var(--background) 100%);
+}
+.kh-ramp2 { bottom: -13rem; height: 26rem; background: linear-gradient(to bottom, transparent, var(--background) 60%, var(--background)); }
+
+/* Copy column — clears the site's fixed header */
+.kh-content {
+  position: relative; z-index: 20; min-height: 100svh;
+  display: flex; flex-direction: column;
+  padding: calc(var(--e-header-h) + 1.5 * var(--rem)) calc(2 * var(--rem)) calc(1.5 * var(--rem));
+  pointer-events: none;
+}
+.kh-content a, .kh-content button { pointer-events: auto; }
+
+.kh-middle { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: calc(2 * var(--rem)); }
+.kh-identity { display: flex; flex-direction: column; gap: calc(2.5 * var(--rem)); max-width: calc(34 * var(--rem)); }
+.kh-id { font-size: var(--type-label); text-transform: uppercase; line-height: 0.9; color: var(--foreground-muted); margin-bottom: calc(1 * var(--rem)); }
+.kh-name {
+  margin: 0; font-family: var(--font-display), "Arial Narrow", Impact, sans-serif; font-weight: 900;
+  font-size: var(--type-impact); text-transform: uppercase; line-height: 0.86;
+  max-width: 6em; justify-content: flex-start; text-align: left; color: var(--foreground);
+}
+.kh-name .is-soft { color: var(--accent); }
+/* The hand-drawn yellow underline from the old hero, drawn in after the name. */
+.kh-underline { display: block; width: min(100%, calc(30 * var(--rem))); height: auto; margin-top: calc(0.35 * var(--rem)); color: var(--pen); overflow: visible; }
+.kh-lead { margin-top: calc(1.5 * var(--rem)); max-width: calc(32 * var(--rem)); }
+.kh-lead p { margin: 0; font-size: var(--type-lead); line-height: 1.5; color: #34376b; }
+
+/* Bracket panels */
+.kh-panels { width: calc(13.625 * var(--rem)); display: flex; flex-direction: column; gap: calc(2 * var(--rem)); }
+.kh-bpanel { position: relative; padding: calc(1 * var(--rem)) calc(1.375 * var(--rem)) calc(1.1875 * var(--rem)); }
+.kh-c { position: absolute; width: calc(0.625 * var(--rem)); height: calc(0.625 * var(--rem)); color: var(--foreground); }
+.kh-c path { stroke: currentColor; fill: none; }
+.kh-c.tr { top: 0; right: 0; } .kh-c.tl { top: 0; left: 0; transform: scaleX(-1); }
+.kh-c.bl { bottom: 0; left: 0; transform: scale(-1); } .kh-c.br { bottom: 0; right: 0; transform: scaleY(-1); }
+.kh-eyebrow { font-size: var(--type-eyebrow); font-weight: 500; text-transform: uppercase; line-height: 0.9; letter-spacing: -0.02em; color: var(--accent); }
+.kh-np { display: flex; flex-direction: column; text-decoration: none; }
+.kh-np dl { font-size: var(--type-body); text-transform: uppercase; line-height: 0.9; display: flex; flex-direction: column; gap: calc(0.375 * var(--rem)); margin-top: calc(1 * var(--rem)); }
+.kh-np dt { font-weight: 700; }
+.kh-thumb { margin-top: calc(1.75 * var(--rem)); width: calc(6.25 * var(--rem)); height: calc(4.375 * var(--rem)); object-fit: cover; display: block; clip-path: polygon(0 0, 100% 0, 100% 80%, 88% 100%, 0 100%); }
+.kh-stats { margin-top: calc(1.75 * var(--rem)); width: calc(10.75 * var(--rem)); display: flex; justify-content: space-between; }
+.kh-stats > div { display: flex; flex-direction: column; align-items: center; gap: calc(0.75 * var(--rem)); }
+.kh-stats dt { font-size: var(--type-eyebrow); text-transform: uppercase; letter-spacing: -0.04em; white-space: nowrap; line-height: 0.9; }
+.kh-stats dd { font-family: var(--font-display), Impact, sans-serif; font-weight: 800; font-size: var(--type-heading); line-height: 0.72; letter-spacing: -0.04em; column-gap: 0; }
+
+/* Actions row */
+.kh-actions { display: flex; justify-content: flex-end; margin-top: calc(0.5 * var(--rem)); }
+.kh-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 1.5rem; margin-top: calc(2 * var(--rem)); }
+.kh-socials { display: flex; gap: calc(3.6875 * var(--rem)); justify-self: end; font-size: var(--type-body); text-transform: uppercase; line-height: 0.9; }
+.kh-socials a { text-decoration: none; }
+
+/* Below xl: stacked, the figure fitted to a box at the foot */
+@media (max-width: 1279px) {
+  .kh-fitwrap, .kh-ramp { display: block; }
+  .kh-content { gap: 1rem; }
+  .kh-middle { display: contents; }
+  .kh-identity { order: 2; gap: 1.5rem; }
+  .kh-panels { order: 3; }
+  .kh-actions { order: 4; margin-top: auto; }
+  .kh-name { font-size: var(--type-display-lg); }
+}
+@media (min-width: 768px) and (max-width: 1279px) {
+  .kh-middle { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; }
+  .kh-fitbox { height: calc(100% - 2rem); }
+}
+@media (min-width: 768px) and (max-width: 1023px) { .kh-name { font-size: var(--type-impact); } }
+@media (max-width: 1023px) {
+  .kh-fitwrap { top: auto; height: 70%; }
+  .kh-fitbox { height: 100%; }
+}
+@media (min-width: 640px) and (max-width: 767px) { .kh-panels { width: auto; flex-direction: row; flex-wrap: wrap; } }
+@media (max-width: 767px) {
+  .kh-np { flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+  .kh-thumb { margin-top: 0; }
+  .kh-ramp2 { display: block; }
+}
+@media (max-width: 639px) {
+  .kh-fitwrap { height: 50%; }
+  .kh-content { gap: 0.5rem; padding-left: 1.5rem; padding-right: 1.5rem; }
+  .kh-identity { margin-top: 1rem; }
+  /* "Sannasuriya" is 11 letters: sized to the column so it never runs off the edge. */
+  .kh-name { font-size: min(var(--type-display-lg), 16vw); }
+  .kh-panels, .kh-actions { display: none; }
+  .kh-ctas { margin-top: 1.5rem; }
+}
+@media (max-height: 500px) {
+  .kh-name { font-size: var(--type-heading); }
+}

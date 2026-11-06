@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./ency.css";
+import "./hero.css";
 import "./case-study.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
