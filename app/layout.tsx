@@ -78,6 +78,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="!scroll-smooth">
       <head>
+        {/* The site is designed light-only. Declare it so Chromium's auto dark mode (Brave, Edge, Opera
+            "force dark pages", Samsung Internet) leaves our colors alone, and lock out Dark Reader-based
+            night modes such as Brave's. */}
+        <meta name="color-scheme" content="only light" />
+        <meta name="darkreader-lock" />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger

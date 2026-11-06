@@ -83,6 +83,9 @@ html.dark {
 }
 
 html {
+  /* Light-only design: stops browser forced-dark modes from inverting colors,
+     and keeps form controls and scrollbars light. */
+  color-scheme: only light;
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
 }
