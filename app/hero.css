@@ -70,6 +70,7 @@
     color-mix(in srgb, var(--background) 93%, transparent) 91%,
     var(--background) 100%);
 }
+.kh-wash { display: none; position: absolute; inset: 0; z-index: 10; pointer-events: none; background: color-mix(in srgb, var(--background) 78%, transparent); }
 .kh-ramp2 { bottom: -13rem; height: 26rem; background: linear-gradient(to bottom, transparent, var(--background) 60%, var(--background)); }
 
 /* Copy column — clears the site's fixed header */
@@ -142,8 +143,12 @@
       .kh-ramp2 { display: block; }
 }
 @media (max-width: 639px) {
-  .kh-fitwrap { height: 50%; }
+  /* Phones keep the portrait behind the copy, but faded: a wash of the page colour sits
+     between the scene and the text, so the figure reads as a backdrop and every line stays legible. */
+  .kh-fitwrap { height: 72%; }
   .kh-content { gap: 0.5rem; padding-left: 1.5rem; padding-right: 1.5rem; }
+  .kh-ramp2 { display: none; }
+  .kh-wash { display: block; }
   .kh-identity { margin-top: 1rem; }
   /* "Sannasuriya" is 11 letters: sized to the column so it never runs off the edge. */
   .kh-name { font-size: min(var(--type-display-lg), 16vw); }

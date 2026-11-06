@@ -226,8 +226,8 @@ function useHeroScene(play: boolean) {
       const w = container.clientWidth;
       const h = container.clientHeight;
       const widthChanged = w !== lastWidth;
-      // Height-only changes on a touch device are the mobile URL bar; ignore them.
-      if (!widthChanged && scene.tier.coarsePointer && lastWidth) return;
+      // No URL-bar guard needed: the hero is sized in svh, so a height change here is a real
+      // layout change (on phones the copy above the figure sets the section's height).
       lastWidth = w;
       if (widthChanged) {
         scene.retune();
@@ -331,6 +331,7 @@ export default function Intro() {
         </div>
         <div className="kh-ramp" aria-hidden="true" />
         <div className="kh-ramp2" aria-hidden="true" />
+        <div className="kh-wash" aria-hidden="true" />
 
         <div className="kh-content">
           <div className="kh-middle">
