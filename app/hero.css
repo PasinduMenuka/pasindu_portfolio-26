@@ -83,7 +83,8 @@
 
 .kh-middle { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: calc(2 * var(--rem)); }
 .kh-identity { display: flex; flex-direction: column; gap: calc(2.5 * var(--rem)); max-width: calc(34 * var(--rem)); }
-.kh-id { font-size: var(--type-label); text-transform: uppercase; line-height: 0.9; color: var(--foreground-muted); margin-bottom: calc(1 * var(--rem)); }
+/* Handwritten, like the old hero's note: sentence case in the site's script font. */
+.kh-id { font-family: var(--font-hand), "Bradley Hand", cursive; font-weight: 600; font-size: calc(1.75 * var(--rem)); line-height: 1; color: var(--accent); transform: rotate(-3deg); transform-origin: left bottom; margin-bottom: calc(0.75 * var(--rem)); }
 .kh-name {
   margin: 0; font-family: var(--font-display), "Arial Narrow", Impact, sans-serif; font-weight: 900;
   font-size: var(--type-impact); text-transform: uppercase; line-height: 0.86;

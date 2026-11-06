@@ -336,7 +336,7 @@ export default function Intro() {
                   animate={{ opacity: play ? 1 : 0 }}
                   transition={spring(REVEAL[0], REVEAL[1], 180)}
                 >
-                  hello, i&apos;m
+                  I design it &amp; build it
                 </motion.div>
                 <SplitReveal
                   as="h1"
