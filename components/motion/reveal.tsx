@@ -150,15 +150,28 @@ export function HandTag({ children, className = "", tilt = -4 }: { children: Rea
   );
 }
 
-/** Numbers count up from 0 with easeOutQuart once visible. Keeps prefix/suffix (e.g. "5+", "45%"). */
-export function CountUp({ value, className = "" }: { value: string; className?: string }) {
+/**
+ * Numbers count up from 0 with easeOutQuart once visible. Keeps prefix/suffix (e.g. "5+", "45%").
+ * `play` holds the count back (e.g. until the page loader has gone); `delay` is ms before it starts.
+ */
+export function CountUp({
+  value,
+  className = "",
+  play = true,
+  delay = 450,
+}: {
+  value: string;
+  className?: string;
+  play?: boolean;
+  delay?: number;
+}) {
   const { ref, inView } = useInViewOnce<HTMLSpanElement>(0.4);
   const match = value.match(/^(\D*)([\d,]+)(.*)$/);
   const target = match ? parseInt(match[2].replace(/,/g, ""), 10) : 0;
   const [n, setN] = useState(0);
 
   useEffect(() => {
-    if (!inView || !match) return;
+    if (!inView || !play || !match) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setN(target);
       return;
@@ -167,7 +180,7 @@ export function CountUp({ value, className = "" }: { value: string; className?: 
     let start = 0;
     const ease = (t: number) => 1 - (1 - t) ** 4;
     const tick = (now: number) => {
-      start ||= now + 450;
+      start ||= now + delay;
       const p = Math.min(1, Math.max(0, (now - start) / 1600));
       setN(Math.round(target * ease(p)));
       if (p < 1) raf = requestAnimationFrame(tick);
@@ -175,7 +188,7 @@ export function CountUp({ value, className = "" }: { value: string; className?: 
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView, target]);
+  }, [inView, play, target]);
 
   if (!match) return <span className={className}>{value}</span>;
   return (

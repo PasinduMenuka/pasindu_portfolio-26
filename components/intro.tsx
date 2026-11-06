@@ -22,7 +22,7 @@ import {
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import ArrowButton from "@/components/arrow-button";
-import { Reveal, useAppReady } from "@/components/motion/reveal";
+import { CountUp, Reveal, useAppReady } from "@/components/motion/reveal";
 import { HeroScene, DEFAULT_PARAMS } from "@/components/hero/hero-scene";
 import { PERSON } from "@/lib/site";
 
@@ -68,7 +68,13 @@ const spring = (stiffness: number, damping: number, delayMs = 0) => ({
   delay: delayMs / 1000,
 });
 const REVEAL = [90, 26] as const;
-const FIGURE = [200, 24] as const;
+
+/** The hero's figures — the same numbers the About section states. */
+const STATS = [
+  { value: "5+", label: "Years designing & building" },
+  { value: "20+", label: "Projects shipped" },
+  { value: "6", label: "Product teams" },
+];
 
 /** Opacity + rise, played once `play` turns true. */
 function Rise({
@@ -384,39 +390,15 @@ export default function Intro() {
             <Rise className="kh-panels" play={play} delay={900}>
               <div className="kh-bpanel">
                 <Corners />
-                <a className="kh-np" href="/projects/7">
-                  <div>
-                    <div className="kh-eyebrow">latest case study</div>
-                    <dl>
-                      <dt>SES Portal revamp</dt>
-                      <dd>IoT · field service</dd>
-                      <dd>45% faster tasks</dd>
-                    </dl>
-                  </div>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img className="kh-thumb" src="/projects/ses-portal/cover.webp" alt="" width={1600} height={1240} />
-                </a>
-              </div>
-              <div className="kh-bpanel">
-                <Corners />
                 <div className="kh-eyebrow">at a glance</div>
                 <dl className="kh-stats">
-                  {[
-                    ["Years", "5+"],
-                    ["Projects", "20+"],
-                    ["Teams", "6"],
-                  ].map(([label, value], i) => (
-                    <div key={label}>
-                      <dt>{label}</dt>
-                      <SplitReveal
-                        as="dd"
-                        text={value}
-                        by="letters"
-                        play={play}
-                        delay={900 + i * 90}
-                        stagger={26}
-                        config={FIGURE}
-                      />
+                  {STATS.map((stat, i) => (
+                    <div key={stat.label} className="kh-stat">
+                      <dt>{stat.label}</dt>
+                      {/* Counts up from zero once the loader has gone, staggered down the column. */}
+                      <dd>
+                        <CountUp value={stat.value} play={play} delay={1100 + i * 180} className="kh-stat__num" />
+                      </dd>
                     </div>
                   ))}
                 </dl>
