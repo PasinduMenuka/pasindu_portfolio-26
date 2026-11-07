@@ -147,7 +147,8 @@
 @media (max-width: 639px) {
   /* Phones keep the portrait behind the copy, but faded: a wash of the page colour sits
      between the scene and the text, so the figure reads as a backdrop and every line stays legible. */
-  .kh-fitwrap { height: 72%; }
+  /* Pushed down past the section's foot (clipped) so the face sits below the name, not over it. */
+  .kh-fitwrap { height: 72%; bottom: -14%; }
   .kh-content { gap: 0.5rem; padding-left: 1.5rem; padding-right: 1.5rem; }
   .kh-ramp2 { display: none; }
   .kh-wash { display: block; }
