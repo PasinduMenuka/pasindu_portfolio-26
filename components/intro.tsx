@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { BsGrid3X3Gap } from "react-icons/bs";
-import { FaReact, FaFigma, FaHtml5, FaCss3Alt, FaJsSquare, FaRobot, FaCode, FaGithub, FaGitlab } from "react-icons/fa";
+import { FaReact, FaFigma, FaHtml5, FaCss3Alt, FaJsSquare, FaRobot, FaCode, FaGithub, FaGitlab, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import {
   SiNextdotjs,
   SiTailwindcss,
@@ -410,12 +410,15 @@ export default function Intro() {
           <Rise className="kh-actions" play={play} delay={1500}>
             <div className="kh-socials">
               <a className="kh-hover" href={PERSON.linkedin} target="_blank" rel="noopener noreferrer">
+                <FaLinkedin aria-hidden="true" className="kh-social__icon" />
                 LinkedIn
               </a>
               <a className="kh-hover" href={PERSON.github} target="_blank" rel="noopener noreferrer">
+                <FaGithub aria-hidden="true" className="kh-social__icon" />
                 GitHub
               </a>
               <a className="kh-hover" href={`mailto:${PERSON.email}`}>
+                <FaEnvelope aria-hidden="true" className="kh-social__icon" />
                 Email
               </a>
             </div>

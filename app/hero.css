@@ -117,7 +117,9 @@
 .kh-actions { display: flex; justify-content: flex-end; margin-top: calc(0.5 * var(--rem)); }
 .kh-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 1.5rem; margin-top: calc(2 * var(--rem)); }
 .kh-socials { display: flex; gap: calc(3.6875 * var(--rem)); justify-self: end; font-size: var(--type-body); text-transform: uppercase; line-height: 0.9; }
-.kh-socials a { text-decoration: none; }
+.kh-socials a { text-decoration: none; display: inline-flex; align-items: center; gap: 0.5em; }
+/* Icons take the link's colour (currentColor), so they follow the theme and the accent on hover. */
+.kh-social__icon { width: 1.05em; height: 1.05em; flex: none; }
 
 /* Below xl: stacked, the figure fitted to a box at the foot */
 @media (max-width: 1279px) {
