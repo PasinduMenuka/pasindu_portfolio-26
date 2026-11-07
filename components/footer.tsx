@@ -53,6 +53,35 @@ function Roll({ children }: { children: string }) {
   );
 }
 
+/** Animated wave background behind "Let's talk"; three.js + GSAP load only on the client. */
+function TalkWavesBackdrop() {
+  const ref = useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const host = ref.current;
+    if (!host) return;
+    let scene: { dispose(): void } | undefined;
+    let cancelled = false;
+    // End the canvas just past the top of the white link card (a little extra shows under its rounded corners).
+    const footer = host.parentElement!;
+    const fit = () => {
+      const card = footer.querySelector<HTMLElement>(".e-footer2__card");
+      host.style.height = card ? `${card.offsetTop + 48}px` : "";
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(footer);
+    import("@/components/footer/talk-waves").then(({ TalkWaves }) => {
+      if (!cancelled) scene = new TalkWaves(host);
+    });
+    return () => {
+      cancelled = true;
+      ro.disconnect();
+      scene?.dispose();
+    };
+  }, []);
+  return <div ref={ref} className="e-footer2__waves" aria-hidden="true" />;
+}
+
 function TalkRow({ progress, index, opacity }: { progress: MotionValue<number>; index: number; opacity: number }) {
   const start = index * 0.12;
   const y = useTransform(progress, [start, Math.min(1, start + 0.6)], ["0.35em", "0em"]);
@@ -88,6 +117,7 @@ export default function Footer() {
 
   return (
     <footer className="e-footer2 g-blue" data-ground="blue">
+      <TalkWavesBackdrop />
       <div className="e-container">
         <a
           ref={talkRef}
